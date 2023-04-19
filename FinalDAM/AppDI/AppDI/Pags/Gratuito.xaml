@@ -1,0 +1,57 @@
+﻿<Page x:Class="AppDI.Pags.Gratuito"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" 
+      Title="Acceso gratuito">
+
+    <Grid>
+        <Frame BorderBrush="Gold" BorderThickness="2"/>
+        <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxGratuito}">
+            <TextBox.ToolTip>
+                <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
+            </TextBox.ToolTip>
+        </TextBox>
+        <Button x:Name="btnBusqueda" Style="{StaticResource btnGratuito}" Content="Realizar búsqueda" Margin="10, 70, 0, 0" Click="btnBusqueda_Click" />
+        <ListBox x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="200" Height="300" 
+                 HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10, 0, 0, 10" Background="LightSteelBlue" BorderBrush="Gold" BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+            </ListBox.Resources>
+            <ListBox.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+            </ListBox.ToolTip>
+        </ListBox>
+
+        <Label x:Name="titId" Content="ID" Style="{StaticResource labelkGratuito}" Margin="0, 0, 183, 250"/>
+        <TextBlock x:Name="tbId" Style="{StaticResource tblockGratuito}" Margin="100, 0, 183, 250"/>
+
+        <Label x:Name="titNombre" Content="Nombre" Style="{StaticResource labelkGratuito}" Margin="350, 0, 0, 250"/>
+        <TextBlock x:Name="tbNombre" Style="{StaticResource tblockGratuito}" Margin="500, 0, 0, 250"/>
+        
+        <Label x:Name="titAltura" Content="Altura" Style="{StaticResource labelkGratuito}" Margin="0, 0, 150, 150"/>
+        <TextBlock x:Name="tbAltura" Style="{StaticResource tblockGratuito}" Margin="100, 0, 150, 150"/>
+        
+        <Label x:Name="titPeso" Content="Peso" Style="{StaticResource labelkGratuito}"  Margin="338, 0, 0, 150"/>
+        <TextBlock x:Name="tbPeso" Style="{StaticResource tblockGratuito}"  Margin="438, 0, 0, 150"/>
+        
+        <Label x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelkGratuito}"  Margin="0, 0, 154, 0"/>
+        <TextBlock x:Name="tbTipo" Style="{StaticResource tblockGratuito}" Margin="250, 0, 154, 0"/>
+        
+        <Label x:Name="titHabilidad" Content="Habilidad/es" Style="{StaticResource labelkGratuito}"  Margin="0, 0, 121.7, -150"/>
+        <TextBlock x:Name="tbHabilidad" Style="{StaticResource tblockGratuito}" TextAlignment="Right" Margin="400, 0, 121.7, -150"/>
+        
+        <Label x:Name="titFormas" Content="Formas" Style="{StaticResource labelkGratuito}"  Margin="0, 100, 150.7, -200"/>
+        <ListBox x:Name="lbFormas" Width="390" Height="50" Margin="0, 100, 30, -200" ItemTemplate="{StaticResource ImaLBoxItemForma}"
+                 VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Background="LightSteelBlue" BorderBrush="Gold" BorderThickness="2">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+            </ListBox.Resources>
+        </ListBox>
+
+    </Grid>
+</Page>

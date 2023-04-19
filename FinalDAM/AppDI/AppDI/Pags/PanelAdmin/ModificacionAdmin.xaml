@@ -1,0 +1,26 @@
+﻿<Page x:Class="AppDI.Pags.PanelAdmin.ModificacionAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="350"
+      Title="ModificacionAdmin" ShowsNavigationUI="False" Loaded="Page_Loaded">
+
+    <Grid>
+        <!-- Que me salga una venta donde poder elegir que usuarios modificar y, en ella, que ponga si o no para cambiarño.-->
+        <ListBox x:Name="lbNom" Width="100" Height="200" HorizontalAlignment="Right" Margin="10" Style="{StaticResource estiloListBox}" MouseDoubleClick="lbNom_MouseDoubleClick">
+            <ListBox.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Haga doble click sobre la persona y, según si es adminsitrador o no, se activarán los botones. Recuerde confirmar la selección"/>
+            </ListBox.ToolTip>
+        </ListBox>
+        <Label x:Name="lbPregunta" Content="¿Quiere que sea administrador?" Style="{StaticResource labelModNivel}" Margin="10, 0, 0, 165" HorizontalContentAlignment="Center" Width="220"/>
+
+        <RadioButton GroupName="btnRespuesta" x:Name="rBtnSi" Content="SI" Margin="50, 0, 0, 0" Style="{StaticResource raBtnModAdmin}"/>
+        <RadioButton GroupName="btnRespuesta" x:Name="rBtnNo" Content="NO" Margin="150, 0, 0, 0" Style="{StaticResource raBtnModAdmin}"/>
+        <Button x:Name="btnConfirmar" Style="{StaticResource btnModAdmin}" Content="Confirmar selección" Margin="50, 0, 0, 20" Click="btnConfirmar_Click"/>
+
+        <Label x:Name="lbResultado" Style="{StaticResource labelModNivel}" Width="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 15, 15"/>
+    </Grid>
+</Page>

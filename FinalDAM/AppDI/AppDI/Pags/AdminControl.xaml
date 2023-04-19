@@ -1,0 +1,51 @@
+﻿<Page x:Class="AppDI.Pags.AdminControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      xmlns:expa="clr-namespace:AppDI.Recursos"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Panel de control" Loaded="Page_Loaded" ShowsNavigationUI="True">
+
+    <Grid Background="#3761a8">
+        <Frame BorderBrush="Gold" BorderThickness="2"/> <!-- Color externo. -->
+        <Image Source="../Resources/Admin.png" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Margin="70, 10, 0, 0"/>
+        <Image Source="../Resources/PanelControl.png" VerticalAlignment="Top" HorizontalAlignment="Right" Width="260" Margin="0, 15, 70, 0" Height="30"/>
+        <TextBlock x:Name="tblockBien" Height="40" VerticalAlignment="Top" Margin="70, 60, 0, 0" Style="{StaticResource tblockAdmin}" FontSize="20"/>
+        <TextBlock Height="270" VerticalAlignment="Bottom" Margin="70, 0, 0, 30" Style="{StaticResource tblockAdmin}" FontSize="16">
+            Este es el de acceso adminsitrador. <LineBreak/>
+            Se podrá: <LineBreak/> <LineBreak/>
+                - Modificar el nivel de los usuarios según los niveles disponibles. <LineBreak/> <LineBreak/>
+                - Añadir nuevos usuarios. <LineBreak/> <LineBreak/>
+                - Eliminar usuarios existentes. <LineBreak/> <LineBreak/>
+                - Modificar el rango de administrador. <LineBreak/> <LineBreak/>
+                - ¿Banear pokemons para buscar en acceso gratuito? <LineBreak/> <LineBreak/>
+        </TextBlock>
+
+        <Line Y1="0" Y2="450" StrokeThickness="4" Height="450" Width="4">
+            <Line.Stroke>
+                <SolidColorBrush Color="Gold"/>
+            </Line.Stroke>
+        </Line>
+
+        <!-- Modificar el valor "Source" dependiendo del click.-->
+        <Frame x:Name="frameExpander" Width="350" Height="300" VerticalAlignment="Center" 
+               HorizontalAlignment="Right" Margin="0, 30, 25, 0" BorderBrush="Gold" BorderThickness="1">
+            <Frame.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="En este marco se mostrarán las páginas según el botón seleccionado del desplegable de la derecha."/>
+            </Frame.ToolTip>
+        </Frame>
+
+        <Expander VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="300" ExpandDirection="Left" Margin="0, 0, 0, 20">
+            <Expander.Header>
+                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="8.4" Height="130" Foreground="Gold" Text="Opciones" Margin="0, 50, 0, 0"/>
+            </Expander.Header>
+            <Expander.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Desplegable, según el botón accederá a unas acciones u otras."/>
+            </Expander.ToolTip>
+            <expa:ExpanderAdmin x:Name="expand" MouseDoubleClick="expand_MouseDoubleClick"/>
+        </Expander>
+    </Grid>
+</Page>

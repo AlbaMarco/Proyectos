@@ -1,0 +1,197 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fuentes\PocketMonk-15ze.ttf" />
+    <None Remove="Fuentes\Pokemon Hollow.ttf" />
+    <None Remove="Fuentes\Pokemon Solid.ttf" />
+    <None Remove="Fuentes\PokemonGb-RAeo.ttf" />
+    <None Remove="Resources\Admin.png" />
+    <None Remove="Resources\AllIcons.png" />
+    <None Remove="Resources\AppDI.db" />
+    <None Remove="Resources\Arceus2.png" />
+    <None Remove="Resources\ArceusPlates.png" />
+    <None Remove="Resources\AshKetchum.png" />
+    <None Remove="Resources\AshNoFondo.png" />
+    <None Remove="Resources\BayasPKM.jpg" />
+    <None Remove="Resources\BayasPkm.png" />
+    <None Remove="Resources\Carta.png" />
+    <None Remove="Resources\CartasPkm.png" />
+    <None Remove="Resources\ContGra.png" />
+    <None Remove="Resources\EeveeNoFondopng.png" />
+    <None Remove="Resources\InicialesAguaNoFondo.png" />
+    <None Remove="Resources\InicialesFuegoNoFondo.png" />
+    <None Remove="Resources\InicialesPlantaNoFondo.png" />
+    <None Remove="Resources\InicioSesion.png" />
+    <None Remove="Resources\Misty.png" />
+    <None Remove="Resources\MT.png" />
+    <None Remove="Resources\NormalType.png" />
+    <None Remove="Resources\PanelControl.png" />
+    <None Remove="Resources\PbAbierta.png" />
+    <None Remove="Resources\PbCerrada.png" />
+    <None Remove="Resources\PiedraEvo.png" />
+    <None Remove="Resources\pkmLogo.png" />
+    <None Remove="Resources\PokeApi7.png" />
+    <None Remove="Resources\Pokeball.png" />
+    <None Remove="Resources\PokedexNoFondo.png" />
+    <None Remove="Resources\Registro.png" />
+    <None Remove="Resources\RevivirMax.png" />
+    <None Remove="Resources\Tier1.png" />
+    <None Remove="Resources\Tier2.png" />
+    <None Remove="Resources\Tier3.png" />
+    <None Remove="Resources\Tier4.png" />
+    <None Remove="Resources\TiposUsuario.png" />
+    <None Remove="Resources\TiposUsuario2.png" />
+    <None Remove="Resources\trioPkb.png" />
+    <None Remove="Resources\Vitamins.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Admin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AllIcons.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Arceus2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ArceusPlates.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AshKetchum.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AshNoFondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\BayasPKM.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\BayasPkm.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Carta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\CartasPkm.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ContGra.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\EeveeNoFondopng.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InicialesAguaNoFondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InicialesFuegoNoFondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InicialesPlantaNoFondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InicioSesion.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Misty.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MT.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\NormalType.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PanelControl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PbAbierta.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PbCerrada.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PiedraEvo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\pkmLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PokeApi7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Pokeball.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PokedexNoFondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Registro.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\RevivirMax.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tier1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tier2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tier3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tier4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TiposUsuario2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\trioPkb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Vitamins.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Noesis.GUI.Extensions" Version="3.0.18" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fuentes\PocketMonk-15ze.ttf" />
+    <Resource Include="Fuentes\Pokemon Hollow.ttf" />
+    <Resource Include="Fuentes\Pokemon Solid.ttf" />
+    <Resource Include="Fuentes\PokemonGb-RAeo.ttf" />
+    <Resource Include="Resources\AppDI.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Recursos\MisRecursos.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MisRecursos.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Recursos\MisRecursos.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MisRecursos.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,447 @@
+﻿<UserControl x:Class="AppDI.Recursos.TabItemTier1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppDI.Recursos"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid Loaded="Grid_Loaded">
+        <TabControl TabStripPlacement="Left" BorderThickness="4" BorderBrush="#3761a8" Width="800" Height="350" Margin="0, 30, 0, 0" Background="LightSteelBlue">
+            <!-- Pokedex -->
+            <TabItem x:Name="Pokedex" Background="LightSteelBlue">
+                <TabItem.Header>
+                    <Border BorderBrush="Gold" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="/Resources/PbAbierta.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Pokedex</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a la pokédex" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+
+                <Grid>
+                    <!--Posteriormente, al tener la búsqueda realizada, se mostrará en el LB el nom con la Img a su lado.
+                        https://pokeapi.co/api/v2/generation/1/ | apartado pokemon_species-->
+
+                    <TextBlock FontFamily="{StaticResource PkmGB}" FontSize="12" Margin="10" TextAlignment="Justify" TextWrapping="Wrap" 
+                               Text="Se mostrarán únicamente los pokemons de la pokedex que selecciones."
+                               Height="30" VerticalAlignment="Top"/>
+
+                    <RadioButton x:Name="nacional" GroupName="BtnPkm" Content="Nacional" Margin="10, 0, 480, 200" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="roAzAm" GroupName="BtnPkm" Content="Rojo/Azul/Ama" Margin="10, 0, 480, 150" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="oroPlaCris" GroupName="BtnPkm" Content="Oro/Plata/Cristal" Margin="10, 0, 480, 100" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="rubSafEm" GroupName="BtnPkm" Content="Rubí/Saf/Esme" Margin="10, 0, 480, 50" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="diaPer" GroupName="BtnPkm" Content="Diamante/Perla" Margin="10, 0, 480, 0" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="platino" GroupName="BtnPkm" Content="Platino" Margin="10, 0, 480, -50" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="heartSoul" GroupName="BtnPkm" Content="HeartGold/SoulSilver" Margin="10, 0, 480, -100" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="blanNeg" GroupName="BtnPkm" Content="Blanco/Negro" Margin="10, 0, 480, -150" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+                    <RadioButton x:Name="blanNeg2" GroupName="BtnPkm" Content="Blanco2/Negro2" Margin="10, 0, 480, -200" Style="{StaticResource BtnGeneracion}" FontFamily="{StaticResource PkmGB}" Checked="RadioButton_Checked"/>
+
+
+                    <Image Source="../Resources/PokedexNoFondo.png" Margin="90, 30, 0, 0" Width="400" Height="300"/>
+                    <ListBox x:Name="BusquedaAPI" Width="125" Height="95" Margin="20, 0, 110, -2" Background="LightGray" ItemTemplate="{StaticResource ImagenesLBoxItem}" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="BusquedaAPI_MouseDoubleClick"
+                             BorderBrush="Gold" BorderThickness="2">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar">
+                                <Setter Property="MaxWidth" Value="5"/>
+                                <Setter Property="MinWidth" Value="0"/>
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <ListBox x:Name="PkmSelecc" Width="125" Height="95" Margin="365, 0, 80, -25" Background="LightGray" ItemTemplate="{StaticResource LBoxInfoPkx}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        BorderBrush="#3761a8" BorderThickness="2">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" >
+                                <Setter Property="MaxWidth" Value="5"/>
+                                <Setter Property="MinWidth" Value="0"/>
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <ToggleButton x:Name="evoluciones" Width="125" Height="22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 110, 40" 
+                                  Background="#3761a8" BorderBrush="Black" Checked="evoluciones_Checked" >
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                                <!-- el border anterior, no te saca correctamente el fondo blanco al checkearlo. -->
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="Gold"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                </Grid>
+            </TabItem>
+
+            <!-- MOVIMIENTOS -->
+            <TabItem x:Name="Movimientos" Background="LightSteelBlue">
+                <TabItem.Header>
+                    <Border BorderBrush="Black" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/MT.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Movimientos</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las movimientos dependiendo de la generación" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <!-- Movimientos por generación, se puede buscar dicho movimiento. 
+                    https://pokeapi.co/api/v2/move/{id or name}/-->
+                <Grid>
+                    <TextBlock Text="Seleccione la generación del movimiento:" FontFamily="{StaticResource PkmGB}" FontSize="10" Margin="10" TextWrapping="Wrap"
+                           Width="300" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="selecGen" Width="300" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" 
+                              BorderBrush="Gold" BorderThickness="2" SelectedIndex="0" FontFamily="{StaticResource PkmGB}" Background="SteelBlue"
+                              FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="selecGen_SelectionChanged">
+                        <ComboBoxItem Content="Primera Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Segunda Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Tercera Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Cuarta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Quinta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Sexta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Séptima Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Octava Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Novena Generación" Style="{StaticResource ItemsComboMov}"/>
+                    </ComboBox>
+
+                    <Label FontFamily="{StaticResource PkmGB}" FontSize="10" Margin="-290, -160, 20, 10" Width="290" Height="50">
+                        <TextBlock Text="Si quiere saber más del movimieto, pulse cualquiera de la lista de la derecha." TextWrapping="Wrap"/>
+                    </Label>
+
+                    <ListBox x:Name="lbMovs" Width="300" Height="270" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" BorderBrush="Gold" 
+                             MouseDoubleClick="lbMovs_MouseDoubleClick" Background="LightSteelBlue"/>
+
+                    <Grid Width="290" Height="220" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="145"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock x:Name="movAcierto" Text="Acierto" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock x:Name="movTipoDanio" Text="Tipo de daño" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock x:Name="movPoder" Text="Poder" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="2"/>
+                        <TextBlock x:Name="movPP" Text="PP Máx" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="3"/>
+                        <TextBlock x:Name="movPrio" Text="Prioridad" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="4"/>
+                        <TextBlock x:Name="movTipo" Text="Tipo mov" Style="{StaticResource TBMovimiento}" Grid.Column="0" Grid.Row="5"/>
+
+                        <TextBlock x:Name="txtAcierto" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="0"/>
+                        <TextBlock x:Name="txtTipoDanio" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock x:Name="txtPoder" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="2"/>
+                        <TextBlock x:Name="txtPP" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="3"/>
+                        <TextBlock x:Name="txtPrio" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="4"/>
+                        <TextBlock x:Name="txtTipo" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="5"/>
+                    </Grid>
+                    
+                </Grid>
+            </TabItem>
+
+            <!-- TIPOS -->
+            <TabItem x:Name="Tipos" Background="LightSteelBlue">
+                <TabItem.Header>
+                    <Border BorderBrush="Gainsboro" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/NormalType.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Tipos</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a los diferentes tipos de los pokemon según generación" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <!-- Tipos por generación, se puede buscar dicho tipo. 
+                    https://pokeapi.co/api/v2/type/{id or name}/-->
+                <Grid>
+                    <TextBlock Text="Seleccione la generación del tipo:" FontFamily="{StaticResource PkmGB}" FontSize="10" Margin="10"
+                           Width="300" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    
+                    <ComboBox x:Name="selecGen_Types"  Width="280" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" 
+                              BorderBrush="Gold" BorderThickness="2" SelectedIndex="0" FontFamily="{StaticResource PkmGB}" Background="SteelBlue"
+                              FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="selecGen_Types_SelectionChanged">
+                        <ComboBoxItem Content="Primera Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Segunda Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Tercera Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Cuarta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Quinta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Sexta Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Séptima Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Octava Generación" Style="{StaticResource ItemsComboMov}"/>
+                        <ComboBoxItem Content="Novena Generación" Style="{StaticResource ItemsComboMov}"/>
+                    </ComboBox>
+
+                    <Label FontFamily="{StaticResource PkmGB}" FontSize="12" Margin="0, 0, 0, 185" Width="290" Height="65" HorizontalAlignment="Right">
+                        <TextBlock Text="Si quiere saber las debilidades y fortalezas, pulse cualquiera de la lista." TextWrapping="Wrap"/>
+                    </Label>
+
+                    <ListBox x:Name="lbTipos" Width="300" Height="240" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 40, 0, 0" 
+                             BorderBrush="Gold" MouseDoubleClick="lbTipos_MouseDoubleClick" Background="LightSteelBlue"/>
+
+                    <Grid Width="290" Height="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                            <RowDefinition Height="36.5"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="tipDoubleFrom" Text="Recibe daño x2" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="0"/>
+                        <TextBlock x:Name="tipHalfFrom" Text="Recibe daño /2" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock x:Name="tipDoubleTo" Text="Hace daño x2" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="2"/>
+                        <TextBlock x:Name="tipHalfTo" Text="Hace daño /2" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="3"/>
+                        <TextBlock x:Name="tipNoDañoFrom" Text="No recibe daño" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="4"/>
+                        <TextBlock x:Name="tipNoDañoTo" Text="No hace daño" Style="{StaticResource TBTipos}" Grid.Column="1" Grid.Row="5"/>
+
+                        <TextBlock x:Name="txtDoubleFrom" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="0"/>
+                        <TextBlock x:Name="txtHalfFrom" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="1"/>
+                        <TextBlock x:Name="txtDoubleTo" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="2"/>
+                        <TextBlock x:Name="txtHalfTo" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="3"/>
+                        <TextBlock x:Name="txtNoDanioFrom" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="4"/>
+                        <TextBlock x:Name="txtNoDanioTo" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="5"/>
+                    </Grid>
+
+                    <Image Source="../Resources/AllIcons.png" Width="105" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="110, 0, 0, 0"/>
+                </Grid>
+
+            </TabItem>
+
+            <!-- POKEBALLS -->
+            <TabItem Loaded="TabItem_Loaded" x:Name="Pokeball" Background="LightSteelBlue">
+                <!--Te muestra todas las pokebolas y, dentro de cada una tine una url al item.
+                    https://pokeapi.co/api/v2/item-category/34/ - Normales
+                    https://pokeapi.co/api/v2/item-category/39/ - Son las de Bonguri
+                    https://pokeapi.co/api/v2/item-category/33/ - Especiales
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="Salmon" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/trioPkb.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Pokebolas</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las distintas pokeballs que hay disponibles en los juegos." FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <Grid>
+                    <TextBlock Text="Hay tres categorias de pokebolas:" Style="{StaticResource TBPokebolas}" Height="20"/>
+                    <TextBlock Text="Normales o comunes -->" Style="{StaticResource TBMovimiento}" Margin="10, 75, 0, 0"/>
+                    <ListBox x:Name="PkbolNormal" Width="300" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 100, 170"
+                             ItemTemplate="{StaticResource LbPokebolas}" Background="LightSteelBlue"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             SelectedIndex="0"/>
+                    <Label x:Name="totalNormales" Style="{StaticResource LabelPokebolas}" Margin="100, 50, 0, 175"/>
+
+                    <TextBlock Text="Fabricadas con Bonguri -->" Style="{StaticResource TBMovimiento}" Margin="10, 170, 0, 0" TextWrapping="Wrap" Width="210" Height="30"/>
+                    <ListBox x:Name="PkbolBonguri" Width="300" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 100, -30"
+                             SelectedIndex="0" ItemTemplate="{StaticResource LbPokebolas}" Background="LightSteelBlue"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                    <Label x:Name="totalBonguri" Style="{StaticResource LabelPokebolas}" Margin="100, 50, 0, -30"/>
+
+                    <TextBlock Text="Especiales o de evento -->" Style="{StaticResource TBMovimiento}" Margin="10, 265, 0, 0" TextWrapping="Wrap" Width="210" Height="30"/>
+                    <ListBox x:Name="PkbolEspecial" Width="300" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 100, -230"
+                             ItemTemplate="{StaticResource LbPokebolas}"  Background="LightSteelBlue"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             SelectedIndex="0"/>
+                    <Label x:Name="totalEspeciales" Style="{StaticResource LabelPokebolas}" Margin="100, 50, 0, -230"/>
+
+                    
+                    <!-- Botones de movimiento entre los items de la listbox. Serán independientes cada uno, es decir, habrá 4 botones de movimiento para cada listbox. -->
+                    <Grid x:Name="gridBtnPkball" Width="60" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 0, 20, 170">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="atrasPrim" Grid.Row="0" Grid.Column="0"  Content="&lt;" Style="{StaticResource btnsPokebolas}" Click="atrasPrim_Click"/>
+                        <Button x:Name="delanPrim" Grid.Row="0" Grid.Column="1" Content=">" Style="{StaticResource btnsPokebolas}" Click="delanPrim_Click"/>
+                        <Button x:Name="princPrim" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Style="{StaticResource btnsPokebolas}" Click="princPrim_Click"/>
+                        <Button x:Name="finalPrim" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalPrim_Click"/>
+                    </Grid>
+
+                    <Grid x:Name="gridBtnPkball2" Width="60" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 25, 20, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="atrasSeg" Grid.Row="0" Grid.Column="0"  Content="&lt;" Style="{StaticResource btnsPokebolas}" Click="atrasSeg_Click"/>
+                        <Button x:Name="delanSeg" Grid.Row="0" Grid.Column="1" Content=">" Style="{StaticResource btnsPokebolas}" Click="delanSeg_Click" />
+                        <Button x:Name="princSeg" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Style="{StaticResource btnsPokebolas}" Click="princSeg_Click" />
+                        <Button x:Name="finalSeg" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalSeg_Click" />
+                    </Grid>
+
+                    <Grid x:Name="gridBtnPkball3" Width="60" Height="25" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 220, 20, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="atrasTer" Grid.Row="0" Grid.Column="0"  Content="&lt;" Style="{StaticResource btnsPokebolas}" Click="atrasTer_Click"/>
+                        <Button x:Name="delanTer" Grid.Row="0" Grid.Column="1" Content=">" Style="{StaticResource btnsPokebolas}" Click="delanTer_Click"/>
+                        <Button x:Name="princTer" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Style="{StaticResource btnsPokebolas}" Click="princTer_Click"/>
+                        <Button x:Name="finalTer" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalTer_Click"/>
+                    </Grid>
+                </Grid> <!--GRID PRINCIPAL-->
+            </TabItem>
+
+            <!-- BAYAS -->
+            <TabItem x:Name="Bayas" Background="LightSteelBlue">
+                <!-- Bayas: 
+                    https://pokeapi.co/api/v2/item-category/2/
+                    https://pokeapi.co/api/v2/item-category/3/
+                    https://pokeapi.co/api/v2/item-category/4/
+                    https://pokeapi.co/api/v2/item-category/5/
+                    https://pokeapi.co/api/v2/item-category/6/
+                    https://pokeapi.co/api/v2/item-category/7/
+                    https://pokeapi.co/api/v2/item-category/8/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/BayasPkm.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Bayas</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las diferentes bayas del videojuego" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+            <!-- ITEMS ESTADO -->
+            <TabItem x:Name="ItemsEstado" Background="LightSteelBlue">
+                <!-- Curación, PP, curación, antídotos:
+                    https://pokeapi.co/api/v2/item-category/27/
+                    https://pokeapi.co/api/v2/item-category/28/
+                    https://pokeapi.co/api/v2/item-category/29/
+                    https://pokeapi.co/api/v2/item-category/30/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="Khaki" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/RevivirMax.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Items Estados</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a los objetos de estado y/o curación" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+            <!-- ITEMS EVOLUCION -->
+            <TabItem x:Name="ItemsEvolucion" Background="LightSteelBlue">
+                <!-- Items de evolución:
+                    https://pokeapi.co/api/v2/item-category/10/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="OliveDrab" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/PiedraEvo.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Items Evo</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a los diferentes objetos necesarios para evolucionar" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+            <!-- LÁMINAS ARCEUS -->
+            <TabItem x:Name="LamArceus" Background="LightSteelBlue">
+                <!-- Platillas de Arceus:
+                    https://pokeapi.co/api/v2/item-category/17/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="Ivory" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Arceus2.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Lám. Arceus</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las distintas láminas de cambio de tipo de Arceus." FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+            <!-- CARTAS -->
+            <TabItem x:Name="Cartas" Background="LightSteelBlue">
+                <!-- Tipos de cartas:
+                    https://pokeapi.co/api/v2/item-category/25/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="Silver" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Carta.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Cartas</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las distintas cartas disponible en Pokemon" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+            <!-- VITAMINAS -->
+            <TabItem x:Name="Vitaminas" Background="LightSteelBlue">
+                <!-- Vitaminas:
+                    https://pokeapi.co/api/v2/item-category/26/
+                -->
+                <TabItem.Header>
+                    <Border BorderBrush="LemonChiffon" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Vitamins.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Vitaminas</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a las distintas vitaminas disponibles en los juegos" FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>

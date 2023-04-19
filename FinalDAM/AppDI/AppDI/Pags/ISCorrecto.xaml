@@ -1,0 +1,22 @@
+﻿<Page x:Class="AppDI.Pags.ISCorrecto"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      mc:Ignorable="d" 
+      d:DesignHeight="460" d:DesignWidth="850"
+      Title="AccesoRegistrado" ShowsNavigationUI="True"
+      xmlns:pkdex="clr-namespace:AppDI.Recursos" Loaded="Page_Loaded">
+
+    <Grid Background="#3761a8">
+        <Image x:Name="nivelUsers" Style="{StaticResource ImgTitulo}" Margin="0">
+            <Image.ToolTip>
+                <ToolTip Content="Este es tu nivel de usuario." FontFamily="{StaticResource PkmMonk}"/>
+            </Image.ToolTip>
+        </Image>
+        <!-- Por cada tabItem, que haya un toolTip que lo explique. -->
+        <Label x:Name="nomUser" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Right" FontSize="24" FontFamily="{StaticResource PkmMonk}"/>
+        <pkdex:TabItemTier1 x:Name="controlTab"/>
+    </Grid>
+</Page>

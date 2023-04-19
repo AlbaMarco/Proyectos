@@ -1,0 +1,45 @@
+﻿<Page x:Class="AppDI.Pags.InicioSesion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Inicio de sesion" ShowsNavigationUI="True" Loaded="Page_Loaded">
+
+    <Grid Background="SkyBlue"> 
+        <!-- PeachPuff -->
+        <Image Source="../Resources/pkmLogo.png"/>
+        <Image Source="../Resources/InicioSesion.png" Style="{StaticResource ImgTitulo}">
+            <Image.ToolTip>
+                <ToolTip Content="¡Bienvenido a la página de incio de sesión" FontFamily="{StaticResource PkmMonk}"/>
+            </Image.ToolTip>
+        </Image>
+
+        <TextBox x:Name="userAcc" Width="200" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, -60, 0, 0" Background="Transparent" BorderBrush="Red" BorderThickness="2">
+            <TextBox.ToolTip>
+                <ToolTip Content="Introduzca su nombre" FontFamily="{StaticResource PkmMonk}"/>
+            </TextBox.ToolTip>
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuTxt" Header="Borrar contenido" Click="menuTxt_Click" />
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
+        <PasswordBox x:Name="passAcc" Width="200" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 80, 0, 0" Background="Transparent" BorderBrush="Gray" BorderThickness="2">
+            <PasswordBox.ToolTip>
+                <ToolTip Content="Introduzca su contraseña" FontFamily="{StaticResource PkmMonk}"/>
+            </PasswordBox.ToolTip>
+            <PasswordBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuPassword" Header="Borrar contenido" Click="menuPassword_Click" />
+                </ContextMenu>
+            </PasswordBox.ContextMenu>
+        </PasswordBox>
+
+        <Image Source="../Resources/AshKetchum.png" Width="100" Height="100" Margin="278,270,422,68"/>
+        <Button x:Name="inSesion" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 250, 0, 0" Background="#3761a8" BorderBrush="Gold" Content="Iniciar Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="14" Foreground="Gold" Click="inSesion_Click"/>
+
+    </Grid>
+</Page>
