@@ -24,9 +24,9 @@
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
 
-        <!-- Texto justificado con 17px de tamaño de letra y centrado -->
-        <Style x:Key="TxtJustificado17px" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="17px"/>
+        <!-- Texto justificado con 25px de tamaño de letra y centrado -->
+        <Style x:Key="TxtJustificado25px" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="25px"/>
             <Setter Property="TextAlignment" Value="Justify"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>

@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" 
       Title="Acceso gratuito">
-
+    <!-- HACER DOS VENTANAS DE ACCESO GRATUITO, EL RANDOM Y EL NO RANDOM.-->
     <Grid>
         <Frame BorderBrush="Gold" BorderThickness="2"/>
         <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxGratuito}">

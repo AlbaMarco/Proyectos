@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AccesoGratuito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AccesoGratuito.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Admin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -151,8 +154,14 @@
   <data name="CartasPkm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CartasPkm.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ContenidoGratuito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ContenidoGratuito.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ContGra" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ContGra.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ContRegistro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ContRegistro.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="EeveeNoFondopng" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EeveeNoFondopng.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

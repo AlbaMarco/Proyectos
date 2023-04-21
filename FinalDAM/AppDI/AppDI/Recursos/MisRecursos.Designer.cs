@@ -63,6 +63,16 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] AccesoGratuito {
+            get {
+                object obj = ResourceManager.GetObject("AccesoGratuito", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] Admin {
             get {
                 object obj = ResourceManager.GetObject("Admin", resourceCulture);
@@ -173,9 +183,29 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] ContenidoGratuito {
+            get {
+                object obj = ResourceManager.GetObject("ContenidoGratuito", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] ContGra {
             get {
                 object obj = ResourceManager.GetObject("ContGra", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] ContRegistro {
+            get {
+                object obj = ResourceManager.GetObject("ContRegistro", resourceCulture);
                 return ((byte[])(obj));
             }
         }

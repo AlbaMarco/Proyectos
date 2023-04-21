@@ -5,88 +5,119 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:noe="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" 
+      d:DesignHeight="900" d:DesignWidth="1500" 
       ShowsNavigationUI="False" Title="Información">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <RoutedUICommand x:Key="comIncioSesion"/>
-            <RoutedUICommand x:Key="comGratuito"/>
-            <RoutedUICommand x:Key="comRegistro"/>
-        </ResourceDictionary>
-    </Page.Resources>
-
-    <Page.InputBindings>
-        <KeyBinding Key="I" Modifiers="Ctrl" Command="{StaticResource comIncioSesion}"/>
-        <KeyBinding Key="A" Modifiers="Ctrl" Command="{StaticResource comGratuito}"/>
-        <KeyBinding Key="R" Modifiers="Ctrl" Command="{StaticResource comRegistro}"/>
-    </Page.InputBindings>
-
-    <Page.CommandBindings>
-        <CommandBinding Command="{StaticResource comIncioSesion}" Executed="FileMenuItem3_Click"/>
-        <CommandBinding Command="{StaticResource comRegistro}" Executed="Registro_Click"/>
-        <CommandBinding Command="{StaticResource comGratuito}" Executed="AccGratuito_Click"/>
-    </Page.CommandBindings>
-
     <Grid Background="#3761a8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Menu Height="23" VerticalAlignment="Top" Background="Gold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <MenuItem x:Name="AccGratuito" Header="Acceso Gratuito" FontFamily="{StaticResource PkmMonk}" Margin="0, 2, 0, 0" Click="AccGratuito_Click"/>
-            <Separator Width="540" Background="Gold"/>
-            <MenuItem x:Name="Registro" Header="Registrarse" FontFamily="{StaticResource PkmMonk}" Margin="0, 2, 0, 0" Click="Registro_Click"/>
-            <MenuItem x:Name="InicioSesion" Header="Inicio Sesión" FontFamily="{StaticResource PkmMonk}" Margin="0, 2, 0, 0" Click="FileMenuItem3_Click"/>
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <MenuItem x:Name="AccGratuito" Header="Acceso Gratuito" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccGratuito_Click"/>
+            <Separator Width="1100" Background="Gold"/>
+            <MenuItem x:Name="Registro" Header="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Registro_Click"/>
+            <MenuItem x:Name="InicioSesion" Header="Inicio Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="FileMenuItem3_Click"/>
         </Menu>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
 
-        <Image Source="\Resources\PokeApi7.png" Grid.Row="1" Grid.Column="0" Width="110" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15">
-            <Image.ToolTip>
-                <ToolTip Content="PokéApi es una página de acceso a API sobre todo el mundo Pokemon. Para más información, pulse el enlace de abajo" FontFamily="{StaticResource PkmMonk}"/>
-            </Image.ToolTip>
-        </Image>
-        <!--<Label Content="PokéApi" Grid.Row="2" Width="150" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" FontSize="35" FontFamily="{StaticResource PkmMonk}" Foreground="Gold"/>-->
-        <TextBlock Grid.Row="1" Width="300" Height="300" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado17px}" Margin="0, 50, 0, 0">
+            <Image Source="\Resources\PokeApi7.png" Grid.Row="0" Grid.Column="0" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image.ToolTip>
+                    <ToolTip Content="PokéApi es una página de acceso a API sobre todo el mundo Pokemon. Para más información, pulse el enlace de abajo" FontFamily="{StaticResource PkmMonk}"/>
+                </Image.ToolTip>
+            </Image>
+
+            <TextBlock Grid.Row="1" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}">
             Uso de la aplicación:  <Hyperlink NavigateUri="https://pokeapi.co/" RequestNavigate="Hyperlink_RequestNavigate" Foreground="Gold">POKÉAPI</Hyperlink>
             <LineBreak/> <LineBreak/>
+            El enlace correspondiente a la descarga de la misma se podrá encontrar en {FALTA HACER LA PÁGINA WEB PARA EL INSTALADOR}
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
+            <LineBreak/>
             Dependiendo del nivel de usuario que 
             tengas asignada a su cuenta, se podrá 
             acceder a un contenido u a otro. <LineBreak/> <LineBreak/>
             Se tendrá un acceso grautuito, donde probar la API de manera limitada en el apartado de Acceso Gratuito. <LineBreak/> <LineBreak/>
             En el Acceso a cuentas registradas, se mostrará el contenido del nivel que tenga el usuario.
-        </TextBlock>
+            </TextBlock>
 
-        <!--<TextBlock FontFamily="{StaticResource PkmMonk}" Grid.Row="1" Grid.Column="2" Width="400" Height="30" 
-                   HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" 
-                   Margin="0, 22, 0, 10" FontSize="28" Foreground="Gold" 
-                   noe:Text.Stroke="#3761a8" noe:Text.StrokeThickness="2"
-                   Text="Tipos de usuarios"/> -->
+            <Image Source="\Resources\ContenidoGratuito.png" Grid.Row="3" Grid.Column="0" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image.ToolTip>
+                    <ToolTip Content="Se explica un poco el contenido gratuito que ofrece esta aplicación sobre Pokemon." FontFamily="{StaticResource PkmMonk}"/>
+                </Image.ToolTip>
+            </Image>
 
-        <Image Source="\Resources\TiposUsuario2.png" Grid.Row="1" Grid.Column="2" Width="280" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="15">
-            <Image.ToolTip>
-                <ToolTip Content="Hay cuatro tipos de usuarios, sin contar al de acceso gratuito. De momento únicamente se modifican notificando al administrador." FontFamily="{StaticResource PkmMonk}"/>
-            </Image.ToolTip>
-        </Image>
+            <TextBlock Grid.Row="4" Grid.Column="0" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
+            <LineBreak/>
+            Dependiendo del tipo de usuario que seas se podrá acceder a unos contenidos u otros, en este caso se explicará el contenido gratuito. <LineBreak/> <LineBreak/>
+            El acceso gratuito te permite visualizar los pokemons de dos formas, uno mediante un búscador y, otro totalmente aleatorio. <LineBreak/> <LineBreak/>
+            Se verá información básica sobre el pokemon.
+            </TextBlock>
+        </Grid>
+        <!-- Grid de la parte izquierda de la pantalla. -->
 
-        <TextBlock Grid.Row="1" Grid.Column="2" Width="300" Height="300" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado17px}" Margin="0, 50, 0, 0">
+        <!-- Grid de la parte derecha de la pantalla. -->
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="\Resources\TiposUsuario2.png" Grid.Row="0" Grid.Column="1"  Height="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image.ToolTip>
+                    <ToolTip Content="Hay cuatro tipos de usuarios, sin contar al de acceso gratuito. De momento únicamente se modifican notificando al administrador." FontFamily="{StaticResource PkmMonk}"/>
+                </Image.ToolTip>
+            </Image>
+
+            <TextBlock Grid.Row="1" Grid.Column="1" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
             Hay varios tipos de usuarios que se pueden <LineBreak/>
-            usar en esta aplicación, sin contar el acceso gratuito. <LineBreak/><LineBreak/> 
-            Nivel 1 - Básico <LineBreak/>
-            Acceso a Pokédex. <LineBreak/> <LineBreak/>
-            
-            Nivel 2 - Medio <LineBreak/>
-            Acceso anterior más movimientos. <LineBreak/> <LineBreak/>
-            
-            Nivel 3 - Alto <LineBreak/>
-            Acceso anterior más tipos. <LineBreak/> <LineBreak/>
-            
-            Nivel 4 - Total <LineBreak/>
-            Acceso total de la API. <LineBreak/> <LineBreak/>
-        </TextBlock>
+            usar en esta aplicación, sin contar el acceso gratuito. <LineBreak/><LineBreak/>
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
+            <Bold><Span Foreground="Gold">Nivel 1</Span> - Básico</Bold> <Span Foreground="Gold">||</Span> Acceso a Pokédex. <LineBreak/> <LineBreak/>
+            <Bold><Span Foreground="Gold">Nivel 2</Span> - Medio</Bold> <Span Foreground="Gold">||</Span> Acceso anterior más movimientos. <LineBreak/> <LineBreak/>
+            <Bold><Span Foreground="Gold">Nivel 3</Span> - Alto</Bold> <Span Foreground="Gold">||</Span> Acceso anterior más tipos. <LineBreak/> <LineBreak/>
+            <Bold><Span Foreground="Gold">Nivel 4</Span> - Total</Bold> <Span Foreground="Gold">||</Span> Acceso total de la API. <LineBreak/> <LineBreak/>
+            </TextBlock>
+
+            <Image Source="\Resources\ContRegistro.png" Grid.Row="3" Grid.Column="1"  Height="45" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image.ToolTip>
+                    <ToolTip Content="Contenido disponible con un registro." FontFamily="{StaticResource PkmMonk}"/>
+                </Image.ToolTip>
+            </Image>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
+            <LineBreak/>
+            Con el contenido de tipo registro se podrá acceder a diferentes categorías dentro del mundo pokemon, entre ellas: <LineBreak/> <LineBreak/>
+             Acceso a una pokedex, a los movimientos por generación, a los tipos por generación, pokeballs, bayas, items de estado y de evolución, 
+             las láminas de los tipos de arceus, las cartas y las vitaminas del juego. <LineBreak/> <LineBreak/>
+             Todo esto dependiendo de su nivel de registro.
+            </TextBlock>
+
+        </Grid>
+        <!-- Fin Grid derecha. -->
+        <!-- Linea central. -->
+        <Line Grid.Column="1" Grid.RowSpan="2" Y2="0" Y1="900" Fill="Gold" Stroke="Gold" StrokeThickness="3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>
 </Page>

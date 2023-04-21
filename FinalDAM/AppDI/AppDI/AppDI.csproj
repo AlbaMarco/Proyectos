@@ -13,6 +13,7 @@
     <None Remove="Fuentes\Pokemon Hollow.ttf" />
     <None Remove="Fuentes\Pokemon Solid.ttf" />
     <None Remove="Fuentes\PokemonGb-RAeo.ttf" />
+    <None Remove="Resources\AccesoGratuito.png" />
     <None Remove="Resources\Admin.png" />
     <None Remove="Resources\AllIcons.png" />
     <None Remove="Resources\AppDI.db" />
@@ -24,7 +25,9 @@
     <None Remove="Resources\BayasPkm.png" />
     <None Remove="Resources\Carta.png" />
     <None Remove="Resources\CartasPkm.png" />
+    <None Remove="Resources\ContenidoGratuito.png" />
     <None Remove="Resources\ContGra.png" />
+    <None Remove="Resources\ContRegistro.png" />
     <None Remove="Resources\EeveeNoFondopng.png" />
     <None Remove="Resources\InicialesAguaNoFondo.png" />
     <None Remove="Resources\InicialesFuegoNoFondo.png" />
@@ -54,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\AccesoGratuito.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Admin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -84,7 +90,13 @@
     <Content Include="Resources\CartasPkm.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ContenidoGratuito.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\ContGra.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ContRegistro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\EeveeNoFondopng.png">
