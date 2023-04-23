@@ -5,53 +5,104 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" 
+      d:DesignHeight="900" d:DesignWidth="1500" 
       Title="Acceso gratuito">
     <!-- HACER DOS VENTANAS DE ACCESO GRATUITO, EL RANDOM Y EL NO RANDOM.-->
     <Grid>
-        <Frame BorderBrush="Gold" BorderThickness="2"/>
-        <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxGratuito}">
-            <TextBox.ToolTip>
-                <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
-            </TextBox.ToolTip>
-        </TextBox>
-        <Button x:Name="btnBusqueda" Style="{StaticResource btnGratuito}" Content="Realizar búsqueda" Margin="10, 70, 0, 0" Click="btnBusqueda_Click" />
-        <ListBox x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="200" Height="300" 
-                 HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10, 0, 0, 10" Background="LightSteelBlue" BorderBrush="Gold" BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
-            <ListBox.Resources>
-                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
-            </ListBox.Resources>
-            <ListBox.ToolTip>
-                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
-            </ListBox.ToolTip>
-        </ListBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="80*"/>
+        </Grid.ColumnDefinitions>
 
-        <Label x:Name="titId" Content="ID" Style="{StaticResource labelkGratuito}" Margin="0, 0, 183, 250"/>
-        <TextBlock x:Name="tbId" Style="{StaticResource tblockGratuito}" Margin="100, 0, 183, 250"/>
+        <Frame BorderBrush="Gold" BorderThickness="2" Grid.ColumnSpan="3"/>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
 
-        <Label x:Name="titNombre" Content="Nombre" Style="{StaticResource labelkGratuito}" Margin="350, 0, 0, 250"/>
-        <TextBlock x:Name="tbNombre" Style="{StaticResource tblockGratuito}" Margin="500, 0, 0, 250"/>
-        
-        <Label x:Name="titAltura" Content="Altura" Style="{StaticResource labelkGratuito}" Margin="0, 0, 150, 150"/>
-        <TextBlock x:Name="tbAltura" Style="{StaticResource tblockGratuito}" Margin="100, 0, 150, 150"/>
-        
-        <Label x:Name="titPeso" Content="Peso" Style="{StaticResource labelkGratuito}"  Margin="338, 0, 0, 150"/>
-        <TextBlock x:Name="tbPeso" Style="{StaticResource tblockGratuito}"  Margin="438, 0, 0, 150"/>
-        
-        <Label x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelkGratuito}"  Margin="0, 0, 154, 0"/>
-        <TextBlock x:Name="tbTipo" Style="{StaticResource tblockGratuito}" Margin="250, 0, 154, 0"/>
-        
-        <Label x:Name="titHabilidad" Content="Habilidad/es" Style="{StaticResource labelkGratuito}"  Margin="0, 0, 121.7, -150"/>
-        <TextBlock x:Name="tbHabilidad" Style="{StaticResource tblockGratuito}" TextAlignment="Right" Margin="400, 0, 121.7, -150"/>
-        
-        <Label x:Name="titFormas" Content="Formas" Style="{StaticResource labelkGratuito}"  Margin="0, 100, 150.7, -200"/>
-        <ListBox x:Name="lbFormas" Width="390" Height="50" Margin="0, 100, 30, -200" ItemTemplate="{StaticResource ImaLBoxItemForma}"
-                 VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="68*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="1" Grid.Column="0" x:Name="txBoxNomPkm" Style="{StaticResource tboxGratuito}">
+                <TextBox.ToolTip>
+                    <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
+                </TextBox.ToolTip>
+            </TextBox>
+
+            <Button Grid.Row="2" x:Name="btnBusqueda" Style="{StaticResource btnGratuito}" Content="Realizar búsqueda" Click="btnBusqueda_Click" />
+            <ListBox Grid.Row="3" x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="220" Height="680"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"  Background="LightSteelBlue" BorderBrush="Gold" 
+                     BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                </ListBox.Resources>
+                <ListBox.ToolTip>
+                    <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+                </ListBox.ToolTip>
+            </ListBox>
+        </Grid>
+        <!-- Grid de la izquierda. Contiene los elementos del textbox donde se escribe, el botón y el listbox donde se mostrará todo lo buscado. -->
+
+        <!-- Grid del medio / derecha, Contendrá los datos de los pkms.-->
+        <Grid Grid.Column="1" Grid.Row="0">
+            <!-- 14. -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="35*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="1" x:Name="titId" Content="ID" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="tbId" Style="{StaticResource tblockGratuito}"/>
+
+            <Label Grid.Row="1" Grid.Column="2" x:Name="titNombre" Content="Nombre" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="tbNombre" Style="{StaticResource tblockGratuito}"/>
+
+            <Label Grid.Row="1" Grid.Column="3" x:Name="titAltura" Content="Altura" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" x:Name="tbAltura" Style="{StaticResource tblockGratuito}"/>
+
+            <Label Grid.Row="3" Grid.Column="1" x:Name="titPeso" Content="Peso" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="tbPeso" Style="{StaticResource tblockGratuito}"/>
+
+            <Label Grid.Row="3" Grid.Column="2" x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" x:Name="tbTipo" Style="{StaticResource tblockGratuito}"/>
+
+            <Label Grid.Row="3" Grid.Column="3" x:Name="titHabilidad" Content="Habilidad/es" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="4" Grid.Column="3" x:Name="tbHabilidad" Style="{StaticResource tblockGratuito}" TextAlignment="Right"/>
+
+            <Label Grid.Row="5" Grid.Column="1" x:Name="titFormas" Content="Formas" Style="{StaticResource labelkGratuito}"/>
+            <ListBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="lbFormas" Width="390" Height="50" ItemTemplate="{StaticResource ImaLBoxItemForma}"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Background="LightSteelBlue" BorderBrush="Gold" BorderThickness="2">
-            <ListBox.Resources>
-                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
-            </ListBox.Resources>
-        </ListBox>
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                </ListBox.Resources>
+            </ListBox>
+
+            <!-- Hay que hacer la consulta en código aún. -->
+            <Label Grid.Row="5" Grid.Column="3" x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelkGratuito}"/>
+            <TextBlock Grid.Row="6" Grid.Column="3" x:Name="tbMovimientos" Style="{StaticResource tblockGratuito}" TextAlignment="Right"/>
+        </Grid>
 
     </Grid>
 </Page>

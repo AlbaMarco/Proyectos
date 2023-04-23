@@ -49,7 +49,7 @@ namespace AppDI.Recursos
             try
             {
                 conexion = new SQLiteConnection("Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True");
-                comando = new SQLiteCommand("SELECT * FROM Usuarios WHERE Nombre = @usuario AND contraseña = @contraseña", conexion);
+                comando = new SQLiteCommand("SELECT * FROM Usuarios WHERE Nombre = @usuario AND Contraseña = @contraseña", conexion);
                 comando.Parameters.AddWithValue("@usuario", user);
                 comando.Parameters.AddWithValue("@contraseña", pass);
                 // ' OR 1=1--

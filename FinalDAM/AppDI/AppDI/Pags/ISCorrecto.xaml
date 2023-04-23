@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags"
       mc:Ignorable="d" 
-      d:DesignHeight="460" d:DesignWidth="850"
+      d:DesignHeight="900" d:DesignWidth="1500" 
       Title="AccesoRegistrado" ShowsNavigationUI="True"
       xmlns:pkdex="clr-namespace:AppDI.Recursos" Loaded="Page_Loaded">
 
