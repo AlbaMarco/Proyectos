@@ -164,7 +164,7 @@
                     </Label>
 
                     <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbMovs" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" BorderBrush="Gold" 
-                             MouseDoubleClick="lbMovs_MouseDoubleClick" FontSize="12" FontFamily="{StaticResource PkmGB}" Background="LightSteelBlue"/>
+                             MouseDoubleClick="lbMovs_MouseDoubleClick" FontSize="17" FontFamily="{StaticResource PkmGB}" Background="LightSteelBlue"/>
 
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -246,7 +246,7 @@
                     </Label>
 
                     <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbTipos" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" 
-                             BorderBrush="Gold" MouseDoubleClick="lbTipos_MouseDoubleClick" Background="LightSteelBlue"/>
+                             BorderBrush="Gold" MouseDoubleClick="lbTipos_MouseDoubleClick" Background="LightSteelBlue" FontSize="17" FontFamily="{StaticResource PkmGB}"/>
 
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>

@@ -5,19 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1500"
       Title="Inicio de sesion" ShowsNavigationUI="True" Loaded="Page_Loaded">
 
-    <Grid Background="SkyBlue"> 
+    <Grid Background="SkyBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70px"/>
+            <RowDefinition/>
+            <RowDefinition Height="60px"/>
+            <RowDefinition Height="60px"/>
+            <RowDefinition Height="90px"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <!-- PeachPuff -->
-        <Image Source="../Resources/pkmLogo.png"/>
-        <Image Source="../Resources/InicioSesion.png" Style="{StaticResource ImgTitulo}">
+        <Image Source="../Resources/pkmLogo.png" Grid.ColumnSpan="3" Grid.RowSpan="6"/>
+        <Image Source="../Resources/InicioSesion.png" Style="{StaticResource ImgTitulo}" Grid.Column="1" Grid.Row="0">
             <Image.ToolTip>
                 <ToolTip Content="¡Bienvenido a la página de incio de sesión" FontFamily="{StaticResource PkmMonk}"/>
             </Image.ToolTip>
         </Image>
 
-        <TextBox x:Name="userAcc" Width="200" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, -60, 0, 0" Background="Transparent" BorderBrush="Red" BorderThickness="2">
+        <TextBox x:Name="userAcc" Width="320" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#ffffdb" BorderBrush="Red" 
+                 BorderThickness="4" Grid.Column="1" Grid.Row="2" FontSize="20">
             <TextBox.ToolTip>
                 <ToolTip Content="Introduzca su nombre" FontFamily="{StaticResource PkmMonk}"/>
             </TextBox.ToolTip>
@@ -27,7 +42,8 @@
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>
-        <PasswordBox x:Name="passAcc" Width="200" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 80, 0, 0" Background="Transparent" BorderBrush="Gray" BorderThickness="2">
+        <PasswordBox x:Name="passAcc" Width="320" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#ffffdb" BorderBrush="Gray" 
+                     BorderThickness="4" Grid.Column="1" Grid.Row="3" FontSize="20">
             <PasswordBox.ToolTip>
                 <ToolTip Content="Introduzca su contraseña" FontFamily="{StaticResource PkmMonk}"/>
             </PasswordBox.ToolTip>
@@ -38,8 +54,9 @@
             </PasswordBox.ContextMenu>
         </PasswordBox>
 
-        <Image Source="../Resources/AshKetchum.png" Width="100" Height="100" Margin="278,270,422,68"/>
-        <Button x:Name="inSesion" Width="100" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 250, 0, 0" Background="#3761a8" BorderBrush="Gold" Content="Iniciar Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="14" Foreground="Gold" Click="inSesion_Click"/>
-
+        <Image Source="../Resources/AshKetchum.png" Width="100" Height="200" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3"/>
+        <Button x:Name="inSesion" Width="350" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#3761a8" BorderBrush="Gold" 
+                Content="Iniciar Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="30" Foreground="Gold" Click="inSesion_Click" Grid.Column="1" Grid.Row="4"/>
+       
     </Grid>
 </Page>

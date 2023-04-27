@@ -1,13 +1,15 @@
 @font-face {
     font-family: 'PokemonMonk';
-    src: url("./Fuentes/PocketMonk-15ze.ttf");
+    src: url("../Fuentes/PocketMonk-15ze.ttf");
 }
 /* Color de fondo utiliazdo en la aplicación: #3761a8*/
+
+/* ----- VENTANA INICIO Y COMUNES. ----- */
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'PokemonMonk', sans-serif;
+    font-family: 'PokemonMonk';
     background-color: #F7F7F7;
 }
 
@@ -126,9 +128,43 @@ footer {
     margin-bottom: 2rem;
 }
 
-/* ----- HASTA AQUI LOS ESTILOS DE PÁGINA INICIO. ----- */
-
 /* ----- VENTANA DESCARGAS. ----- */
+
+p.pVersiones {
+    margin: 0.2rem;
+    padding: 0.2rem;
+    width: 100rem;
+    /*border: 0.2rem solid #E3350D;*/
+    text-align: left;
+    text-decoration: 0.2rem underline #E3350D;
+    font-size: 2rem;
+}
+
+ul.ulDescargas {
+    letter-spacing: 1px;
+}
+
+ul.ulDescargas li {
+    padding: 0.2rem;
+}
+
+#refNoDecoDes {
+    text-decoration: none;
+    color: gold;
+    -webkit-text-stroke: 0.05rem #3761a8;
+    font-size: 2rem;
+}
+
+#refNoDecoDes:link {
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+#refNoDecoDes:visited {
+    color: gold;
+    font-size: 2rem;
+}
+
 
 /* ----- VENTANA CONTACTO. ----- */
 
@@ -224,3 +260,26 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #333;
 }
+
+
+/* ----- VENTANA REGISTRO CORRECTO. ----- */
+
+p.regCorrecto {
+    font-size: 1.6rem;
+}
+
+#refNoDeco {
+    text-decoration: none;
+    color: gold;
+    -webkit-text-stroke: 0.05rem #3761a8;
+}
+
+#refNoDeco:link {
+    text-decoration: none;
+}
+
+#refNoDeco:visited {
+    color: gold;
+}
+
+/* ----- VENTANA REGISTRO INCORRECTO. ----- */

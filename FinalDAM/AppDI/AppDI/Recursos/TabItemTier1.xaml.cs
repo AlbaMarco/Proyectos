@@ -264,7 +264,7 @@ namespace AppDI.Recursos
                 PkmSelecc.Items.Add(new { TituloPkm = "Tipo/s:", NomPkm = jsonPkm.RootElement.GetProperty("types").GetArrayLength().ToString() });
                 for (int i = 0; i < jsonPkm.RootElement.GetProperty("types").GetArrayLength(); i++)
                 {
-                    PkmSelecc.Items.Add(new { TituloPkm = "   " + jsonPkm.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString(), NomPkm = " " });
+                    PkmSelecc.Items.Add(new { TituloPkm = "  " + jsonPkm.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString(), NomPkm = " " });
                 }
 
                 evoluciones.IsEnabled = true;

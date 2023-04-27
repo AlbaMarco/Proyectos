@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace AppDI.Recursos
 {
@@ -20,12 +24,20 @@ namespace AppDI.Recursos
 
         private SQLiteDataAdapter adaptador;
         private DataSet ds;
+
+        private MySqlConnection connection;
+        private MySqlCommand command;
+        private MySqlDataReader readSQL;
+        private MySqlDataAdapter adapter;
+
+        private MySqlDataReader readUser;
         /// <summary>
         /// Propiedadad para obtener la conexión.
         /// </summary>
         private string Conex { get; set; }
 
         private bool esAdmin;
+        private bool esSuperAdmin;
         /// <summary>
         /// Propiedad para saber el nivel del usuario conectado.
         /// </summary>
@@ -43,46 +55,112 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public bool ConectarBD(string user, string pass)
         {
-            Conex = "Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True";
-            if (conexion != null) { conexion.Close(); }
+            Conex = "server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal";
+            if (connection != null) { connection.Close(); }
 
             try
             {
-                conexion = new SQLiteConnection("Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True");
-                comando = new SQLiteCommand("SELECT * FROM Usuarios WHERE Nombre = @usuario AND Contraseña = @contraseña", conexion);
-                comando.Parameters.AddWithValue("@usuario", user);
-                comando.Parameters.AddWithValue("@contraseña", pass);
-                // ' OR 1=1--
-                conexion.Open();
-                reader = comando.ExecuteReader();
-                // NivelUser
+                connection = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
+                connection.Open();
 
-                if (reader.Read())
+                command = new MySqlCommand("SELECT PASS FROM USERS WHERE USER = @user", connection);
+                command.Parameters.AddWithValue("@user", user);
+                readUser = command.ExecuteReader();
+
+
+                if (readUser.Read())
                 {
-                    if (reader["EsAdmin"].ToString() == "1")
+                    if (BCrypt.Net.BCrypt.Verify(pass, readUser["PASS"].ToString()))
+                    {
+                        readUser.Close();
+                        // Las contraseñas coinciden, el usuario ha iniciado sesión exitosamente
+                        command = new MySqlCommand("SELECT * FROM USERS WHERE USER = @usuario", connection);
+                        command.Parameters.AddWithValue("@usuario", user);
+
+                        readSQL = command.ExecuteReader();
+
+                        if (readSQL.Read())
+                        {
+                            if (readSQL["LEVELA"].ToString() == "1")
+                            {
+                                esAdmin = true;
+                            }
+                            else if (readSQL["LEVELA"].ToString() == "2")
+                            {
+                                esSuperAdmin = true;
+                            }
+                            else
+                            {
+                                esAdmin = false;
+                                esSuperAdmin = false;
+                            }
+
+                            nivelUserConectado = readSQL["LEVELU"].ToString();
+                            NomUser = readSQL["USER"].ToString();
+                            readSQL.Close();
+                            connection.Close();
+                            return true;
+                        }
+
+                        readUser.Close();
+                        connection.Close();
+
+                        return false;
+                    }
+                    else
+                    {
+                        // Las contraseñas no coinciden, mostrar un mensaje de error
+                        MessageBox.Show("NO COINCIDEN PASS");
+                        readUser.Close();
+                        return false;
+                    }
+                } 
+                else
+                {
+                    return false;
+                }
+
+
+                /*command = new MySqlCommand("SELECT * FROM USERS WHERE USER = @usuario AND PASS = @contraseña", connection);
+                command.Parameters.AddWithValue("@usuario", user);
+                command.Parameters.AddWithValue("@contraseña", pass);
+
+
+                readSQL = command.ExecuteReader();
+
+                if (readSQL.Read())
+                {
+                    if (readSQL["LEVELA"].ToString() == "1")
                     {
                         esAdmin = true;
+                    }
+                    else if (readSQL["LEVELA"].ToString() == "2")
+                    {
+                        esSuperAdmin = true;
                     }
                     else
                     {
                         esAdmin = false;
+                        esSuperAdmin = false;
                     }
 
-                    nivelUserConectado = reader["NivelUser"].ToString();
-                    NomUser = reader["Nombre"].ToString();
-                    reader.Close();
-                    conexion.Close();
+                    nivelUserConectado = readSQL["LEVELU"].ToString();
+                    NomUser = readSQL["USER"].ToString();
+                    readSQL.Close();
+                    connection.Close();
                     return true;
                 }
 
-                conexion.Close();
-                return false;
+                connection.Close();
+
+                return false; */
+
             }
             catch (SQLiteException ex)
             {
                 ex.GetBaseException();
                 return false;
-            } finally { conexion.Close(); };
+            } finally { connection.Close(); };
         } // ConectarDB
 
         /// <summary>
@@ -92,6 +170,16 @@ namespace AppDI.Recursos
         public bool EsAdmin()
         {
             return esAdmin;
+        }
+
+        /// <summary>
+        /// Método que dice si el usuario es super adminitrador o no.
+        /// </summary>
+        /// <returns></returns>
+
+        public bool EsSuperAdmin()
+        {
+            return esSuperAdmin;
         }
 
         /// <summary>

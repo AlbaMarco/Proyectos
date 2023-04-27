@@ -10,13 +10,13 @@
       xmlns:pkdex="clr-namespace:AppDI.Recursos" Loaded="Page_Loaded">
 
     <Grid Background="#3761a8">
-        <Image x:Name="nivelUsers" Style="{StaticResource ImgTitulo}" Margin="0">
+        <Image x:Name="nivelUsers" Style="{StaticResource ImgTitulo}">
             <Image.ToolTip>
                 <ToolTip Content="Este es tu nivel de usuario." FontFamily="{StaticResource PkmMonk}"/>
             </Image.ToolTip>
         </Image>
         <!-- Por cada tabItem, que haya un toolTip que lo explique. -->
-        <Label x:Name="nomUser" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Right" FontSize="24" FontFamily="{StaticResource PkmMonk}"/>
+        <Label x:Name="nomUser" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Right" FontSize="30" FontFamily="{StaticResource PkmMonk}"/>
         <pkdex:TabItemTier1 x:Name="controlTab"/>
     </Grid>
 </Page>

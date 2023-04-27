@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Pokemon</title>
-    <link rel="stylesheet" href="estilo.css">
+    <title>Inicio PokeDEXplorer</title>
+    <link rel="stylesheet" href="./Estilos/estilo.css">
 </head>
 <body>
     <header>
-        <h1>Página de Pokemon</h1>
+        <h1 id="headerTitulo">¡Bienvenido a la página de PokeDEXploter!</h1>
+        <h3 id="headerSubTitulo">La aplicación que te permite interactuar e investigar el mundo pokemon.</h3>
     </header>
     <nav>
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Pokédex</a></li>
-            <li><a href="#">Juegos</a></li>
-            <li><a href="#">Contacto</a></li>
+            <li><a href="./Inicio.html">Inicio</a></li>
+            <li><a href="./Descargas.html">Descargas</a></li>
+            <li><a href="./Contacto.html">Contacto</a></li>
+            <li><a href="./Registro.html">Registro</a></li>
         </ul>
     </nav>
     <main>
-        <h2>Bienvenido al mundo de los Pokémon</h2>
-        <p>Los Pokémon son criaturas fascinantes con habilidades únicas. Explora el mundo de los Pokémon y descubre nuevas especies.</p>
-        <img src="https://via.placeholder.com/400x300.png?text=Imagen+de+Pokémon" alt="Imagen de Pokémon">
+        <h2 id="mainTitulo">Bienvenido al mundo de los Pokémon</h2>
+        <p id="mainParr"><span class="spanContorno">&emsp;¿De donde viene la palabra "Pokémon"?</span><br><br>
+            &emsp;&emsp;La palabra Pokémon deriva del acrónimo del concepto japonés Poketto Monsuta, que significa “monstruo de bolsillo”. <br> <br>
+            <span class="spanContorno">&emsp;¿Están todas las generaciones?</span><br><br>
+            &emsp;Actualmente hay nueve generaciones pero sólo se dispone de acceso hasta la Octava generación.<br><br>
+            <span class="spanContorno">&emsp;¿En qué consiste esta aplicación?</span><br><br>
+            &emsp;Esta aplicación dispone de distintas funcionalidades dependiendo del nivel de registro que se tiene. <br>
+            No hace falta iniciar sesión para poder usar la aplicación ya que se dispone de un apartado que es gratuito, como una muestra ínfima.
+            Hay distintos niveles, dependiendo del nivel que una persona sea, se podrá acceder a más contenidos, siendo el máximo al que más acceda. <br>
+            Entre esas funcionales mencionadas están: Pokédex con datos de los Pokémon dividida por juego, información de movimeitnos, tipos, bayas,
+            pokeballs, etc. <br>Se podrá crear un máximo de 5 equipos para poder tener enfrentamientos contra una máquina y se dispondrá de un ranking
+            entre todos los jugadores. <br> <br>
+            <span class="spanContorno">&emsp;¿Cómo acceder a la apliacción?</span> <br><br>
+            &emsp;Para poder registrarse y acceder a la aplicación, se deberá de crear una cuenta desde el apartado de "Registro" para, posteriormente,
+            descargarse la úlitma versión que esté disponible del programa PokeDEXplorer.
+        </p>
+        <img class="logoPokemon" src="./Imgs/International_Pokémon_logo.svg.png" alt="Imagen del logo de Pokémon">
     </main>
     <footer>
-        <p>© 2023 Página de Pokemon</p>
+        <p id="ParrFooterInicio">© 2023. PokeDEXplorer</p>
+        <h4>Alba Marco Checa</h4>
     </footer>
 </body>
 </html>

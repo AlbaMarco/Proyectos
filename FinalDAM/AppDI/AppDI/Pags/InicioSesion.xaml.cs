@@ -52,7 +52,7 @@ namespace AppDI.Pags
         {
             if (miBD.ConectarBD(userAcc.Text, passAcc.Password.ToString()))
             { 
-                if (miBD.EsAdmin())
+                if (miBD.EsAdmin() || miBD.EsSuperAdmin())
                 {
                     eleccionAdmin();
                 } else
