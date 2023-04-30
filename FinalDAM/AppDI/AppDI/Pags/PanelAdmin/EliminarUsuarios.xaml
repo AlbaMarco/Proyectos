@@ -4,12 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="350"
+      mc:Ignorable="d"
+      d:DesignHeight="750" d:DesignWidth="700"
       Title="EliminarUsuarios" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
-        <DataGrid x:Name="listaDataGrid" Width="250" Height="200" Style="{StaticResource dataGrid}" VerticalAlignment="Top" Margin="20" MouseLeftButtonDown="listaDataGrid_MouseLeftButtonDown">
+        <DataGrid x:Name="listaDataGrid" Width="650" Height="600" Style="{StaticResource dataGrid}" VerticalAlignment="Top" Margin="20" MouseLeftButtonDown="listaDataGrid_MouseLeftButtonDown">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
             </DataGrid.Resources>
@@ -18,9 +18,9 @@
             </DataGrid.ToolTip>
         </DataGrid>
         <Button x:Name="btnEliminar" Style="{StaticResource btnModNivel}" Content="Eliminar" VerticalAlignment="Bottom" Margin="20" Click="btnEliminar_Click"/>
-        <Label x:Name="lbUser" Style="{StaticResource labelElimUsers}" Width="100" HorizontalAlignment="Left" Margin="20, 0, 0, 50"/>
-        <Label x:Name="lbAdmin" Style="{StaticResource labelElimUsers}" Width="20" HorizontalAlignment="Center" Margin="0, 0, 0, 50"/>
-        <Label x:Name="lbNivel" Style="{StaticResource labelElimUsers}" Width="20" HorizontalAlignment="Right" Margin="0, 0, 50, 50"/>
+        <Label x:Name="lbUser" Style="{StaticResource labelElimUsers}" Width="250" HorizontalAlignment="Left" Margin="20, 0, 0, 50"/>
+        <Label x:Name="lbAdmin" Style="{StaticResource labelElimUsers}" Width="50" HorizontalAlignment="Center" Margin="0, 0, 0, 50"/>
+        <Label x:Name="lbNivel" Style="{StaticResource labelElimUsers}" Width="50" HorizontalAlignment="Right" Margin="0, 0, 50, 50"/>
         <Label x:Name="lbCorrecto" Style="{StaticResource labelElimUsers}" Width="100" HorizontalAlignment="Center" FontSize="8" HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>

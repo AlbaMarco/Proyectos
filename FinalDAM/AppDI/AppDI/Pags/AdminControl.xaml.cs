@@ -31,6 +31,26 @@ namespace AppDI.Pags
         {
             InitializeComponent();
             miDB = dB;
+            ComprobarAdmin(dB.EsSuperAdmin());
+        }
+
+        private void ComprobarAdmin(bool nivel)
+        {
+            if(nivel) // Si es super Administrador.
+            {
+                expand.btnAddUser.Visibility = Visibility.Visible;
+                expand.btnEliUser.Visibility = Visibility.Visible;
+                expand.btnListaUsers.Visibility = Visibility.Visible;
+                expand.btnModAdmin.Visibility = Visibility.Visible;
+                expand.btnModNivel.Visibility = Visibility.Visible;
+            } else
+            {
+                expand.btnAddUser.Visibility = Visibility.Visible;
+                expand.btnEliUser.Visibility = Visibility.Hidden; // Eliminar usuarios. 2
+                expand.btnListaUsers.Visibility = Visibility.Visible;
+                expand.btnModAdmin.Visibility = Visibility.Hidden; // Modificar administrador. 2
+                expand.btnModNivel.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

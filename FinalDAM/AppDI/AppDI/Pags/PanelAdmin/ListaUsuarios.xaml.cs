@@ -35,6 +35,7 @@ namespace AppDI.Pags.PanelAdmin
             InitializeComponent();
             miDb = db;
             rellenarGrid();
+            db.RegistroLogNuevo("Listando los usuarios", db.NomUser, db.NivelAdmin);
         }
 
         /// <summary>

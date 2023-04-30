@@ -81,8 +81,8 @@ namespace AppDI.Pags
         private void eleccionAdmin ()
         {
             Window custom = new Window();
-            custom.Title = "Administrador";
-            custom.Width = 300;
+            custom.Title = "Acceso Administrador";
+            custom.Width = 400; // 300
             custom.Height = 100;
             Color c = Color.FromRgb(55, 97, 168); // #3761a8
             SolidColorBrush b = new SolidColorBrush(c);
@@ -96,7 +96,7 @@ namespace AppDI.Pags
             text1.Text = "¿Desea ir al panel de control de administrador?";
             text1.VerticalAlignment = VerticalAlignment.Center;
             text1.HorizontalAlignment = HorizontalAlignment.Center;
-            text1.FontSize = 14;
+            text1.FontSize = 17;
             text1.Margin = margin;
             text1.FontFamily = fuente;
             text1.Foreground = Brushes.Gold;
@@ -104,10 +104,10 @@ namespace AppDI.Pags
             Grid grid = new Grid();
             // Columnas
             ColumnDefinition col1 = new ColumnDefinition();
-            col1.Width = new GridLength(150, GridUnitType.Pixel);
+            col1.Width = new GridLength(200, GridUnitType.Pixel); // Estaba a 150 ya que el ancho era 300.
             ColumnDefinition col2 = new ColumnDefinition();
-            col2.Width = new GridLength(150, GridUnitType.Pixel);
-            grid.ColumnDefinitions.Add(col1);
+            col2.Width = new GridLength(200, GridUnitType.Pixel); // Igual.
+            grid.ColumnDefinitions.Add(col1); 
             grid.ColumnDefinitions.Add(col2);
 
             // Filas
@@ -129,7 +129,8 @@ namespace AppDI.Pags
             Button btnSi = new Button();
             btnSi.Content = "Sí";
             btnSi.FontFamily = fuente;
-            btnSi.Height = 20;
+            btnSi.Height = 30;
+            btnSi.FontSize = 18;
             btnSi.Background = b;
             btnSi.Foreground = Brushes.Gold;
             btnSi.BorderBrush = Brushes.Gold;
@@ -140,7 +141,8 @@ namespace AppDI.Pags
             Button btnNo = new Button();
             btnNo.Content = "No";
             btnNo.FontFamily = fuente;
-            btnNo.Height = 20;
+            btnNo.Height = 30;
+            btnNo.FontSize = 18;
             btnNo.Background = b;
             btnNo.Foreground = Brushes.Gold;
             btnNo.BorderBrush = Brushes.Gold;

@@ -77,8 +77,11 @@ namespace AppDI.Pags.PanelAdmin
         /// <param name="e"></param>
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            if(miDb.eliminarUsuarios((string)lbUser.Content, (string)lbAdmin.Content, (string)lbNivel.Content) == 1) { lbCorrecto.Content = "Correcto."; }
-            else { lbCorrecto.Content = "Error."; }
+            if(lbUser.Content.ToString() != string.Empty)
+            {
+                if (miDb.eliminarUsuarios((string)lbUser.Content, (string)lbNivel.Content) == 1) { lbCorrecto.Content = "Correcto."; }
+                else { lbCorrecto.Content = "Error."; }
+            }   
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

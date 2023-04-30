@@ -160,11 +160,12 @@
         <!-- Textblock de la página AdminControl de la izquierda. -->
         <Style x:Key="tblockAdmin" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Width" Value="250"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="600"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="TextAlignment" Value="Justify"/>
             <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <!-- Botones del control de usuario Expander usando en la ventana de Administración. -->
@@ -175,6 +176,7 @@
             <Setter Property="Margin" Value="0, 10, 0, 10"/>
             <Setter Property="Width" Value="140"/>
             <Setter Property="Height" Value="20"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
         </Style>
 
         <!-- Estilo de los títulos del control de usuario TabItem. -->
@@ -238,15 +240,17 @@
             <Setter Property="Background" Value="#3761a8"/>
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="BorderBrush" Value="Gold"/>
-            <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
         </Style>
 
         <!-- Título TxtBlock de ModificacionNivel - AddNuevosUsers -->
         <Style x:Key="txtBlockModNivel" TargetType="TextBlock">
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="22"/>
             <Setter Property="TextAlignment" Value="Justify"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -256,9 +260,9 @@
         <Style x:Key="labelModNivel" TargetType="Label">
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="90"/>
+            <Setter Property="Width" Value="150"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
@@ -267,9 +271,9 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmFontBold}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="90"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="BorderBrush" Value="Gold"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -285,7 +289,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="150"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="BorderBrush" Value="Gold"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -304,7 +308,7 @@
         <Style x:Key="raBtnModAdmin" TargetType="RadioButton">
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Background" Value="Gold"/>
@@ -315,10 +319,12 @@
             <Setter Property="Background" Value="#3761a8"/>
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="BorderBrush" Value="Gold"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <!-- Estilo del textBox de Registro. -->
@@ -430,10 +436,76 @@
             </StackPanel>
         </DataTemplate>
 
+        <!-- Imagenes del apartado Items de Evolución -->
+        <Style x:Key= "ImgItemEvoluciones" TargetType="Image">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+        </Style>
 
-        
-        
-        <!-- Estilo usado en las barrar de los dataGrid. [SCROLL BAR] -->
+        <!-- TextBlock del apartado de Items de Evolución -->
+        <Style x:Key="TBItemEvoluciones" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="TextAlignment" Value="Justify"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontStretch" Value="Normal"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10, 0, 0, 0"/>
+        </Style>
+
+        <Style x:Key="LBItemEvoluciones" TargetType="ListBox">
+            <Setter Property="Height" Value="400"/>
+            <Setter Property="Width" Value="550"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="Background" Value="LightSteelBlue"/>
+        </Style>
+
+
+        <!-- Estilos de los títulos Header del DataGrid usado TabItem, plantillas Arceus. -->
+        <Style x:Key="titulosDataGridListaArceus"  TargetType="DataGridColumnHeader">
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style x:Key="filasDGArceus" TargetType="DataGridCell">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Estilo general del dataGrid usado TabItem, plantillas Arceus. -->
+        <Style x:Key="dataGridArceus" TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowBackground" Value="#3761a8"/>
+            <Setter Property="GridLinesVisibility" Value="Vertical"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="ColumnHeaderStyle" Value="{StaticResource titulosDataGridListaArceus}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+
+        <!-- Estilo usado en las barras de los DataGrid y ListBox. [SCROLL BAR] -->
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>

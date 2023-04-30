@@ -647,10 +647,7 @@ namespace AppDI.Recursos
                         lbTipos.Items.Add(jsonTipGen.RootElement.GetProperty("types")[i].GetProperty("name").ToString());
                     }
                 }
-
-                
-
-            }
+            } // Using
         } // Peticion de la generación tipos.
 
         private JsonDocument jsonTip;
@@ -1252,6 +1249,192 @@ namespace AppDI.Recursos
                 delanTer.IsEnabled = false;
             }
             PkbolEspecial.ScrollIntoView(PkbolEspecial.SelectedItem);
+        }
+
+        // ITEMS EVOLUCIÓN
+        private JsonDocument jsonPiedrasEvo;
+        private string respuestaPiedrasEvo;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionPiedrasEvo() // Admite numGeneracion o nombre.
+        {
+            // Número 10 son piedras.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/10/"))
+                {
+                    respuestaPiedrasEvo = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonPiedrasEvo = JsonDocument.Parse(respuestaPiedrasEvo);
+
+                for (int i = 0; i < jsonPiedrasEvo.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    LbEvoPiedrasEvo.Items.Add(jsonPiedrasEvo.RootElement.GetProperty("items")[i].GetProperty("name").ToString());
+                }
+            } // Using
+        } // PeticionPiedrasEvo
+
+        private JsonDocument jsonMegaEvo;
+        private string respuestaMegaEvo;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionMegaEvo() // Admite numGeneracion o nombre.
+        {
+            // Número 44 mega evoluciones
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/44/"))
+                {
+                    respuestaMegaEvo = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonMegaEvo = JsonDocument.Parse(respuestaMegaEvo);
+
+                for (int i = 0; i < jsonMegaEvo.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    LbEvoPiedrasMega.Items.Add(jsonMegaEvo.RootElement.GetProperty("items")[i].GetProperty("name").ToString());
+                }
+            } // Using
+        } // PeticionMegaEvo
+
+        private JsonDocument jsonItemsEvo;
+        private string respuestaItemsEvo;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionItemsEvo(string consulta, string num) // Admite numGeneracion o nombre.
+        {
+            // Número 44 mega evoluciones
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaItemsEvo = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonItemsEvo = JsonDocument.Parse(respuestaItemsEvo);
+
+                if (num == "10")
+                {
+                    try
+                    {
+                        TBPiedrasEvo.Text = jsonItemsEvo.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6);
+                        BitmapImage img = new BitmapImage(new Uri(jsonItemsEvo.RootElement.GetProperty("sprites").GetProperty("default").ToString()));
+                        ImgPiedrasEvo.Source = img;
+                    } catch (IndexOutOfRangeException ex)
+                    {
+                        TBPiedrasEvo.Text = "No hay datos disponibles por el momento.";
+                        ImgPiedrasEvo.Source = null;
+                    }
+                    
+                } else
+                {
+                    try
+                    {
+                        TBPiedrasMega.Text = jsonItemsEvo.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6);
+                        BitmapImage img = new BitmapImage(new Uri(jsonItemsEvo.RootElement.GetProperty("sprites").GetProperty("default").ToString()));
+                        ImgPiedrasMega.Source = img;
+                    } catch (IndexOutOfRangeException ex)
+                    {
+                        TBPiedrasMega.Text = "No hay datos por el momento"; 
+                        ImgPiedrasMega.Source = null;
+                    }
+                    
+                }
+            } // Using
+        } // PeticionItemsEvo
+        private async void ItemsEvolucion_Initialized(object sender, EventArgs e)
+        {
+            await PeticionPiedrasEvo();
+            await PeticionMegaEvo();
+        }
+        private async void LbEvoPiedrasEvo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            await PeticionItemsEvo(jsonPiedrasEvo.RootElement.GetProperty("items")[LbEvoPiedrasEvo.SelectedIndex].GetProperty("url").ToString().Substring(26), "10");
+        }
+
+        private async void LbEvoPiedrasMega_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            await PeticionItemsEvo(jsonMegaEvo.RootElement.GetProperty("items")[LbEvoPiedrasMega.SelectedIndex].GetProperty("url").ToString().Substring(26), "44");
+        }
+
+
+        // LÁMINAS DE ARCEUS
+        private JsonDocument jsonLamArceus;
+        private string respuestaLamArceus;
+        private List<object> lamArceusList = new List<object>();
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionLamArceus() // Admite numGeneracion o nombre.
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/17/"))
+                {
+                    respuestaLamArceus = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonLamArceus = JsonDocument.Parse(respuestaLamArceus);
+
+                for (int i = 0; i < jsonLamArceus.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    string nombrePlate = jsonLamArceus.RootElement.GetProperty("items")[i].GetProperty("name").ToString();
+                    string descripcionPlate;
+                    BitmapImage img;
+                    await PeticionTextoImgArceus(jsonLamArceus.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                    try
+                    {
+                        descripcionPlate = jsonTextoImgArceus.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6);
+                        img = new BitmapImage(new Uri(jsonTextoImgArceus.RootElement.GetProperty("sprites").GetProperty("default").ToString()));
+                        lamArceusList.Add(new { Name = nombrePlate, Description = descripcionPlate, ImageUrl = img });
+
+                    } catch (IndexOutOfRangeException ex)
+                    {
+                        //descripcionPlate = "No hay datos";
+                        //img = null;
+                        //lamArceusList.Add(new { Name = nombrePlate, Description = descripcionPlate, ImageUrl = img });
+                    }
+                    
+                    
+                }
+            } // Using
+        } // PeticionLamArceus
+
+        private JsonDocument jsonTextoImgArceus;
+        private string respuestaTextoImgArceus;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionTextoImgArceus(string consulta)
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaTextoImgArceus = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonTextoImgArceus = JsonDocument.Parse(respuestaTextoImgArceus);
+            } // Using
+        } // PeticionItemsEvo
+        private async void LamArceus_Initialized(object sender, EventArgs e)
+        {
+            await PeticionLamArceus();
+            dGridArceus.ItemsSource = lamArceusList;
         }
     }// Clase.
 

@@ -40,7 +40,7 @@ namespace AppDI.Pags
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnRegistro_Click(object sender, RoutedEventArgs e)
+        /*private void btnRegistro_Click(object sender, RoutedEventArgs e)
         {
             if(userAcc.Text != string.Empty && passAcc.Password != string.Empty && passAccConfirma.Password != string.Empty)
             {
@@ -61,6 +61,6 @@ namespace AppDI.Pags
             {
                 MessageBox.Show("Rellene todos los campos, por favor.");
             }
-        }
+        }*/
     }
 }

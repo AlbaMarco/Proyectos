@@ -5,14 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="350"
+      d:DesignHeight="750" d:DesignWidth="700"
       Title="Añadir nuevos usuarios" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
         <TextBlock Style="{StaticResource txtBlockModNivel}"
-                   Width="320" Height="100" Margin="10">
+                   Width="650" Height="200" Margin="10">
             Esta es la ventana para añadir nuevos usuarios, cada bloque es es un campo. <LineBreak/> <LineBreak/>
-            Por defecto, el administrador será 0, para modificarlo seleccione en el desplegable la modificación de administrador.
+            Por defecto, el administrador será 0. <LineBreak/> <LineBreak/>
+            Si desea configurarlo, contacte con un super adminsitrador para que lleve a cabo el cambio.
         </TextBlock>
 
         <Button x:Name="btnGuardar" Style="{StaticResource btnModNivel}" Content="Guardar" VerticalAlignment="Bottom"
@@ -21,22 +22,22 @@
         <Button x:Name="btnCancelar" Style="{StaticResource btnModNivel}" Content="Cancelar" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" Margin="0, 0, 30, 20" Click="btnCancelar_Click" />
 
-        <Label x:Name="lblNom" Content="Nombre" Style="{StaticResource labelModNivel}" Margin="50, 0, 0, 50"/>
-        <Label x:Name="lblPass" Content="Contraseña" Style="{StaticResource labelModNivel}" Margin="50, 50, 0, 0"/>
-        <Label x:Name="lblNivelUser" Content="NivelUser" Style="{StaticResource labelModNivel}"  Margin="50, 150, 0, 0"/>
-        <Label x:Name="lblResultado" Style="{StaticResource labelModNivel}"  Width="150" Margin="100, 240, 0, 0"/>
+        <Label x:Name="lblNom" Content="Nombre" Style="{StaticResource labelModNivel}" Margin="150, 0, 0, 50"/>
+        <Label x:Name="lblPass" Content="Contraseña" Style="{StaticResource labelModNivel}" Margin="150, 50, 0, 0"/>
+        <Label x:Name="lblNivelUser" Content="NivelUser" Style="{StaticResource labelModNivel}"  Margin="150, 150, 0, 0"/>
+        <Label x:Name="lblResultado" Style="{StaticResource labelModNivel}"  Width="400" Margin="150, 240, 0, 0"/>
 
-        <TextBox x:Name="tBoxNom" Style="{StaticResource textBoxAddNuevoUser}" Margin="140, 0, 0, 50">
+        <TextBox x:Name="tBoxNom" Style="{StaticResource textBoxAddNuevoUser}" Margin="0, 0, 150, 50">
             <TextBox.ToolTip>
                 <ToolTip Content="Introduzca el nombre." FontFamily="{StaticResource PkmMonk}"/>
             </TextBox.ToolTip>
         </TextBox>
-        <TextBox x:Name="tBoxPass" Style="{StaticResource textBoxAddNuevoUser}" Margin="140, 50, 0, 0">
+        <TextBox x:Name="tBoxPass" Style="{StaticResource textBoxAddNuevoUser}" Margin="0, 50, 150, 0">
             <TextBox.ToolTip>
                 <ToolTip Content="Introduzca la contraseña." FontFamily="{StaticResource PkmMonk}"/>
             </TextBox.ToolTip>
         </TextBox>
-        <TextBox x:Name="tBoxNivelUser" Style="{StaticResource textBoxAddNuevoUser}" Margin="140, 150, 0, 0">
+        <TextBox x:Name="tBoxNivelUser" Style="{StaticResource textBoxAddNuevoUser}" Margin="0, 150, 150, 0">
             <TextBox.ToolTip>
                 <ToolTip Content="Introduzca el el nivel de usuario." FontFamily="{StaticResource PkmMonk}"/>
             </TextBox.ToolTip>

@@ -111,12 +111,12 @@ namespace AppDI.Pags
                     controlTab.Movimientos.Visibility = Visibility.Visible;
                     controlTab.Tipos.Visibility = Visibility.Visible;
                     controlTab.Pokeball.Visibility = Visibility.Visible;
-                    controlTab.Bayas.Visibility = Visibility.Hidden;
-                    controlTab.ItemsEstado.Visibility = Visibility.Hidden;
-                    controlTab.ItemsEvolucion.Visibility = Visibility.Hidden;
-                    controlTab.LamArceus.Visibility = Visibility.Hidden;
-                    controlTab.Cartas.Visibility = Visibility.Hidden;
-                    controlTab.Vitaminas.Visibility = Visibility.Hidden;
+                    controlTab.Bayas.Visibility = Visibility.Visible;
+                    controlTab.ItemsEstado.Visibility = Visibility.Visible;
+                    controlTab.ItemsEvolucion.Visibility = Visibility.Visible;
+                    controlTab.LamArceus.Visibility = Visibility.Visible;
+                    controlTab.Cartas.Visibility = Visibility.Visible;
+                    controlTab.Vitaminas.Visibility = Visibility.Visible;
                     break;
             } // switch
         } // Visibilidad control.

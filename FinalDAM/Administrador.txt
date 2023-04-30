@@ -1,0 +1,13 @@
+Administrador: 
+	- Listar Usuarios
+	- Control nivel usuarios
+	- Control cambio de nombres
+	- ¿Añadir cuentas nuevas?
+	- Prohibir Pokemons (Tabla PKMBaneados)
+	- HACER LOG.
+
+SuperAdministrador: 
+	- No hay LOGS para ellos
+	- Cambiar a alguien a superAdmin
+	- Eliminar usuarios
+		     

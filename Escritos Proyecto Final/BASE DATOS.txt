@@ -7,7 +7,7 @@ Correo electrónico: almarche20021@gmail.com
 Table USERS as US{
   USER varchar [pk]
   PASS varchar [not null]
-  ULT_VISITA DATE
+  ULT_VISITA varchar
   LEVELU int [ref: > N.NIVEL]
   LEVELA int [ref: > A.NIVEL]
   Indexes {
@@ -65,16 +65,4 @@ Table EQUIPOS_ALEATORIOS {
 	ENFRENTAMIENTOS_JUGADOS int [null]
 	ENFRENTAMIENTOS_GANADOS int [null]
 	ENFRENTAMIENTOS_PERDIDOS int [null]
-}
-
-Table PKM_BANEADO {
-  ID_PKM varchar [pk]
-  NAMEPKM varchar [pk]
-}
-
-Table SOPORTETECNICO {
-  ID_TICKET int [pk, increment]
-  TXT_TICKET varchar [not null]
-  ESTADO varchar [not null]
-  FECHA_ENTRADA date
 }

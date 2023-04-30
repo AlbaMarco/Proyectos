@@ -79,10 +79,7 @@
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="BusquedaAPI_MouseDoubleClick"
                              BorderBrush="Gold" BorderThickness="2">
                                 <ListBox.Resources>
-                                    <Style TargetType="ScrollBar">
-                                        <Setter Property="MaxWidth" Value="5"/>
-                                        <Setter Property="MinWidth" Value="0"/>
-                                    </Style>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
                                 </ListBox.Resources>
                             </ListBox>
 
@@ -90,10 +87,7 @@
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
                         BorderBrush="#3761a8" BorderThickness="2">
                                 <ListBox.Resources>
-                                    <Style TargetType="ScrollBar" >
-                                        <Setter Property="MaxWidth" Value="5"/>
-                                        <Setter Property="MinWidth" Value="0"/>
-                                    </Style>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
                                 </ListBox.Resources>
                             </ListBox>
 
@@ -164,7 +158,11 @@
                     </Label>
 
                     <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbMovs" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" BorderBrush="Gold" 
-                             MouseDoubleClick="lbMovs_MouseDoubleClick" FontSize="17" FontFamily="{StaticResource PkmGB}" Background="LightSteelBlue"/>
+                             MouseDoubleClick="lbMovs_MouseDoubleClick" FontSize="17" FontFamily="{StaticResource PkmGB}" Background="LightSteelBlue">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
 
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -246,7 +244,11 @@
                     </Label>
 
                     <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbTipos" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" 
-                             BorderBrush="Gold" MouseDoubleClick="lbTipos_MouseDoubleClick" Background="LightSteelBlue" FontSize="17" FontFamily="{StaticResource PkmGB}"/>
+                             BorderBrush="Gold" MouseDoubleClick="lbTipos_MouseDoubleClick" Background="LightSteelBlue" FontSize="17" FontFamily="{StaticResource PkmGB}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
 
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -436,9 +438,10 @@
             </TabItem>
 
             <!-- ITEMS EVOLUCION -->
-            <TabItem x:Name="ItemsEvolucion" Background="LightSteelBlue">
+            <TabItem x:Name="ItemsEvolucion" Background="LightSteelBlue" Initialized="ItemsEvolucion_Initialized">
                 <!-- Items de evolución:
                     https://pokeapi.co/api/v2/item-category/10/
+                    https://pokeapi.co/api/v2/item-category/44/ MEGA PIEDRAS.
                 -->
                 <TabItem.Header>
                     <Border BorderBrush="OliveDrab" BorderThickness="2" Background="LightSteelBlue">
@@ -451,11 +454,44 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a los diferentes objetos necesarios para evolucionar" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="75*"/>
+                        <RowDefinition Height="25*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Hay dos tipos de evoluciones, ignorando el de nivel" Style="{StaticResource TBPokebolas}"/>
+                    <TextBlock Grid.Row="2"  Text="Piedras de evolución" Style="{StaticResource TBPokebolas}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1"  Text="Piedras Mega Evolución de Pokémon" Style="{StaticResource TBPokebolas}"/>
+                    
+                    <ListBox x:Name="LbEvoPiedrasEvo" Grid.Row="3" Style="{StaticResource LBItemEvoluciones}" MouseDoubleClick="LbEvoPiedrasEvo_MouseDoubleClick">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+                    <ListBox x:Name="LbEvoPiedrasMega" Grid.Row="3" Grid.Column="1" Style="{StaticResource LBItemEvoluciones}" MouseDoubleClick="LbEvoPiedrasMega_MouseDoubleClick">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <Image x:Name="ImgPiedrasEvo" Grid.Row="4" Style="{StaticResource ImgItemEvoluciones}"/>
+                    <TextBlock x:Name="TBPiedrasEvo" Grid.Row="4" Style="{StaticResource TBItemEvoluciones}"/>
+
+                    <Image x:Name="ImgPiedrasMega" Grid.Row="4" Grid.Column="1" Style="{StaticResource ImgItemEvoluciones}"/>
+                    <TextBlock x:Name="TBPiedrasMega" Grid.Row="4" Grid.Column="1" Style="{StaticResource TBItemEvoluciones}"/>
+                </Grid>
             </TabItem>
 
             <!-- LÁMINAS ARCEUS -->
-            <TabItem x:Name="LamArceus" Background="LightSteelBlue">
+            <TabItem x:Name="LamArceus" Background="LightSteelBlue" Initialized="LamArceus_Initialized">
                 <!-- Platillas de Arceus:
                     https://pokeapi.co/api/v2/item-category/17/
                 -->
@@ -470,7 +506,48 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a las distintas láminas de cambio de tipo de Arceus." FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="En la siguiente tabla se mostrarán todos los tipos diferetentes de las tablas de Arceus." 
+                               Grid.Column="1" Grid.Row="1" Style="{StaticResource TBPokebolas}"/>
+                    
+                    <DataGrid x:Name="dGridArceus" Style="{StaticResource dataGridArceus}" Grid.Column="1" Grid.Row="3" >
+                        <DataGrid.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="130" CellStyle="{StaticResource filasDGArceus}"/>
+                            <DataGridTemplateColumn Header="Descripción" Width="933" CellStyle="{StaticResource filasDGArceus}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Imagen" Width="100" CellStyle="{StaticResource filasDGArceus}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImageUrl}" Width="40" Height="40" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+               
             </TabItem>
 
             <!-- CARTAS -->

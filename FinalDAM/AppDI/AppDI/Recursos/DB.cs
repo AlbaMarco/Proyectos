@@ -10,6 +10,7 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using Org.BouncyCastle.Crypto.Generators;
+using System.Security.Policy;
 
 namespace AppDI.Recursos
 {
@@ -18,19 +19,13 @@ namespace AppDI.Recursos
     /// </summary>
     public class DB // Acceso a la Base de datos.
     {
-        private SQLiteConnection conexion;
-        private SQLiteCommand comando;
-        private SQLiteDataReader reader;
-
-        private SQLiteDataAdapter adaptador;
-        private DataSet ds;
-
-        private MySqlConnection connection;
-        private MySqlCommand command;
+        private MySqlConnection conexion;
+        private MySqlCommand comando;
         private MySqlDataReader readSQL;
-        private MySqlDataAdapter adapter;
+        private MySqlDataAdapter adaptador;
 
         private MySqlDataReader readUser;
+        private DataSet ds;
         /// <summary>
         /// Propiedadad para obtener la conexión.
         /// </summary>
@@ -39,13 +34,17 @@ namespace AppDI.Recursos
         private bool esAdmin;
         private bool esSuperAdmin;
         /// <summary>
-        /// Propiedad para saber el nivel del usuario conectado.
+        /// Propiedad para saber el nivel del usuario conectado. De 1 a 4.
         /// </summary>
         public string nivelUserConectado { get; set; }
         /// <summary>
         /// Propiedad para obtener el nombre de usuario.
         /// </summary>
         public string NomUser { get; set; }
+        /// <summary>
+        /// Propiedad para saber el nivel del administrador. 1 Normal, 2 SuperAdmin
+        /// </summary>
+        public int NivelAdmin { get; set; }
 
         /// <summary>
         /// Método de conexción con la base de datos embebida. Además, se almacenará el nombre y si es administrador en propiedades.
@@ -56,54 +55,66 @@ namespace AppDI.Recursos
         public bool ConectarBD(string user, string pass)
         {
             Conex = "server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal";
-            if (connection != null) { connection.Close(); }
+            if (conexion != null) { conexion.Close(); }
 
             try
             {
-                connection = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
-                connection.Open();
+                conexion = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
+                conexion.Open();
 
-                command = new MySqlCommand("SELECT PASS FROM USERS WHERE USER = @user", connection);
-                command.Parameters.AddWithValue("@user", user);
-                readUser = command.ExecuteReader();
+                comando = new MySqlCommand("SELECT PASS FROM USERS WHERE USER = @user", conexion);
+                comando.Parameters.AddWithValue("@user", user);
+                readUser = comando.ExecuteReader();
 
 
                 if (readUser.Read())
                 {
                     if (BCrypt.Net.BCrypt.Verify(pass, readUser["PASS"].ToString()))
                     {
-                        readUser.Close();
                         // Las contraseñas coinciden, el usuario ha iniciado sesión exitosamente
-                        command = new MySqlCommand("SELECT * FROM USERS WHERE USER = @usuario", connection);
-                        command.Parameters.AddWithValue("@usuario", user);
+                        readUser.Close();
 
-                        readSQL = command.ExecuteReader();
+                        // Se actualiza el campo de la fecha para saber que día ha entrado.
+                        DateTime fechaActual = DateTime.Now;
+                        string fecha = fechaActual.ToString("yyyy-MM-dd"); // MM para que sean meses.
+                        comando = new MySqlCommand("UPDATE USERS SET ULT_VISITA = '"+fecha+"' where USER = @usuarios ", conexion);
+                        comando.Parameters.AddWithValue("@usuario", user);
+                        comando.ExecuteNonQuery();
+
+                        // Selecciona los datos de la persona que ha entrado en la aplicación.
+                        comando = new MySqlCommand("SELECT * FROM USERS WHERE USER = @usuario", conexion);
+                        comando.Parameters.AddWithValue("@usuario", user);
+
+                        readSQL = comando.ExecuteReader();
 
                         if (readSQL.Read())
                         {
                             if (readSQL["LEVELA"].ToString() == "1")
                             {
                                 esAdmin = true;
+                                NivelAdmin = 1;
                             }
                             else if (readSQL["LEVELA"].ToString() == "2")
                             {
                                 esSuperAdmin = true;
+                                NivelAdmin = 2;
                             }
                             else
                             {
                                 esAdmin = false;
                                 esSuperAdmin = false;
+                                NivelAdmin = 0;
                             }
 
                             nivelUserConectado = readSQL["LEVELU"].ToString();
                             NomUser = readSQL["USER"].ToString();
                             readSQL.Close();
-                            connection.Close();
+                            conexion.Close();
                             return true;
                         }
 
                         readUser.Close();
-                        connection.Close();
+                        conexion.Close();
 
                         return false;
                     }
@@ -120,47 +131,12 @@ namespace AppDI.Recursos
                     return false;
                 }
 
-
-                /*command = new MySqlCommand("SELECT * FROM USERS WHERE USER = @usuario AND PASS = @contraseña", connection);
-                command.Parameters.AddWithValue("@usuario", user);
-                command.Parameters.AddWithValue("@contraseña", pass);
-
-
-                readSQL = command.ExecuteReader();
-
-                if (readSQL.Read())
-                {
-                    if (readSQL["LEVELA"].ToString() == "1")
-                    {
-                        esAdmin = true;
-                    }
-                    else if (readSQL["LEVELA"].ToString() == "2")
-                    {
-                        esSuperAdmin = true;
-                    }
-                    else
-                    {
-                        esAdmin = false;
-                        esSuperAdmin = false;
-                    }
-
-                    nivelUserConectado = readSQL["LEVELU"].ToString();
-                    NomUser = readSQL["USER"].ToString();
-                    readSQL.Close();
-                    connection.Close();
-                    return true;
-                }
-
-                connection.Close();
-
-                return false; */
-
             }
-            catch (SQLiteException ex)
+            catch (MySqlException ex)
             {
                 ex.GetBaseException();
                 return false;
-            } finally { connection.Close(); };
+            } finally { conexion.Close(); };
         } // ConectarDB
 
         /// <summary>
@@ -182,35 +158,6 @@ namespace AppDI.Recursos
             return esSuperAdmin;
         }
 
-        /// <summary>
-        /// Por defecto, no será administrador y el nivel será el menor, en este caso el nivel 1.
-        /// </summary>
-        /// <param name="nombre"></param>
-        /// <param name="contraseña"></param>
-        /// <returns></returns>
-        public int registroUsuarios(string nombre, string contraseña)
-        {
-            Conex = "Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True";
-            string sql = "INSERT INTO Usuarios (Nombre, Contraseña, EsAdmin, NivelUser) VALUES ('" + nombre + "', '" + contraseña + "', 0, 1)";
-            using SQLiteConnection c = new SQLiteConnection(Conex);
-            c.Open();
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, c))
-            {
-                try
-                {
-                    int num = cmd.ExecuteNonQuery();
-                    c.Close();
-                    return num;
-                }
-                catch (SQLiteException error)
-                {
-                    MessageBox.Show("Error. Ya hay ese nombre en base de datos.");
-                    c.Close();
-                    return 0;
-                }
-
-            }
-        } // añadir Usuarios.
 
         /// <summary>
         /// Select de la tabla Usuarios de todo el contenido, excepto de la contraseña.
@@ -218,11 +165,11 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public DataSet selectTodo()
         {
-            conexion = new SQLiteConnection("Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True; journal_mode=WAL");
-            comando = new SQLiteCommand("SELECT Nombre, EsAdmin, NivelUser from Usuarios", conexion);
+            conexion = new MySqlConnection(Conex);
+            comando = new MySqlCommand("SELECT USER, ULT_VISITA, LEVELU, LEVELA from USERS", conexion);
 
             conexion.Open();
-            adaptador = new SQLiteDataAdapter(comando);
+            adaptador = new MySqlDataAdapter(comando);
             ds = new DataSet();
 
             adaptador.Fill(ds, "users");
@@ -237,11 +184,11 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public List<string> selectNombres()
         {
-            conexion = new SQLiteConnection("Data Source = ../../../Resources/AppDI.db; Version = 3; New = false; Compress = True");
-            comando = new SQLiteCommand("SELECT Nombre from Usuarios", conexion);
+            conexion = new MySqlConnection(Conex);
+            comando = new MySqlCommand("SELECT USER from USERS", conexion);
 
             conexion.Open();
-            adaptador = new SQLiteDataAdapter(comando);
+            adaptador = new MySqlDataAdapter(comando);
             ds = new DataSet();
 
             adaptador.Fill(ds, "users");
@@ -249,7 +196,7 @@ namespace AppDI.Recursos
             List<string> nombres = new List<string>();
             foreach(DataRow dr in ds.Tables["users"].Rows)
             {
-                nombres.Add(dr["Nombre"].ToString());
+                nombres.Add(dr["USER"].ToString());
             }
 
             conexion.Close();
@@ -258,7 +205,7 @@ namespace AppDI.Recursos
         }
 
         /// <summary>
-        /// Método para saber que nivel de administrador es la persona. 
+        /// Método para saber si es administrador bajo la persona. 
         /// Devolverá 1 si es que es, 0 si no lo es y -1 si da error la consulta.
         /// </summary>
         /// <param name="nom"></param>
@@ -267,14 +214,14 @@ namespace AppDI.Recursos
         {
             try
             {
-                comando = new SQLiteCommand("Select EsAdmin from Usuarios where Nombre ='" + nom + "';", conexion);
+                comando = new MySqlCommand("Select LEVELA from USERS where USER ='" + nom + "';", conexion);
 
                 conexion.Open();
-                reader = comando.ExecuteReader();
+                readSQL = comando.ExecuteReader();
 
-                if (reader.Read())
+                if (readSQL.Read())
                 {
-                    if (reader["EsAdmin"].ToString() == "1")
+                    if (readSQL["LEVELA"].ToString() == "1")
                     {
                         return 1;
                     }
@@ -282,12 +229,9 @@ namespace AppDI.Recursos
                     {
                         return 0;
                     }
-
-                    reader.Close();
-                    conexion.Close();
-                    return -1;
                 }
 
+                readSQL.Close();
                 conexion.Close();
                 return -1;
             }
@@ -307,17 +251,17 @@ namespace AppDI.Recursos
         public string nivelUsuario(string nombreUser)
         {
             conexion.Open();
-            comando = new SQLiteCommand("SELECT NivelUser from Usuarios where Nombre = '"+nombreUser+"'", conexion);
-            reader = comando.ExecuteReader();
+            comando = new MySqlCommand("SELECT LEVELU from USERS where USER = '"+nombreUser+"'", conexion);
+            readSQL = comando.ExecuteReader();
 
-            if (reader.Read())
+            if (readSQL.Read())
             {
-                string nivelUser = reader["NivelUser"].ToString();
+                string nivelUser = readSQL["LEVELU"].ToString();
                 conexion.Close();
                 return nivelUser;
             }
 
-            reader.Close();
+            readSQL.Close();
             conexion.Close();
             return "";
         }
@@ -330,7 +274,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int actualizarNombre(string nomACambiar, string nuevoNom)
         {
-            comando = new SQLiteCommand("UPDATE Usuarios set Nombre='" + nuevoNom + "' WHERE Nombre='" + nomACambiar + "'", conexion);
+            comando = new MySqlCommand("UPDATE USERS set USER='" + nuevoNom + "' WHERE USER='" + nomACambiar + "'", conexion);
             conexion.Open();
             int num = comando.ExecuteNonQuery();
             conexion.Close();
@@ -345,7 +289,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int actualizarNivel(string nomACambiar, string nuevoNivel)
         {
-            comando = new SQLiteCommand("UPDATE Usuarios set NivelUser='" + nuevoNivel + "' WHERE Nombre='" + nomACambiar + "'", conexion);
+            comando = new MySqlCommand("UPDATE USERS set LEVELU='" + nuevoNivel + "' WHERE USER='" + nomACambiar + "'", conexion);
             conexion.Open();
             int num = comando.ExecuteNonQuery();
             conexion.Close();
@@ -356,30 +300,51 @@ namespace AppDI.Recursos
         /// Para añadir usuarios nuevos, por defecto no serán administradores.
         /// </summary>
         /// <param name="nombre"></param>
-        /// <param name="contraseña"></param>
+        /// <param name="contrasena"></param>
         /// <param name="nivelUser"></param>
         /// <returns></returns>
-        public int addUsuarios(string nombre, string contraseña, string nivelUser)
+        public int addUsuarios(string nombre, string contrasena, string nivelUser)
         {
-            string sql = "INSERT INTO Usuarios (Nombre, Contraseña, EsAdmin, NivelUser) VALUES ('" + nombre + "', '" + contraseña + "', 0, " + nivelUser + ")";
-            using SQLiteConnection c = new SQLiteConnection(Conex);
-                c.Open();
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, c))
-            {
-                try
-                {
-                    int num = cmd.ExecuteNonQuery();
-                    c.Close();
-                    return num;
-                }
-                catch (SQLiteException error)
-                {
-                    MessageBox.Show("Error. Ya hay ese nombre en base de datos.");
-                    c.Close();
-                    return 0;
-                }
+            string fecha_actual = DateTime.Now.ToString("yyyy-MM-dd");
 
-            }
+            string hash = BCrypt.Net.BCrypt.HashPassword(contrasena);
+
+            // Comprobar si el usuario ya existe en la base de datos
+            string sql = "SELECT COUNT(*) AS cuenta FROM `USERS` WHERE `USER` = @nombre";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows) // Si tiene filas, hay un usuario con ese nombre.
+                        {
+                            reader.Close();
+                            return -1;
+                        }
+                        else
+                        {
+                            string sql2 = "INSERT INTO USERS (`USER`, `PASS`, `ULT_VISITA`, `LEVELU`, `LEVELA`) " +
+                                "VALUES ('@nombre', '@hash', '@fecha', " + nivelUser + ", 0)";
+                            using (MySqlCommand cmd2 = new MySqlCommand(sql2, c))
+                            {
+                                cmd2.Parameters.AddWithValue("@nombre", nombre);
+                                cmd2.Parameters.AddWithValue("@hash", hash);
+                                cmd2.Parameters.AddWithValue("@fecha_actual", fecha_actual);
+                                if (cmd2.ExecuteNonQuery() == 1)
+                                {
+                                    return 1;
+                                } else
+                                {
+                                    return -1;
+                                }
+                            }
+                        } // else.
+                    } // USING READER
+                }// USING CMD 1
+            } // USING DE CONEXIÓN
         } // añadir Usuarios.
 
         /// <summary>
@@ -389,10 +354,10 @@ namespace AppDI.Recursos
         /// <param name="admin"></param>
         /// <param name="nivelUser"></param>
         /// <returns></returns>
-        public int eliminarUsuarios(string nombre, string admin, string nivelUser)
+        public int eliminarUsuarios(string nombre, string nivelUser)
         {
-            string sql = "DELETE FROM Usuarios WHERE Nombre='" + nombre + "' and EsAdmin=" + admin + " and NivelUser=" + nivelUser;
-            comando = new SQLiteCommand(sql, conexion);
+            string sql = "DELETE FROM USERS WHERE USER='" + nombre + "' and LEVELU=" + nivelUser;
+            comando = new MySqlCommand(sql, conexion);
             conexion.Open();
             int num = comando.ExecuteNonQuery();
             conexion.Close();
@@ -407,11 +372,33 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int actualizarAdmin(string nomACambiar, string admin)
         {
-            comando = new SQLiteCommand("UPDATE Usuarios set EsAdmin=" + admin + " WHERE Nombre='" + nomACambiar + "'", conexion);
+            comando = new MySqlCommand("UPDATE USERS set LEVELA=" + admin + " WHERE USER='" + nomACambiar + "'", conexion);
             conexion.Open();
             int num = comando.ExecuteNonQuery();
             conexion.Close();
             return num;
+        }
+
+        /// <summary>
+        /// Insertar un nuevo LOG en administradores cuando se haga una acción.
+        /// </summary>
+        /// <param name="acciones"></param>
+        /// <param name="nombre"></param>
+        /// <param name="numNivel"></param>
+        /// <returns></returns>
+        public void RegistroLogNuevo(string acciones, string nombre, int numNivel)
+        {
+            DateTime fechaActual = DateTime.Now;
+
+            // Formato MySQL
+            string fecha = fechaActual.ToString("yyyy-MM-dd"); // MM para que sean meses.
+
+            conexion = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
+            conexion.Open();
+
+            comando = new MySqlCommand("INSERT INTO `LOGADMIN` (`USER`, `NIVEL`, `ACCIONES`, `FECHA_ACCIONES`) " +
+                "VALUES ('"+nombre+"', "+numNivel+", '"+acciones+"', '"+fecha+"')", conexion);
+            comando.ExecuteNonQuery();
         }
 
     }

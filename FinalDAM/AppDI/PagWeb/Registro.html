@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Registro de cuenta PokeDEXplorer</title>
     <link rel="stylesheet" href="./Estilos/estilo.css">
+    <link rel="shortcut icon" href="./Estilos/Pokeball.png">
 </head>
 <body>
-    <nav class="navRegistro">
+    <nav class="navNoHead">
         <ul>
             <li><a href="./Inicio.html">Inicio</a></li>
             <li><a href="./Descargas.html">Descargas</a></li>
@@ -19,9 +20,9 @@
             <h1 id="h1Registro">Registro de un nuevo entrenador PokeDEXplorer</h1>
             <form class="formRegistro" action="./php/db.php" method="POST">
                 <label class="registro" for="nombre">Nombre:</label>
-                <input class="registro" type="text" name="nombre" required>
+                <input class="registro" type="text" name="nombre" required maxlength="50">
                 <label class="registro" for="password">Contraseña:</label>
-                <input class="registro" type="password" name="password" required>
+                <input class="registro" type="password" name="password" required maxlength="20">
                 <input class="registro" type="submit" name="click" value="Registra tu aventura">
             </form>
         </div>

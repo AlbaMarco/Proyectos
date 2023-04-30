@@ -42,7 +42,8 @@ namespace AppDI.Pags.PanelAdmin
             if(tBoxNom.Text != string.Empty || tBoxPass.Text != string.Empty || tBoxNivelUser.Text != string.Empty)
             {
                 if (miDb.addUsuarios(tBoxNom.Text, tBoxPass.Text, tBoxNivelUser.Text) == 1) lblResultado.Content = "Creado correctamente";
-                else { lblResultado.Content = "No creado"; }
+                else if (miDb.addUsuarios(tBoxNom.Text, tBoxPass.Text, tBoxNivelUser.Text) != -1) lblResultado.Content = "Existe ya el usuario."; 
+                else { lblResultado.Content = "No creado. Hubo un error."; }
             }
             
         }

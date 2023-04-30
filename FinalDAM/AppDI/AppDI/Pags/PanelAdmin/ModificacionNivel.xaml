@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="350"
+      d:DesignHeight="750" d:DesignWidth="700"
       Title="Modificacion de nivel" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid>
         <TextBlock Style="{StaticResource txtBlockModNivel}" Text="Si le da doble click a la lista, sus datos saldran a la derecha y, si le das click, podrás modificar ese valor."
-                   Width="320" Height="50" Margin="10"/>
-        <ListBox x:Name="lbNom" Width="100" Height="200" HorizontalAlignment="Right" Margin="10" Style="{StaticResource estiloListBox}" MouseDoubleClick="lbNom_MouseDoubleClick">
+                   Width="650" Height="50" Margin="10"/>
+        <ListBox x:Name="lbNom" Width="300" Height="600" HorizontalAlignment="Right" Margin="10" Style="{StaticResource estiloListBox}" MouseDoubleClick="lbNom_MouseDoubleClick">
             <ListBox.ToolTip>
                 <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Si hace doble click le mostrará el nombre y el nivel de usuario correspondiente, después, del que desee modificar, haga doble click encima"/>
             </ListBox.ToolTip>
@@ -20,21 +20,21 @@
                 Margin="30, 0, 0, 20" Click="btnGuardar_Click"/>
         
         <Button x:Name="btnCancelar" Style="{StaticResource btnModNivel}" Content="Cancelar" VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                Margin="150, 0, 0, 20" Click="btnCancelar_Click"/>
+                Margin="170, 0, 0, 20" Click="btnCancelar_Click"/>
 
         <Label x:Name="lblNom" Content="Nombre" Style="{StaticResource labelModNivel}" Margin="30, 0, 0, 50" MouseDoubleClick="lblNom_MouseDoubleClick">
             <Label.ToolTip>
                 <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Si hace doble click en el nombre, se te activará la casilla para cambiar dicho nombre."/>
             </Label.ToolTip>
         </Label>
-        <Label x:Name="lblNivelUser" Content="Nivel Usuario" Style="{StaticResource labelModNivel}" Margin="30, 50, 0, 0" MouseDoubleClick="lblNivelUser_MouseDoubleClick">
+        <Label x:Name="lblNivelUser" Content="Nivel Usuario" Style="{StaticResource labelModNivel}" Margin="30, 70, 0, 0" MouseDoubleClick="lblNivelUser_MouseDoubleClick">
             <Label.ToolTip>
                 <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Si hace doble click en el nivel de usuario, se te activará la casilla para cambiar dicho nivel."/>
             </Label.ToolTip>
         </Label>
-        <Label x:Name="lblResultados" Style="{StaticResource labelModNivel}"  Margin="30, 150, 0, 0" Width="180"/>
+        <Label x:Name="lblResultados" Style="{StaticResource labelModNivel}"  Margin="30, 170, 0, 0" Width="250"/>
 
-        <TextBox x:Name="tBoxNom" Style="{StaticResource textBoxModNivel}" Margin="120, 0, 0, 50"/>
-        <TextBox x:Name="tBoxNivelUser" Style="{StaticResource textBoxModNivel}" Margin="120, 50, 0, 0"/>
+        <TextBox x:Name="tBoxNom" Style="{StaticResource textBoxModNivel}" Margin="160, 0, 0, 50"/>
+        <TextBox x:Name="tBoxNivelUser" Style="{StaticResource textBoxModNivel}" Margin="160, 70, 0, 0"/>
     </Grid>
 </Page>

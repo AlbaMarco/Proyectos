@@ -36,8 +36,9 @@
             </PasswordBox.ToolTip>
         </PasswordBox>
 
-
-        <Button x:Name="btnRegistro" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 0, 0, 20" Background="#3761a8" BorderBrush="Gold" Content="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="16" Foreground="Gold" Click="btnRegistro_Click"/>
+<!--
+        <Button x:Name="btnRegistro" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 0, 0, 20" 
+                Background="#3761a8" BorderBrush="Gold" Content="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="16" Foreground="Gold" Click="btnRegistro_Click"/> -->
         <Image Source="../Resources/InicialesPlantaNoFondo.png" Width="100" Height="180" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
         <Image Source="../Resources/InicialesFuegoNoFondo.png" Width="100" Height="180" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20"/>
         <Image Source="../Resources/InicialesAguaNoFondo.png" Width="100" Height="190" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
