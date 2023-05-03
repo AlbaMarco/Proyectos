@@ -20,9 +20,12 @@
 
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <MenuItem x:Name="AccGratuito" Header="Acceso Gratuito" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccGratuito_Click"/>
-            <Separator Width="1100" Background="Gold"/>
-            <MenuItem x:Name="Registro" Header="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Registro_Click"/>
-            <MenuItem x:Name="InicioSesion" Header="Inicio Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="FileMenuItem3_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
+            <!--<MenuItem x:Name="Registro" Header="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Registro_Click"/>-->
+            <Separator Width="1040" Background="Gold"/>
+            <MenuItem x:Name="InicioSesion" Header="Inicio Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="20"
+                      Click="FileMenuItem3_Click"/>
         </Menu>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -109,10 +112,11 @@
 
             <TextBlock Grid.Row="4" Grid.Column="0" Width="650" FontFamily="{StaticResource PkmMonk}" Style="{StaticResource TxtJustificado25px}" VerticalAlignment="Top">
             <LineBreak/>
+            Para registrarse acuda a <Hyperlink NavigateUri="http://pokeapialbamarco.42web.io" RequestNavigate="Hyperlink_RequestNavigate" Foreground="Gold">PokeDEXplorer</Hyperlink><LineBreak/>
             Con el contenido de tipo registro se podrá acceder a diferentes categorías dentro del mundo pokemon, entre ellas: <LineBreak/> <LineBreak/>
-             Acceso a una pokedex, a los movimientos por generación, a los tipos por generación, pokeballs, bayas, items de estado y de evolución, 
-             las láminas de los tipos de arceus, las cartas y las vitaminas del juego. <LineBreak/> <LineBreak/>
-             Todo esto dependiendo de su nivel de registro.
+            Acceso a una pokedex, a los movimientos y tipos por generación, pokeballs, bayas, items de estado y de evolución, 
+            cambio de los tipos de arceus, cartas y las vitaminas del juego. <LineBreak/> <LineBreak/>
+            Todo esto dependiendo de su nivel de registro.
             </TextBlock>
 
         </Grid>

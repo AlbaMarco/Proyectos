@@ -92,5 +92,10 @@ namespace AppDI.Pags
                 frameExpander.Navigate(new ModificacionAdmin(miDB));
             }
         }
+
+        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

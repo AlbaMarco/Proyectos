@@ -130,5 +130,20 @@ namespace AppDI.Pags
         {
             this.NavigationService.RemoveBackEntry();
         }
+
+        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SoporteTecnico());
+        }
+
+        private void CrearEquipos_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CrearEquipos(miDB));
+        }
     }
 }

@@ -13,9 +13,19 @@
             <ColumnDefinition Width="15*"/>
             <ColumnDefinition Width="80*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
         <Frame BorderBrush="Gold" BorderThickness="2" Grid.ColumnSpan="3"/>
-        <Grid Grid.Column="0" Grid.Row="0">
+
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
+            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
+        </Menu>
+        <Grid Grid.Column="0" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -47,13 +57,14 @@
         <!-- Grid de la izquierda. Contiene los elementos del textbox donde se escribe, el botón y el listbox donde se mostrará todo lo buscado. -->
 
         <!-- Grid del medio / derecha, Contendrá los datos de los pkms.-->
-        <Grid Grid.Column="1" Grid.Row="0">
+        <Grid Grid.Column="1" Grid.Row="1">
             <!-- 14. -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="35*"/>
                 <ColumnDefinition Width="35*"/>
                 <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="85"/>
@@ -100,7 +111,7 @@
 
             <!-- Hay que hacer la consulta en código aún. -->
             <Label Grid.Row="5" Grid.Column="3" x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelkGratuito}"/>
-            <TextBlock Grid.Row="6" Grid.Column="3" x:Name="tbMovimientos" Style="{StaticResource tblockGratuito}" TextAlignment="Right"/>
+            <TextBlock Grid.Row="6" Grid.Column="2" Grid.RowSpan="6" Grid.ColumnSpan="2" Margin="30, 0, 0, 0" x:Name="tbMovimientos" Style="{StaticResource tblockGratuito}" TextAlignment="Right"/>
         </Grid>
 
     </Grid>

@@ -16,15 +16,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="120"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Frame BorderBrush="Gold" BorderThickness="2" Grid.RowSpan="3" Grid.ColumnSpan="4"/> <!-- Color externo. -->
-        <Image Source="../Resources/Admin.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Grid.Column="0" Grid.Row="0"/>
-        <Image Source="../Resources/PanelControl.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Grid.Column="2" Grid.Row="0"/>
-        <TextBlock x:Name="tblockBien" Height="75" Grid.Row="1" Style="{StaticResource tblockAdmin}" FontSize="22"/>
-        <TextBlock Grid.Row="2" Style="{StaticResource tblockAdmin}" VerticalAlignment="Top" FontSize="25">
+        
+        <Frame BorderBrush="Gold" BorderThickness="2" Grid.RowSpan="4" Grid.ColumnSpan="4"/> <!-- Color externo. -->
+
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
+            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+        </Menu>
+
+        <Image Source="../Resources/Admin.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Grid.Column="0" Grid.Row="1"/>
+        <Image Source="../Resources/PanelControl.png" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock x:Name="tblockBien" Height="75" Grid.Row="2" Style="{StaticResource tblockAdmin}" FontSize="22"/>
+        <TextBlock Grid.Row="3" Style="{StaticResource tblockAdmin}" VerticalAlignment="Top" FontSize="25">
             Este es el de acceso adminsitrador. <LineBreak/>
             Se podrá: <LineBreak/> <LineBreak/>
                 - Ver todos los usuarios que hay registrados con su respectivo nivel. <LineBreak/> <LineBreak/>
@@ -37,17 +44,17 @@
                 - Visualizar los tickets de soporte en caso de que haya. <LineBreak/> <LineBreak/>
         </TextBlock>
 
-        <Line Y2="0" Y1="900" Fill="Gold" Stroke="Gold" StrokeThickness="3" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="5"/>
+        <Line Y2="0" Y1="900" Fill="Gold" Stroke="Gold" StrokeThickness="3" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Grid.RowSpan="6"/>
 
         <!-- Modificar el valor "Source" dependiendo del click.-->
-        <Frame x:Name="frameExpander" Width="700" Height="750" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+        <Frame x:Name="frameExpander" Width="700" Height="750" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"
                HorizontalAlignment="Center" BorderBrush="Gold" BorderThickness="1">
             <Frame.ToolTip>
                 <ToolTip FontFamily="{StaticResource PkmMonk}" Content="En este marco se mostrarán las páginas según el botón seleccionado del desplegable de la derecha."/>
             </Frame.ToolTip>
         </Frame>
 
-        <Expander VerticalAlignment="Top" HorizontalAlignment="Right" Height="395" ExpandDirection="Left" Grid.Column="2" Grid.Row="2">
+        <Expander VerticalAlignment="Top" HorizontalAlignment="Right" Height="395" ExpandDirection="Left" Grid.Column="2" Grid.Row="3">
             <Expander.Header>
                 <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="8.4" Height="320" Foreground="Gold" Text="Opciones Administrador" Margin="0, 50, 0, 0"/>
             </Expander.Header>

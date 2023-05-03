@@ -1,0 +1,40 @@
+﻿<Page x:Class="AppDI.Pags.SoporteTecnico"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1500" 
+      Title="Soporte Tecnico PokeDEXplorer" ShowsNavigationUI="False">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
+            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+        </Menu>
+
+        <Image Grid.Row="1" Grid.ColumnSpan="2" Source="../Resources/SoporteTecnico.png" Style="{StaticResource ImgTitulo}">
+            <Image.ToolTip>
+                <ToolTip Content="¡Bienvenido a la página de Soporte Técnico! En esta página podrás dar sugerencias o soporte de errores." FontFamily="{StaticResource PkmMonk}"/>
+            </Image.ToolTip>
+        </Image>
+
+        <TextBox x:Name="txtContenido" Grid.Row="2" Grid.ColumnSpan="2" Width="1350" Height="650" Style="{StaticResource txtBoxSopTecnico}"/>
+
+        <Image Grid.Row="1" Source="../Resources/PkmSupp.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Image Grid.Row="3" Grid.Column="1" Source="../Resources/PkmSupp.png" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+        <Button x:Name="btnEnviar" Style="{StaticResource btnSopTecnico}" Content="Enviar solicitud" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="2" Margin="0, 0, 0, 10" Click="btnEnviar_Click"/>
+    </Grid>
+</Page>

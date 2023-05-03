@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Markup;
 using System.Windows.Media.Media3D;
+using System.Data.SQLite;
 
 namespace AppDI.Recursos
 {
@@ -40,10 +41,65 @@ namespace AppDI.Recursos
 
         public string idPkm { get; set; }
         public string nombrePkm { get; set; }
+        App app = (App)Application.Current;
         public TabItemTier1()
         {
             InitializeComponent();
             evoluciones.IsEnabled = false;
+            app.Actualizar += App_Actualizar;
+            app.ActualizarRoAzAm += App_ActualizarRoAzAm;
+            app.ActualizarOroPlaCri += App_ActualizarOroPlaCri;
+            app.ActualizarRubZafEsm += App_ActualizarRubZafEsm;
+            app.ActualizarDiaPer += App_ActualizarDiaPer;
+            app.ActualizarPlatino += App_ActualizarPlatino;
+            app.ActualizarHerSoul += App_ActualizarHerSoul;
+            app.ActualizarBlaNeg += App_ActualizarBlaNeg;
+            app.ActualizarBlaNeg2 += App_ActualizarBlaNeg2;
+
+        }
+
+        private void App_ActualizarBlaNeg2(object sender, int e)
+        {
+            progresoBlaNeg2.Value = e;
+        }
+
+        private void App_ActualizarBlaNeg(object sender, int e)
+        {
+            progresoBlaNeg.Value = e;
+        }
+
+        private void App_ActualizarHerSoul(object sender, int e)
+        {
+            progresoHearSoul.Value = e;
+        }
+
+        private void App_ActualizarPlatino(object sender, int e)
+        {
+            progresoPlatino.Value = e;
+        }
+
+        private void App_ActualizarDiaPer(object sender, int e)
+        {
+            progresoDiaPer.Value = e;
+        }
+
+        private void App_ActualizarRubZafEsm(object sender, int e)
+        {
+            progresoRuZaEsm.Value = e;
+        }
+        private void App_ActualizarOroPlaCri(object sender, int e)
+        {
+            progresoOrPlCr.Value = e;
+        }
+        private void App_ActualizarRoAzAm(object sender, int progreso)
+        {
+            progresoRoAzAm.Value = progreso;
+        }
+
+        private void App_Actualizar(object sender, int progreso)
+        {
+            // Actualizar el valor de la barra de progreso
+            progresoNacional.Value = progreso;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -165,8 +221,9 @@ namespace AppDI.Recursos
         /// <param name="numGen"></param>
         private async void rellenarPokedex(string numGen)
         {
-            evoluciones.IsEnabled = false;
+            BusquedaAPI.ItemsSource = null;
             BusquedaAPI.Items.Clear();
+            evoluciones.IsEnabled = false;
 
             await PeticionPokedex(numGen);
 
@@ -190,43 +247,45 @@ namespace AppDI.Recursos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            BusquedaAPI.ItemsSource = null;
             if (nacional.IsChecked == true)
             {
-                rellenarPokedex("1");
+                BusquedaAPI.ItemsSource = app.listaPkxNacional;
             }
             else if (roAzAm.IsChecked == true)
             {
-                rellenarPokedex("2");
+                BusquedaAPI.ItemsSource = app.listaPkxRoAzAm;
             }
             else if (oroPlaCris.IsChecked == true)
             {
-                rellenarPokedex("3");
+                BusquedaAPI.ItemsSource = app.listaPkxOroPlaCri;
             }
             else if (rubSafEm.IsChecked == true)
             {
-                rellenarPokedex("4");
+                BusquedaAPI.ItemsSource = app.listaPkxRubZafEsm;
             }
             else if (diaPer.IsChecked == true)
             {
-                rellenarPokedex("5");
+                BusquedaAPI.ItemsSource = app.listaPkxDiaPer;
             }
             else if (platino.IsChecked == true)
             {
-                rellenarPokedex("6");
+                BusquedaAPI.ItemsSource = app.listaPkxPlatino;
             }
             else if (heartSoul.IsChecked == true)
             {
-                rellenarPokedex("7");
+                BusquedaAPI.ItemsSource = app.listaPkxHerSoul;
             }
             else if (blanNeg.IsChecked == true)
             {
-                rellenarPokedex("8");
+                BusquedaAPI.ItemsSource = app.listaPkxBlaNeg;
             }
             else if (blanNeg2.IsChecked == true)
             {
-                rellenarPokedex("9");
+                BusquedaAPI.ItemsSource = app.listaPkxBlaNeg2;
             }// Fin else if.
         } // Rdbtn checkeado.
 
@@ -244,7 +303,7 @@ namespace AppDI.Recursos
                 string[] contenido = nomLB.Split(' ');
                 string nomPkm = contenido[6].ToLower(); // Me coge del elemento únicamente el nombre, que es lo que me interesa para hacer la búsqueda del pkm y sacar su información.
 
-                // Para sacar su ID y poddedr hacer la consulta a su cadena evolutiva, primero haremos la búsqueda pkm y se mostrará su información a la parte izq.
+                // Para sacar su ID y poder hacer la consulta a su cadena evolutiva, primero haremos la búsqueda pkm y se mostrará su información a la parte izq.
                 await PeticionPokemon(nomPkm);
 
                 idPkm = jsonPkm.RootElement.GetProperty("id").ToString();
@@ -252,19 +311,18 @@ namespace AppDI.Recursos
 
                 PkmSelecc.Items.Add(new { TituloPkm = "Altura:", NomPkm = jsonPkm.RootElement.GetProperty("height").ToString() + "cm" });
                 PkmSelecc.Items.Add(new { TituloPkm = "Peso:", NomPkm = jsonPkm.RootElement.GetProperty("weight").ToString() + "kg" });
-                if (jsonPkm.RootElement.GetProperty("is_default").ToString() == "True")
-                {
-                    PkmSelecc.Items.Add(new { TituloPkm = "¿Inicial?", NomPkm = "Sí" });
-                }
-                else
-                {
-                    PkmSelecc.Items.Add(new { TituloPkm = "¿Inicial?", NomPkm = "No" });
-                }
+               
 
                 PkmSelecc.Items.Add(new { TituloPkm = "Tipo/s:", NomPkm = jsonPkm.RootElement.GetProperty("types").GetArrayLength().ToString() });
                 for (int i = 0; i < jsonPkm.RootElement.GetProperty("types").GetArrayLength(); i++)
                 {
-                    PkmSelecc.Items.Add(new { TituloPkm = "  " + jsonPkm.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString(), NomPkm = " " });
+                    PkmSelecc.Items.Add(new { TituloPkm = "  " + jsonPkm.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString(), NomPkm = "" });
+                }
+
+                PkmSelecc.Items.Add(new {TituloPkm = "Habilidad/es", NomPkm = jsonPkm.RootElement.GetProperty("abilities").GetArrayLength().ToString() });
+                for(int i = 0; i < jsonPkm.RootElement.GetProperty("abilities").GetArrayLength(); i++)
+                {
+                    PkmSelecc.Items.Add(new { TituloPkm = "  " + jsonPkm.RootElement.GetProperty("abilities")[i].GetProperty("ability").GetProperty("name").ToString(), NomPkm = "" });
                 }
 
                 evoluciones.IsEnabled = true;
@@ -1376,7 +1434,7 @@ namespace AppDI.Recursos
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
         /// <returns></returns>
-        private async Task PeticionLamArceus() // Admite numGeneracion o nombre.
+        private async Task PeticionLamArceus()
         {
             var direccion = new Uri("https://pokeapi.co/api/v2/");
             using (var httpClient = new HttpClient { BaseAddress = direccion })
@@ -1435,6 +1493,653 @@ namespace AppDI.Recursos
         {
             await PeticionLamArceus();
             dGridArceus.ItemsSource = lamArceusList;
+        }
+
+
+        // VITAMINAS
+        private JsonDocument jsonVitaminas;
+        private string respuestaVitaminas;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionVitaminas()
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/26/"))
+                {
+                    respuestaVitaminas = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonVitaminas = JsonDocument.Parse(respuestaVitaminas);
+
+
+                for (int i = 0; i < jsonVitaminas.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    CBVitaminas.Items.Add(jsonVitaminas.RootElement.GetProperty("items")[i].GetProperty("name").ToString());
+                }
+            } // Using
+        } // PeticionVitaminas
+
+        private JsonDocument jsonVitaminasInfo;
+        private string respuestaVitaminasInfo;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionVitaminasInfo(string consulta)
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaVitaminasInfo = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonVitaminasInfo = JsonDocument.Parse(respuestaVitaminasInfo);
+            } // Using
+        } // PeticionVitaminasInfo
+
+        private async void CBVitaminas_Initialized(object sender, EventArgs e)
+        {
+            await PeticionVitaminas();
+        }
+
+        private async void CBVitaminas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int i = CBVitaminas.SelectedIndex;
+            if (i == -1)
+            {
+                VitNombre.Content = "Nombre Vitamina";
+                VitCoste.Content = "Coste vitamina";
+                VitEfecto.Content = "Efecto Vitamina";
+                VitImagen.Content = "Imagen vitamina elegida";
+                MessageBox.Show("No has seleccionado ninún elemento del desplegable.");
+            }
+            else
+            {
+                await PeticionVitaminasInfo(jsonVitaminas.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                VitNombre.Content = jsonVitaminasInfo.RootElement.GetProperty("name").ToString();
+                VitCoste.Content = jsonVitaminasInfo.RootElement.GetProperty("cost").ToString();
+                try
+                {
+                    VitEfecto.Content = jsonVitaminasInfo.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString();
+                }
+                catch (IndexOutOfRangeException ex){VitEfecto.Content = "No hay información disponible";}
+
+                try
+                {
+                    VitImg.Source = new BitmapImage(new Uri(jsonVitaminasInfo.RootElement.GetProperty("sprites").GetProperty("default").ToString()));
+                    VitImagen.Content = "";
+                } catch (UriFormatException ex) { VitImagen.Content = "No hay imagen disponible"; VitImg.Source = null; }
+                
+            }
+        }
+
+
+        // CARTAS
+        private JsonDocument jsonCartas;
+        private string respuestaCartas;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionCartas()
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/25/"))
+                {
+                    respuestaCartas = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonCartas = JsonDocument.Parse(respuestaCartas);
+
+
+                for (int i = 0; i < jsonCartas.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    CBCartas.Items.Add(jsonCartas.RootElement.GetProperty("items")[i].GetProperty("name").ToString());
+                }
+            } // Using
+        } // PeticionCartas
+
+        private JsonDocument jsonCartasInfo;
+        private string respuestaCartasInfo;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionCartasInfo(string consulta)
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaCartasInfo = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonCartasInfo = JsonDocument.Parse(respuestaCartasInfo);
+            } // Using
+        } // PeticionCartasInfo
+
+        private async void CBCartas_Initialized(object sender, EventArgs e)
+        {
+            await PeticionCartas();
+        }
+
+        private async void CBCartas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int i = CBCartas.SelectedIndex;
+            if (i == -1)
+            {
+                CartaNombre.Content = "Nombre Vitamina";
+                CartaCoste.Content = "Coste vitamina";
+                CartaEfecto.Content = "Efecto Vitamina";
+                CartaImagen.Content = "Imagen vitamina elegida";
+                MessageBox.Show("No has seleccionado ninún elemento del desplegable.");
+            }
+            else
+            {
+                await PeticionCartasInfo(jsonCartas.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                CartaNombre.Content = jsonCartasInfo.RootElement.GetProperty("name").ToString();
+                CartaCoste.Content = jsonCartasInfo.RootElement.GetProperty("cost").ToString();
+                try
+                {
+                    CartaEfecto.Content = jsonCartasInfo.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString();
+                }
+                catch (IndexOutOfRangeException ex) { CartaEfecto.Content = "No hay información disponible"; }
+
+                try
+                {
+                    CartaImg.Source = new BitmapImage(new Uri(jsonCartasInfo.RootElement.GetProperty("sprites").GetProperty("default").ToString()));
+                    CartaImagen.Content = "";
+                }
+                catch (UriFormatException ex) { CartaImagen.Content = "No hay imagen disponible"; CartaImg.Source = null; }
+
+            }
+        }
+
+
+        // ITEMS DE ESTADO CURACIÓN - Healing 27, PP 28, revives 29, State Cures 30
+        private JsonDocument jsonHealing;
+        private string respuestaHealing;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionHealing()
+        {
+            // Número 27 son cura de HP.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/27/"))
+                {
+                    respuestaHealing = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonHealing = JsonDocument.Parse(respuestaHealing);
+
+                for (int i = 0; i < jsonHealing.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionItemsEstado(jsonHealing.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                    // Imagen;NomEstado;Efecto;Coste
+                    LbEstadoCura.Items.Add(new { Imagen = new BitmapImage(new Uri(jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString())), 
+                        NomEstado = jsonItemsEstado.RootElement.GetProperty("name").ToString() + "\n",
+                        Efecto = jsonItemsEstado.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString() + "\n",
+                        Coste = "Coste: "+jsonItemsEstado.RootElement.GetProperty("cost").ToString()
+                    });
+                }
+            } // Using
+        } // PeticionHealing
+
+        private JsonDocument jsonPP;
+        private string respuestaPP;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionPP()
+        {
+            // Número 28 son cura de PP.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/28/"))
+                {
+                    respuestaPP = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonPP = JsonDocument.Parse(respuestaPP);
+
+                for (int i = 0; i < jsonPP.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionItemsEstado(jsonPP.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                    // Imagen;NomEstado;Efecto;Coste
+                    LbEstadoPP.Items.Add(new
+                    {
+                        Imagen = new BitmapImage(new Uri(jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                        NomEstado = jsonItemsEstado.RootElement.GetProperty("name").ToString() + "\n",
+                        Efecto = jsonItemsEstado.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString() + "\n",
+                        Coste = "Coste: " + jsonItemsEstado.RootElement.GetProperty("cost").ToString()
+                    });
+                }
+            } // Using
+        } // PeticionPP
+
+        private JsonDocument jsonRevive;
+        private string respuestaRevive;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionRevive()
+        {
+            // Número 29 son REVIVES.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/29/"))
+                {
+                    respuestaRevive = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonRevive = JsonDocument.Parse(respuestaRevive);
+
+                for (int i = 0; i < jsonRevive.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionItemsEstado(jsonRevive.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+                    if(jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LbEstadoRevive.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonItemsEstado.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonItemsEstado.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString() + "\n",
+                            Coste = "Coste: " + jsonItemsEstado.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+                    
+                    
+                }
+            } // Using
+        } // PeticionRevive
+
+        private JsonDocument jsonCuraEstado;
+        private string respuestaCuraEstado;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionCuraEstado()
+        {
+            // Número 30 son cura de estado.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/30/"))
+                {
+                    respuestaCuraEstado = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonCuraEstado = JsonDocument.Parse(respuestaCuraEstado);
+
+                for (int i = 0; i < jsonCuraEstado.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionItemsEstado(jsonCuraEstado.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LbEstadoEstado.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonItemsEstado.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonItemsEstado.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonItemsEstado.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString() + "\n",
+                            Coste = "Coste: " + jsonItemsEstado.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+                    
+                }
+            } // Using
+        } // PeticionCuraEstado
+
+        private JsonDocument jsonItemsEstado;
+        private string respuestaItemsEstado;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionItemsEstado(string consulta)
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaItemsEstado = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonItemsEstado = JsonDocument.Parse(respuestaItemsEstado);
+            } // Using
+        } // PeticionItemsEstado
+        private async void ItemsEstado_Initialized(object sender, EventArgs e)
+        {
+            await PeticionHealing();
+            await PeticionPP();
+            await PeticionRevive();
+            await PeticionCuraEstado();
+        }
+
+
+        private JsonDocument jsonBayasRedStats;
+        private string respuestaBayasRedStats;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasRedStats()
+        {
+            // Reducciones stats + amistad
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/2/"))
+                {
+                    respuestaBayasRedStats = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasRedStats = JsonDocument.Parse(respuestaBayasRedStats);
+
+                for (int i = 0; i < jsonBayasRedStats.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasRedStats.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasRedStats.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasRedStats
+
+        private JsonDocument jsonBayasMedicina;
+        private string respuestaBayasMedicina;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasMedicina()
+        {
+            // Bayas con uso medicinal.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/3/"))
+                {
+                    respuestaBayasMedicina = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasMedicina = JsonDocument.Parse(respuestaBayasMedicina);
+
+                for (int i = 0; i < jsonBayasMedicina.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasMedicina.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasMedicinas.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasMedicina
+
+        private JsonDocument jsonBayasCombate;
+        private string respuestaBayasCombate;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasCombate()
+        {
+            // Bayas con uso en combate.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/4/"))
+                {
+                    respuestaBayasCombate = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasCombate = JsonDocument.Parse(respuestaBayasCombate);
+
+                for (int i = 0; i < jsonBayasCombate.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasCombate.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasCombate.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasCombate
+
+        private JsonDocument jsonBayasApuros;
+        private string respuestaBayasApuros;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasApuros()
+        {
+            // Bayas con uso en caso de apuros en combate.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/5/"))
+                {
+                    respuestaBayasApuros = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasApuros = JsonDocument.Parse(respuestaBayasApuros);
+
+                for (int i = 0; i < jsonBayasApuros.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasApuros.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasApuros.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasApuros
+
+        private JsonDocument jsonBayasCuraEstado;
+        private string respuestaBayasCuraEstado;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasCuraEstado()
+        {
+            // Bayas con uso para curar los estados.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/6/"))
+                {
+                    respuestaBayasCuraEstado = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasCuraEstado = JsonDocument.Parse(respuestaBayasCuraEstado);
+
+                for (int i = 0; i < jsonBayasCuraEstado.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasCuraEstado.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasCuraEstado.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasCuraEstado
+
+        private JsonDocument jsonBayasProtec;
+        private string respuestaBayasProtec;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasProtec()
+        {
+            // Bayas con uso para proteger en combates.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/7/"))
+                {
+                    respuestaBayasProtec = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasProtec = JsonDocument.Parse(respuestaBayasProtec);
+
+                for (int i = 0; i < jsonBayasProtec.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasProtec.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasProtec.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString().Substring(6) + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasProtec
+
+        private JsonDocument jsonBayasCocina;
+        private string respuestaBayasCocina;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayasCocina()
+        {
+            // Bayas con uso para cocinar.
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync("item-category/8/"))
+                {
+                    respuestaBayasCocina = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayasCocina = JsonDocument.Parse(respuestaBayasCocina);
+
+                for (int i = 0; i < jsonBayasCocina.RootElement.GetProperty("items").GetArrayLength(); i++)
+                {
+                    await PeticionBayas(jsonBayasCocina.RootElement.GetProperty("items")[i].GetProperty("url").ToString().Substring(26));
+
+                    if (jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString() != string.Empty)
+                    {
+                        // Imagen;NomEstado;Efecto;Coste
+                        LBBayasCocina.Items.Add(new
+                        {
+                            Imagen = new BitmapImage(new Uri(jsonBayas.RootElement.GetProperty("sprites").GetProperty("default").ToString())),
+                            NomEstado = jsonBayas.RootElement.GetProperty("name").ToString() + "\n",
+                            Efecto = jsonBayas.RootElement.GetProperty("effect_entries")[0].GetProperty("short_effect").ToString() + "\n",
+                            Coste = "Coste: " + jsonBayas.RootElement.GetProperty("cost").ToString()
+                        });
+                    }
+
+                }
+            } // Using
+        } // PeticionBayasCocina
+
+        private JsonDocument jsonBayas;
+        private string respuestaBayas;
+        /// <summary>
+        /// Método de consulta a la API para obtener una consulta pasada por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        private async Task PeticionBayas(string consulta)
+        {
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaBayas = await response.Content.ReadAsStringAsync();
+                }
+
+                jsonBayas = JsonDocument.Parse(respuestaBayas);
+            } // Using
+        } // PeticionBayas
+
+        private async void TabControl_Initialized(object sender, EventArgs e)
+        {
+            await PeticionBayasRedStats();
+            await PeticionBayasMedicina();
+            await PeticionBayasCombate();
+            await PeticionBayasApuros();
+            await PeticionBayasCuraEstado();
+            await PeticionBayasProtec();
+            await PeticionBayasCocina();
         }
     }// Clase.
 

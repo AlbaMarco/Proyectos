@@ -12,7 +12,7 @@
                 <ToolTip Content="Acceso a la lista de usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="btnModNivel" Content="Modificación nivel" Style="{StaticResource btnExpanderAdmin}" Click="btnModNivel_Click">
+        <Button x:Name="btnModNivel" Content="Modificación nivel y nombre" Style="{StaticResource btnExpanderAdmin}" Click="btnModNivel_Click">
             <Button.ToolTip>
                 <ToolTip Content="Acceso a la modificación de nombre y nivel de los usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>

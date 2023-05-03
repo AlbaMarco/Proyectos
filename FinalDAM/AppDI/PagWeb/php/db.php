@@ -3,7 +3,7 @@
     $username = "albaroot";
     $password = "albaroot";
     $dbname = "appfinal";
-    $regCorrecto = "../PagsRegistro/RegCorrecto.html";
+    $regCorrecto = "../PagsRegistro/RegCorrecto.html?=1234";
     $regIncorrecto = "../PagsRegistro/RegIncorrecto.html";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,7 +45,8 @@
         $stmt->bind_param("sss", $nombre, $hash, $fecha_actual); // Inserto tres strings.
 
         if ($stmt->execute()) {
-            header("Location: $regCorrecto");
+            $last_id = $conn->insert_id;
+            header("Location: ../PagsRegistro/RegCorrecto.php?ID=$last_id");
         } else {
             header("Location: $regIncorrecto");
         }

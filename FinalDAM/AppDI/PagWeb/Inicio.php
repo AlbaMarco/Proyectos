@@ -13,10 +13,10 @@
     </header>
     <nav>
         <ul>
-            <li><a href="./Inicio.html">Inicio</a></li>
-            <li><a href="./Descargas.html">Descargas</a></li>
-            <li><a href="./Contacto.html">Contacto</a></li>
-            <li><a href="./Registro.html">Registro</a></li>
+            <li><a href="./Inicio.php">Inicio</a></li>
+            <li><a href="./Descargas.php">Descargas</a></li>
+            <li><a href="./Contacto.php">Contacto</a></li>
+            <li><a href="./Registro.php">Registro</a></li>
         </ul>
     </nav>
     <main>
@@ -43,7 +43,7 @@
         </div>
     </main>
     <footer>
-        <p id="ParrFooterInicio">© 2023. PokeDEXplorer</p>
+        <p id="ParrFooterInicio">© 2023 - <?php echo date("Y");?>. PokeDEXplorer</p>
         <h4>Alba Marco Checa</h4>
     </footer>
 </body>

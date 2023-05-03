@@ -1,0 +1,38 @@
+﻿<Page x:Class="AppDI.Pags.CrearEquipos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1500" 
+      Title="CrearEquipos" ShowsNavigationUI="False" Loaded="Page_Loaded">
+
+    <Grid Background="SteelBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px"/>
+            <RowDefinition Height="70px"/>
+            <RowDefinition Height="70px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold">
+            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="AccReg" Header="Acceso Registrado" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccReg_Click"/>
+        </Menu>
+
+        <Image x:Name="creacionEquipos" Style="{StaticResource ImgTitulo}" Grid.Row="1" Source="../Resources/CrearEquipos.png">
+            <Image.ToolTip>
+                <ToolTip Content="Estás en el apartado de creación de equipos." FontFamily="{StaticResource PkmMonk}"/>
+            </Image.ToolTip>
+        </Image>
+        <Label x:Name="lblEquipos" Grid.Row="2" Style="{StaticResource CentradoTotalLb}" Foreground="Gold" FontFamily="{StaticResource PkmMonk}" FontSize="24"/>
+        <Button x:Name="btnCrearEquipos" Grid.Row="2" Style="{StaticResource btnCrearEquipos}" Content="Crear equipos"/>
+        <Button x:Name="btnRecargaEquipos" Grid.Row="2" Style="{StaticResource btnRecargaEquipos}" Content="Recargar página" Click="btnRecargaEquipos_Click"/>
+        <Grid Grid.Row="3" Margin="20, 0, 20, 00">
+            
+        </Grid>
+    </Grid>
+</Page>

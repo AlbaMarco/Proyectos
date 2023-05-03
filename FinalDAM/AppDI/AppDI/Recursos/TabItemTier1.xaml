@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AppDI.Recursos"
              mc:Ignorable="d"
-             d:DesignHeight="850" d:DesignWidth="1450">
+             d:DesignHeight="850" d:DesignWidth="1450"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <Grid Loaded="Grid_Loaded">
         <TabControl TabStripPlacement="Left" BorderThickness="4" BorderBrush="#3761a8" Width="1400" Height="700" Background="LightSteelBlue">
@@ -27,7 +28,7 @@
                     <!--Posteriormente, al tener la búsqueda realizada, se mostrará en el LB el nom con la Img a su lado.
                         https://pokeapi.co/api/v2/generation/1/ | apartado pokemon_species-->
                     <TextBlock FontFamily="{StaticResource PkmGB}" FontSize="18" Margin="10" TextAlignment="Justify" TextWrapping="Wrap" 
-                               Text="Se mostrarán únicamente los pokemons de la pokedex que selecciones."
+                               Text="Se mostrarán únicamente los pokemons de la pokedex que selecciones. Ten en cuenta las barras de progreso."
                                Height="40" VerticalAlignment="Top"/>
                     <Grid Grid.Column="0">
                         <Grid.ColumnDefinitions>
@@ -61,18 +62,26 @@
                         <!-- Grid usado para ordenador el interior de la Pokedex. -->
                         <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="175"/> <!--Límite de la pantalla 1, derecha.-->
-                                <ColumnDefinition Width="255"/> <!-- Limite de la pantalla 1, izquierda.-->
-                                <ColumnDefinition Width="135"/> <!-- Espaciado entre pantallas. -->
-                                <ColumnDefinition Width="255"/> <!-- Espacio de la segunda pantalla.-->
+                                <ColumnDefinition Width="175"/>
+                                <!--Límite de la pantalla 1, derecha.-->
+                                <ColumnDefinition Width="255"/>
+                                <!-- Limite de la pantalla 1, izquierda.-->
+                                <ColumnDefinition Width="135"/>
+                                <!-- Espaciado entre pantallas. -->
+                                <ColumnDefinition Width="255"/>
+                                <!-- Espacio de la segunda pantalla.-->
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/> <!-- Limite 1 de fila.-->
+                                <RowDefinition Height="200"/>
+                                <!-- Limite 1 de fila.-->
                                 <RowDefinition Height="175"/>
-                                <RowDefinition Height="54"/> <!-- Limite de la segunda pantalla, a la derecha, hacer rowSpan.-->
-                                <RowDefinition Height="4"/> <!-- Un espacado para separar el botón de las evoluciones-->
-                                <RowDefinition Height="43"/> <!-- Espacio para el toggle button.-->
+                                <RowDefinition Height="54"/>
+                                <!-- Limite de la segunda pantalla, a la derecha, hacer rowSpan.-->
+                                <RowDefinition Height="4"/>
+                                <!-- Un espacado para separar el botón de las evoluciones-->
+                                <RowDefinition Height="43"/>
+                                <!-- Espacio para el toggle button.-->
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ListBox Grid.Column="1" Grid.Row="1" x:Name="BusquedaAPI" Background="LightGray" ItemTemplate="{StaticResource ImagenesLBoxItem}" 
@@ -91,8 +100,8 @@
                                 </ListBox.Resources>
                             </ListBox>
 
-                            <ToggleButton Grid.Column="3" Grid.Row="4" Width="150" Height="45" x:Name="evoluciones" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
-                                  Background="#3761a8" BorderBrush="Black" Checked="evoluciones_Checked" >
+                            <ToggleButton Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="4" Width="255" Height="45" x:Name="evoluciones" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                                  Background="#3761a8" BorderBrush="Black" Checked="evoluciones_Checked">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
@@ -105,8 +114,29 @@
                                     </ControlTemplate>
                                 </ToggleButton.Template>
                             </ToggleButton>
-                        </Grid> <!-- Grid del interior de la pokedex. -->
-                    </Grid> <!-- Grid que almacena todo el interior.-->
+                        </Grid>
+                        <ProgressBar x:Name="progresoNacional" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="1" VerticalAlignment="Center" Width="100"
+                                     Maximum="1010"/>
+                        <ProgressBar x:Name="progresoRoAzAm" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="2" VerticalAlignment="Center" Width="100"
+                                     Maximum="151"/>
+                        <ProgressBar x:Name="progresoOrPlCr" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="3" VerticalAlignment="Center" Width="100"
+                                     Maximum="251"/>
+                        <ProgressBar x:Name="progresoRuZaEsm" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="4" VerticalAlignment="Center" Width="100"
+                                     Maximum="202"/>
+                        <ProgressBar x:Name="progresoDiaPer" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="5" VerticalAlignment="Center" Width="100"
+                                     Maximum="151"/>
+                        <ProgressBar x:Name="progresoPlatino" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="6" VerticalAlignment="Center" Width="100"
+                                     Maximum="210"/>
+                        <ProgressBar x:Name="progresoHearSoul" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="7" VerticalAlignment="Center" Width="100"
+                                     Maximum="256"/>
+                        <ProgressBar x:Name="progresoBlaNeg" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="8" VerticalAlignment="Center" Width="100"
+                                     Maximum="155"/>
+                        <ProgressBar x:Name="progresoBlaNeg2" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="9" VerticalAlignment="Center" Width="100"
+                                     Maximum="300"/>
+                        
+                        <!-- Grid del interior de la pokedex. -->
+                    </Grid>
+                    <!-- Grid que almacena todo el interior.-->
                 </Grid>
             </TabItem>
 
@@ -138,7 +168,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="Seleccione la generación del movimiento:" FontFamily="{StaticResource PkmGB}" FontSize="15" TextWrapping="Wrap"
                              HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    
+
                     <ComboBox Grid.Column="2" Grid.Row="0" x:Name="selecGen" Width="300" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" 
                               BorderBrush="Gold" BorderThickness="2" SelectedIndex="0" FontFamily="{StaticResource PkmGB}" Background="SteelBlue"
                               FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="selecGen_SelectionChanged">
@@ -191,8 +221,9 @@
                         <TextBlock x:Name="txtPP" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="3"/>
                         <TextBlock x:Name="txtPrio" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="4"/>
                         <TextBlock x:Name="txtTipo" Style="{StaticResource TBMovimiento}" Grid.Column="1" Grid.Row="5"/>
-                    </Grid> <!-- Grid para los botones de los movimeintos.-->
-                </Grid> 
+                    </Grid>
+                    <!-- Grid para los botones de los movimeintos.-->
+                </Grid>
             </TabItem>
 
             <!-- TIPOS -->
@@ -221,10 +252,10 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Seleccione la generación del tipo:" FontFamily="{StaticResource PkmGB}" FontSize="15"
                            HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    
+
                     <ComboBox Grid.Row="0" Grid.Column="2" x:Name="selecGen_Types"  Width="300" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" 
                               BorderBrush="Gold" BorderThickness="2" SelectedIndex="0" FontFamily="{StaticResource PkmGB}" Background="SteelBlue"
                               FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="selecGen_Types_SelectionChanged">
@@ -278,7 +309,6 @@
                         <TextBlock x:Name="txtNoDanioFrom" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="4"/>
                         <TextBlock x:Name="txtNoDanioTo" Style="{StaticResource TBTipos}" Grid.Column="0" Grid.Row="5"/>
                     </Grid>
-
                     <!--
                     <Image Source="../Resources/AllIcons.png" Width="105" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="110, 0, 0, 0"/>
                     -->
@@ -387,7 +417,8 @@
                         <Button x:Name="princTer" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Style="{StaticResource btnsPokebolas}" Click="princTer_Click"/>
                         <Button x:Name="finalTer" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalTer_Click"/>
                     </Grid>
-                </Grid> <!--GRID PRINCIPAL-->
+                </Grid>
+                <!--GRID PRINCIPAL-->
             </TabItem>
 
             <!-- BAYAS -->
@@ -412,12 +443,128 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a las diferentes bayas del videojuego" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Width="1100" Text="Hay distintos niveles de bayas.
+                               
+                               Reducción de estadísticas a cambio de amistad, medicina, combate, en apuro, cura a cambio de algo, protección de tipos y para cocinar." Style="{StaticResource TBPokebolas}"/>
+                    <TabControl Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Width="1200" Background="LightBlue" Initialized="TabControl_Initialized">
+                        <!-- REDUCCIÓN DE ESTADÍSTICAS A CAMBIO DE AMISTAD -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Red.Stats + Amistad"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasRedStats" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- MEDICINA -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Medicina"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasMedicinas" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- COMBATE -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Combate"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasCombate" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- EN APUROS -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="En apuros"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasApuros" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- Cura a cambio de un estado. -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Cura a cambio de estado"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasCuraEstado" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- Protección contra tipos -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Protección contra tipos"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasProtec" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+
+                        <!-- COCINAR -->
+                        <TabItem>
+                            <TabItem.Header>
+                                <Border BorderBrush="ForestGreen" BorderThickness="2" Background="LightBlue">
+                                    <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItemBayas}" Text="Para cocinar"/>
+                                </Border>
+                            </TabItem.Header>
+                            <ListBox x:Name="LBBayasCocina" Style="{StaticResource LBItemsBayas}" ItemTemplate="{StaticResource FormaLBItemBayas}">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
             </TabItem>
 
             <!-- ITEMS ESTADO -->
-            <TabItem x:Name="ItemsEstado" Background="LightSteelBlue">
-                <!-- Curación, PP, curación, antídotos:
+            <TabItem x:Name="ItemsEstado" Background="LightSteelBlue" Initialized="ItemsEstado_Initialized">
+                <!-- Healing, PP, revives, State Cures:
                     https://pokeapi.co/api/v2/item-category/27/
                     https://pokeapi.co/api/v2/item-category/28/
                     https://pokeapi.co/api/v2/item-category/29/
@@ -434,7 +581,52 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a los objetos de estado y/o curación" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Hay cuatro tipos de objetos de estado." Style="{StaticResource TBPokebolas}"/>
+
+                    <TextBlock Grid.Row="2"  Text="Curación vida" Style="{StaticResource TBPokebolas}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1"  Text="Recuperación PP" Style="{StaticResource TBPokebolas}"/>
+
+                    <TextBlock Grid.Row="4"  Text="Revivires" Style="{StaticResource TBPokebolas}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1"  Text="Curación estado" Style="{StaticResource TBPokebolas}"/>
+
+                    <ListBox x:Name="LbEstadoCura" Grid.Row="3" Style="{StaticResource LBItemCuras}" ItemTemplate="{StaticResource FormaLBItemCuras}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <ListBox x:Name="LbEstadoPP" Grid.Row="3" Grid.Column="1" Style="{StaticResource LBItemCuras}" ItemTemplate="{StaticResource FormaLBItemCuras}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <ListBox x:Name="LbEstadoRevive" Grid.Row="5" Style="{StaticResource LBItemCuras}" ItemTemplate="{StaticResource FormaLBItemCuras}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <ListBox x:Name="LbEstadoEstado" Grid.Row="5" Grid.Column="1" Style="{StaticResource LBItemCuras}" ItemTemplate="{StaticResource FormaLBItemCuras}">
+                        <ListBox.Resources>
+                            <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                        </ListBox.Resources>
+                    </ListBox>
+                </Grid>
             </TabItem>
 
             <!-- ITEMS EVOLUCION -->
@@ -454,7 +646,7 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a los diferentes objetos necesarios para evolucionar" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -470,7 +662,7 @@
                     <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Hay dos tipos de evoluciones, ignorando el de nivel" Style="{StaticResource TBPokebolas}"/>
                     <TextBlock Grid.Row="2"  Text="Piedras de evolución" Style="{StaticResource TBPokebolas}"/>
                     <TextBlock Grid.Row="2" Grid.Column="1"  Text="Piedras Mega Evolución de Pokémon" Style="{StaticResource TBPokebolas}"/>
-                    
+
                     <ListBox x:Name="LbEvoPiedrasEvo" Grid.Row="3" Style="{StaticResource LBItemEvoluciones}" MouseDoubleClick="LbEvoPiedrasEvo_MouseDoubleClick">
                         <ListBox.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
@@ -520,10 +712,10 @@
                         <RowDefinition/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Text="En la siguiente tabla se mostrarán todos los tipos diferetentes de las tablas de Arceus." 
                                Grid.Column="1" Grid.Row="1" Style="{StaticResource TBPokebolas}"/>
-                    
+
                     <DataGrid x:Name="dGridArceus" Style="{StaticResource dataGridArceus}" Grid.Column="1" Grid.Row="3" >
                         <DataGrid.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
@@ -547,7 +739,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-               
+
             </TabItem>
 
             <!-- CARTAS -->
@@ -566,7 +758,40 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a las distintas cartas disponible en Pokemon" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource TBPokebolas}" Grid.ColumnSpan="3" Text="Todas las cartas están disponibles en el desplegable"/>
+                    <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Style="{StaticResource ComboVitaminas}" x:Name="CBCartas" Grid.Row="3" Grid.Column="1" ItemContainerStyle="{StaticResource ItemsComboVitaminas}" Initialized="CBCartas_Initialized" SelectionChanged="CBCartas_SelectionChanged"/>
+                    <!-- Nombre, coste, efecto, imagen-->
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="CartaNombre" Content="Nombre carta" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="CartaCoste" Content="Coste carta" Grid.Column="1" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="CartaEfecto" Content="Efecto carta" Grid.Row="1" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="CartaImagen" Content="Imagen carta elegida" Grid.Column="1" Grid.Row="1" Style="{StaticResource labelVitaminas}"/>
+                        <Image x:Name="CartaImg" Grid.Column="1" Grid.Row="1" Width="75" Height="75"/>
+                    </Grid>
+                </Grid>
             </TabItem>
 
             <!-- VITAMINAS -->
@@ -585,7 +810,39 @@
                 <TabItem.ToolTip>
                     <ToolTip Content="Acceso a las distintas vitaminas disponibles en los juegos" FontFamily="{StaticResource PkmMonk}"/>
                 </TabItem.ToolTip>
-                <TextBlock Text="{Binding ElementName=textBox1, Path=Text}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource TBPokebolas}" Grid.ColumnSpan="3" Text="Todas las vitaminas están disponibles en el desplegable"/>
+                    <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Style="{StaticResource ComboVitaminas}"  x:Name="CBVitaminas" Grid.Row="3" Grid.Column="1" ItemContainerStyle="{StaticResource ItemsComboVitaminas}" Initialized="CBVitaminas_Initialized" SelectionChanged="CBVitaminas_SelectionChanged"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="VitNombre" Content="Nombre vitamina" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="VitCoste" Content="Coste vitamina" Grid.Column="1" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="VitEfecto" Content="Efecto vitamina" Grid.Row="1" Style="{StaticResource labelVitaminas}"/>
+                        <Label x:Name="VitImagen" Content="Imagen vitamina elegida" Grid.Column="1" Grid.Row="1" Style="{StaticResource labelVitaminas}"/>
+                        <Image x:Name="VitImg" Grid.Column="1" Grid.Row="1" Width="75" Height="75"/>
+                    </Grid>
+                </Grid>
             </TabItem>
 
         </TabControl>

@@ -195,5 +195,15 @@ namespace AppDI.Pags
         {
             passAcc.Password = "";
         }
+
+        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SoporteTecnico());
+        }
     }
 }

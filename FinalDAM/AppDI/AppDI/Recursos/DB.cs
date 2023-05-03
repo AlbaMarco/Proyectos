@@ -78,7 +78,7 @@ namespace AppDI.Recursos
                         DateTime fechaActual = DateTime.Now;
                         string fecha = fechaActual.ToString("yyyy-MM-dd"); // MM para que sean meses.
                         comando = new MySqlCommand("UPDATE USERS SET ULT_VISITA = '"+fecha+"' where USER = @usuarios ", conexion);
-                        comando.Parameters.AddWithValue("@usuario", user);
+                        comando.Parameters.AddWithValue("@usuarios", user);
                         comando.ExecuteNonQuery();
 
                         // Selecciona los datos de la persona que ha entrado en la aplicación.
@@ -400,6 +400,27 @@ namespace AppDI.Recursos
                 "VALUES ('"+nombre+"', "+numNivel+", '"+acciones+"', '"+fecha+"')", conexion);
             comando.ExecuteNonQuery();
         }
+
+        /// <summary>
+        /// Saber cuantos números de equipos alguien tiene, el máximo es 5.
+        /// </summary>
+        /// <returns></returns>
+        public string SaberEquipos(string usuario)
+        {
+            string sql = "SELECT COUNT(ID_EQUIPO) as EQUIPOS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID FROM USERS WHERE USER = '"+usuario+"');";
+            using(MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        return dr["EQUIPOS"].ToString();
+                    }
+                }
+            }
+        } // saberEquipos.
 
     }
 }

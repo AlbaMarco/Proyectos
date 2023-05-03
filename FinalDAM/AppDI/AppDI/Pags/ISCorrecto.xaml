@@ -6,17 +6,38 @@
       xmlns:local="clr-namespace:AppDI.Pags"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1500" 
-      Title="AccesoRegistrado" ShowsNavigationUI="True"
+      Title="AccesoRegistrado" ShowsNavigationUI="False"
       xmlns:pkdex="clr-namespace:AppDI.Recursos" Loaded="Page_Loaded">
 
     <Grid Background="#3761a8">
-        <Image x:Name="nivelUsers" Style="{StaticResource ImgTitulo}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px"/>
+            <RowDefinition Height="70px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
+            <MenuItem x:Name="Menu_Inicio" Header="Cerrar Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+            <RibbonSeparator/>
+            <Separator/>
+            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="CrearEquipos" Header="Crear equipos" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="CrearEquipos_Click"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="HacerEnfrentamientos" Header="Hacer un enfrentamiento" FontFamily="{StaticResource PkmMonk}" FontSize="20"/>
+            <RibbonSeparator/>
+            <MenuItem x:Name="Ranking" Header="Ver el Ranking" FontFamily="{StaticResource PkmMonk}" FontSize="20"/>
+        </Menu>
+
+        <Image x:Name="nivelUsers" Style="{StaticResource ImgTitulo}" Grid.Row="1">
             <Image.ToolTip>
                 <ToolTip Content="Este es tu nivel de usuario." FontFamily="{StaticResource PkmMonk}"/>
             </Image.ToolTip>
         </Image>
         <!-- Por cada tabItem, que haya un toolTip que lo explique. -->
-        <Label x:Name="nomUser" VerticalAlignment="Top" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" HorizontalAlignment="Right" FontSize="30" FontFamily="{StaticResource PkmMonk}"/>
-        <pkdex:TabItemTier1 x:Name="controlTab"/>
+        <Label x:Name="nomUser" VerticalAlignment="Top" VerticalContentAlignment="Top" Grid.Row="1"
+               HorizontalContentAlignment="Center" HorizontalAlignment="Right" 
+               FontSize="30" FontFamily="{StaticResource PkmMonk}"/>
+        <pkdex:TabItemTier1 x:Name="controlTab" Grid.Row="2"/>
     </Grid>
 </Page>

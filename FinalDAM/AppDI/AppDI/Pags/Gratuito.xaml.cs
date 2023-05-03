@@ -49,12 +49,14 @@ namespace AppDI.Pags
                 {
                     respuestaPokemon = await response.Content.ReadAsStringAsync();
                 }
+
                 if(respuestaPokemon != null && respuestaPokemon != "Not Found")
                 {
                     jsonPokemon = JsonDocument.Parse(respuestaPokemon);
                 } else
                 {
                     MessageBox.Show("No se han encontrados datos por ese nombre.");
+                    jsonPokemon = null;
                 }
                 
             }
@@ -68,6 +70,7 @@ namespace AppDI.Pags
         private async void btnBusqueda_Click(object sender, RoutedEventArgs e)
         {
             string pokemon = txBoxNomPkm.Text;
+
             if(pokemon != string.Empty)
             {
                 await PeticionPkm(pokemon.ToLower());
@@ -76,8 +79,8 @@ namespace AppDI.Pags
             {
                 MessageBox.Show("No introdujo datos a buscar.");
             }
-            
-            if(jsonPokemon != null)
+
+            if (jsonPokemon != null)
             {
                 string pkm = jsonPokemon.RootElement.GetProperty("name").ToString();
                 BitmapImage img = new BitmapImage(new Uri(jsonPokemon.RootElement.GetProperty("sprites").GetProperty("front_default").ToString()));
@@ -100,6 +103,7 @@ namespace AppDI.Pags
             lbFormas.Items.Clear();
             tbTipo.Text = "";
             tbHabilidad.Text = "";
+            tbMovimientos.Text = "";
 
             string nom = lbBusqueda.SelectedItem.ToString();
             string[] contenido = nom.Split(' ');
@@ -150,12 +154,41 @@ namespace AppDI.Pags
                 else if (max == 1) tbHabilidad.Text += jsonPokemon.RootElement.GetProperty("abilities")[i].GetProperty("ability").GetProperty("name").ToString() + ".";
             }
 
+            // Para sacar los movimientos que hay en ese pokemon.
+            for (int i = 0; i < jsonPokemon.RootElement.GetProperty("moves").GetArrayLength(); i++)
+            {
+                int max = jsonPokemon.RootElement.GetProperty("moves").GetArrayLength();
+                if (max > 1)
+                {
+                    if (max - 1 == i)
+                    {
+                        tbMovimientos.Text += jsonPokemon.RootElement.GetProperty("moves")[i].GetProperty("move").GetProperty("name").ToString() + ".";
+                    }
+                    else
+                    {
+                        tbMovimientos.Text += jsonPokemon.RootElement.GetProperty("moves")[i].GetProperty("move").GetProperty("name").ToString() + ", ";
+                    }
+
+                }
+                else if (max == 1) tbMovimientos.Text += jsonPokemon.RootElement.GetProperty("moves")[i].GetProperty("move").GetProperty("name").ToString() + ".";
+            }
+
             // Añadir al listbox las imágenes.
             BitmapImage imgFront = new BitmapImage(new Uri(jsonPokemon.RootElement.GetProperty("sprites").GetProperty("front_default").ToString()));
             BitmapImage imgBack = new BitmapImage(new Uri(jsonPokemon.RootElement.GetProperty("sprites").GetProperty("back_default").ToString()));
             BitmapImage imgShinyFront = new BitmapImage(new Uri(jsonPokemon.RootElement.GetProperty("sprites").GetProperty("front_shiny").ToString()));
             BitmapImage imgShinyBack = new BitmapImage(new Uri(jsonPokemon.RootElement.GetProperty("sprites").GetProperty("back_shiny").ToString()));
             lbFormas.Items.Add(new { ImaFront = imgFront, ImaBack = imgBack, ImaShinyFront = imgShinyFront, ImaShinyBack = imgShinyBack });
+        }
+
+        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SoporteTecnico());
         }
     }
 }

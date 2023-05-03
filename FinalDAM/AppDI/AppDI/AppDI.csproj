@@ -28,6 +28,7 @@
     <None Remove="Resources\ContenidoGratuito.png" />
     <None Remove="Resources\ContGra.png" />
     <None Remove="Resources\ContRegistro.png" />
+    <None Remove="Resources\CrearEquipos.png" />
     <None Remove="Resources\EeveeNoFondopng.png" />
     <None Remove="Resources\InicialesAguaNoFondo.png" />
     <None Remove="Resources\InicialesFuegoNoFondo.png" />
@@ -41,11 +42,13 @@
     <None Remove="Resources\PbCerrada.png" />
     <None Remove="Resources\PiedraEvo.png" />
     <None Remove="Resources\pkmLogo.png" />
+    <None Remove="Resources\PkmSupp.png" />
     <None Remove="Resources\PokeApi7.png" />
     <None Remove="Resources\Pokeball.png" />
     <None Remove="Resources\PokedexNoFondo.png" />
     <None Remove="Resources\Registro.png" />
     <None Remove="Resources\RevivirMax.png" />
+    <None Remove="Resources\SoporteTecnico.png" />
     <None Remove="Resources\Tier1.png" />
     <None Remove="Resources\Tier2.png" />
     <None Remove="Resources\Tier3.png" />
@@ -99,6 +102,9 @@
     <Content Include="Resources\ContRegistro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\CrearEquipos.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\EeveeNoFondopng.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -138,6 +144,9 @@
     <Content Include="Resources\pkmLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\PkmSupp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\PokeApi7.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -151,6 +160,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RevivirMax.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SoporteTecnico.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Tier1.png">

@@ -213,6 +213,16 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] CrearEquipos {
+            get {
+                object obj = ResourceManager.GetObject("CrearEquipos", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] EeveeNoFondopng {
             get {
                 object obj = ResourceManager.GetObject("EeveeNoFondopng", resourceCulture);
@@ -343,6 +353,16 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] PkmSupp {
+            get {
+                object obj = ResourceManager.GetObject("PkmSupp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] PokeApi7 {
             get {
                 object obj = ResourceManager.GetObject("PokeApi7", resourceCulture);
@@ -386,6 +406,16 @@ namespace AppDI.Recursos {
         internal static byte[] RevivirMax {
             get {
                 object obj = ResourceManager.GetObject("RevivirMax", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] SoporteTecnico {
+            get {
+                object obj = ResourceManager.GetObject("SoporteTecnico", resourceCulture);
                 return ((byte[])(obj));
             }
         }

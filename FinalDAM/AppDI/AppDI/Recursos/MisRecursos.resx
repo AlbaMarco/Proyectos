@@ -163,6 +163,9 @@
   <data name="ContRegistro" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ContRegistro.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CrearEquipos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CrearEquipos.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="EeveeNoFondopng" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EeveeNoFondopng.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -202,6 +205,9 @@
   <data name="pkmLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pkmLogo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="PkmSupp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PkmSupp.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="PokeApi7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PokeApi7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -216,6 +222,9 @@
   </data>
   <data name="RevivirMax" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RevivirMax.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SoporteTecnico" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SoporteTecnico.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Tier1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tier1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

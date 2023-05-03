@@ -40,7 +40,7 @@ namespace AppDI.Pags
             // https://learn.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
             Process proceso = new Process();
             proceso.StartInfo.UseShellExecute = true;
-            proceso.StartInfo.Arguments = "brave.exe";
+            proceso.StartInfo.Arguments = "msedge";
             proceso.StartInfo.FileName = e.Uri.AbsoluteUri;
             
             proceso.Start();
@@ -48,7 +48,7 @@ namespace AppDI.Pags
         }
 
         /// <summary>
-        /// Al hacer clicl al elemento "Iniciar sesión" que llevará a la página de iniciar sesión.
+        /// Al hacer click al elemento "Iniciar sesión" que llevará a la página de iniciar sesión.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,6 +80,11 @@ namespace AppDI.Pags
         private void Registro_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Registro());
+        }
+
+        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SoporteTecnico());
         }
     }
 }
