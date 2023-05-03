@@ -635,8 +635,6 @@ namespace AppDI.Recursos
 
                 jsonMov = JsonDocument.Parse(respuestaMov);
             }
-
-
         }
 
         /// <summary>

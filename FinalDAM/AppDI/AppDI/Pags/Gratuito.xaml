@@ -109,7 +109,6 @@
                 </ListBox.Resources>
             </ListBox>
 
-            <!-- Hay que hacer la consulta en código aún. -->
             <Label Grid.Row="5" Grid.Column="3" x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelkGratuito}"/>
             <TextBlock Grid.Row="6" Grid.Column="2" Grid.RowSpan="6" Grid.ColumnSpan="2" Margin="30, 0, 0, 0" x:Name="tbMovimientos" Style="{StaticResource tblockGratuito}" TextAlignment="Right"/>
         </Grid>

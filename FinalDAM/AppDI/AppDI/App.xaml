@@ -649,6 +649,49 @@
             <Setter Property="Margin" Value="0, 0, 10, 0"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
         </Style>
+        
+        <!-- Estilos para el textbox la pestaña CrearEquipos -->
+        <Style x:Key="tboxCrearEquipos" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="210"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Estilo del label de Gratuito. -->
+        <Style x:Key="labelCrearEquipo" TargetType="Label">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+        </Style>
+
+
+        <!-- Estilo del textBlock de CrearEquipo. -->
+        <Style x:Key="tblockCrearEquipo" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0, 10, 0, 10"/>
+        </Style>
+
 
         <!-- Estilo usado en las barras de los DataGrid y ListBox. [SCROLL BAR] -->
         <Style x:Key="FocusVisual">

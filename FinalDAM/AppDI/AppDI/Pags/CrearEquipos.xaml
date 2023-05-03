@@ -29,10 +29,80 @@
             </Image.ToolTip>
         </Image>
         <Label x:Name="lblEquipos" Grid.Row="2" Style="{StaticResource CentradoTotalLb}" Foreground="Gold" FontFamily="{StaticResource PkmMonk}" FontSize="24"/>
-        <Button x:Name="btnCrearEquipos" Grid.Row="2" Style="{StaticResource btnCrearEquipos}" Content="Crear equipos"/>
+        <Button x:Name="btnCrearEquipos" Grid.Row="2" Style="{StaticResource btnCrearEquipos}" Content="Crear equipos" Click="btnCrearEquipos_Click"/>
         <Button x:Name="btnRecargaEquipos" Grid.Row="2" Style="{StaticResource btnRecargaEquipos}" Content="Recargar página" Click="btnRecargaEquipos_Click"/>
-        <Grid Grid.Row="3" Margin="20, 0, 20, 00">
+        <Grid Grid.Row="3" Margin="20, 0, 20, 00" x:Name="gridPrincipal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="55*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="92*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxCrearEquipos}">
+                    <TextBox.ToolTip>
+                        <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
+                    </TextBox.ToolTip>
+                </TextBox>
+
+                <Button Grid.Row="1" x:Name="btnBusqueda" Style="{StaticResource btnCrearEquipos}" Content="Realizar búsqueda" Click="btnBusqueda_Click" />
+                
+                <ListBox Grid.Row="3" x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="210" Height="550"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#3883c2" BorderBrush="Gold" 
+                     BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                    </ListBox.Resources>
+                    <ListBox.ToolTip>
+                        <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+                    </ListBox.ToolTip>
+                </ListBox>
+            </Grid>
             
+            <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label x:Name="titId" Content="ID" Style="{StaticResource labelCrearEquipo}"/>
+                <TextBlock x:Name="tbId" Style="{StaticResource tblockCrearEquipo}"/>
+
+                <Label x:Name="titNombre" Content="Nombre" Style="{StaticResource labelCrearEquipo}"/>
+                <TextBlock x:Name="tbNombre" Style="{StaticResource tblockCrearEquipo}"/>
+
+                <Label x:Name="titVida" Content="Vida" Style="{StaticResource labelCrearEquipo}"/>
+                <TextBlock x:Name="tbVida" Style="{StaticResource tblockCrearEquipo}"/>
+
+                <Label x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelCrearEquipo}"/>
+                <TextBlock x:Name="tbTipo" Style="{StaticResource tblockCrearEquipo}"/>
+
+                <Label x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelCrearEquipo}"/>
+                <TextBlock x:Name="tbMovimientos" Style="{StaticResource tblockCrearEquipo}"/>
+
+                <TextBlock x:Name="txtAcierto" Style="{StaticResource tblockCrearEquipo}"/>
+                <TextBlock x:Name="txtTipoDanio" Style="{StaticResource tblockCrearEquipo}"/>
+                <TextBlock x:Name="txtPoder" Style="{StaticResource tblockCrearEquipo}"/>
+                <TextBlock x:Name="txtPP" Style="{StaticResource tblockCrearEquipo}"/>
+                <TextBlock x:Name="txtTipo" Style="{StaticResource tblockCrearEquipo}"/>
+                <Button x:Name="btnGuardar" Style="{StaticResource btnCrearEquipos}" Content="Guardar informacióm" Grid.Column="1" Click="btnGuardar_Click"/>
+            </StackPanel>
+
+            <TextBlock x:Name="tbElegidos" Grid.Column="2" Style="{StaticResource tblockCrearEquipo}" Text="Elegidos: "/>
+            <Button x:Name="btnGuardarEquipo" Style="{StaticResource btnCrearEquipos}" Content="Guardar equipo" Grid.Column="2" VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" Margin="0,0,0,10" Click="btnGuardarEquipo_Click"/>
+            
+            <Button x:Name="btnVerEquipo" Style="{StaticResource btnCrearEquipos}" Content="Ver equipo/s" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" Margin="0,10,0,0" Click="btnVerEquipo_Click"/>
+            <TextBlock x:Name="tbVerEquipos" Grid.Column="2" Grid.Row="1" Style="{StaticResource tblockCrearEquipo}" Height="290" Text="Equipo/s: " Margin="0, 68, 0, 0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Page>

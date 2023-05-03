@@ -79,7 +79,7 @@ namespace AppDI.Pags
         /// <param name="e"></param>
         private void Registro_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Registro());
+           // this.NavigationService.Navigate(new Registro());
         }
 
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)

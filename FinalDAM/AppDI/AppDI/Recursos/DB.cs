@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Security.Policy;
+using System.Text.Json;
 
 namespace AppDI.Recursos
 {
@@ -421,6 +422,80 @@ namespace AppDI.Recursos
                 }
             }
         } // saberEquipos.
+
+        /// <summary>
+        /// Necesario para saber el ID del usuaro y almacenarlo correctamente segun ID de la tabla users.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public string SaberID(string usuario)
+        {
+            string sql = "SELECT ID FROM USERS WHERE USER = '" + usuario + "';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        return dr["ID"].ToString();
+                    }
+                }
+            }
+        } // saberID.
+
+        /// <summary>
+        /// Método que inserta un nuevo JSON que está en una lista de strin. Usado en crear equipos.
+        /// </summary>
+        /// <param name="listaJSON"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public int insertarJsonNuevoEquipo(List<string> listaJSON, string usuario)
+        {
+            string idUser = SaberID(usuario);
+            string numEquipo = SaberEquipos(usuario);
+
+            string json = listaJSON[0] + listaJSON[1] + listaJSON[2] + listaJSON[3] + listaJSON[4] + listaJSON[5];
+            string sql = "INSERT INTO `EQUIPOSPKM` (`ID_USER`, `ID_EQUIPO`, `POKEMONS`, `ENFRENTAMIENTOS_JUGADOS`, `ENFRENTAMIENTOS_GANADOS`, `ENFRENTAMIENTOS_PERDIDOS`) " +
+                "VALUES ("+idUser+", "+(numEquipo+1)+", '"+json+"', NULL, NULL, NULL)";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        } // insertarJsonNuevoEquipo.
+
+        /// <summary>
+        /// Método que sirve para ver los equipos creados de un usuario que se deberá pasar por parámetro.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<JsonDocument> verEquipos(string usuario)
+        {
+            List<JsonDocument> lista = new List<JsonDocument>();
+            string sql = "SELECT POKEMONS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID FROM USERS WHERE USER = '" + usuario + "');";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+                            lista.Add(JsonDocument.Parse(dr["POKEMONS"].ToString()));
+                        }
+                        return lista;
+                    }
+                }
+                c.Close();
+            }
+        } // verEquipos.
 
     }
 }
