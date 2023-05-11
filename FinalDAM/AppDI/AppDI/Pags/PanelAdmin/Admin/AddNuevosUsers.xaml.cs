@@ -18,18 +18,21 @@ namespace AppDI.Pags.PanelAdmin
 {
     /// <summary>
     /// Lógica de interacción para AddNuevosUsers.xaml
+    /// En esta ventana se podrá añadir nuevos usuarios. Su funcionamiento es facil, se pone un nombre, un nivel de usuario y una contraseña la cual será hasheada.
     /// </summary>
     public partial class AddNuevosUsers : Page
     {
         private DB miDb;
         /// <summary>
         /// Constructor que se la pasa por parámetros un objeto de tipo base de datos.
+        /// Además, se usa un método para hacer un registro de la persona que accedió junto a la hora y dia que accedio.
         /// </summary>
         /// <param name="db"></param>
         public AddNuevosUsers(DB db)
         {
             InitializeComponent();
             this.miDb = db;
+            db.RegistroLogNuevo("Añadir nuevo usuario", db.NomUser, db.NivelAdmin);
         }
 
         /// <summary>
@@ -60,6 +63,11 @@ namespace AppDI.Pags.PanelAdmin
             tBoxNivelUser.Text = "";
         }
 
+        /// <summary>
+        /// Evento al cargar la página que evita que la navegación cargue ya que para el proceso.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.NavigationService.StopLoading();

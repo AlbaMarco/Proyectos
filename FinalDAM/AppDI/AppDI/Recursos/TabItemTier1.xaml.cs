@@ -19,6 +19,7 @@ using System.IO;
 using System.Windows.Markup;
 using System.Windows.Media.Media3D;
 using System.Data.SQLite;
+using AppDI.Pags;
 
 namespace AppDI.Recursos
 {
@@ -41,6 +42,8 @@ namespace AppDI.Recursos
 
         public string idPkm { get; set; }
         public string nombrePkm { get; set; }
+        public DB miDB { get; set; }
+
         App app = (App)Application.Current;
         public TabItemTier1()
         {
@@ -102,9 +105,164 @@ namespace AppDI.Recursos
             progresoNacional.Value = progreso;
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        private JsonDocument jsonPkmBusqueda;
+        private string respuestaPkmBusqueda;
+
+        /// <summary>
+        /// Petición realizada para buscar los pokemons que se introduzcan por nombr --> https://pokeapi.co/api/v2/pokemon/{id or name}/
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns></returns>
+        private async Task PeticionPkmBus(string nombre) // Admite id o nombre.
         {
-            //await PeticionMovsGen(Convert.ToString(selecGen.SelectedIndex + 1));
+            var direccion = new Uri("https://pokeapi.co/api/v2/");
+            using (var httpClient = new HttpClient { BaseAddress = direccion })
+            {
+                string consulta = "pokemon/" + nombre + "/";
+
+                using (var response = await httpClient.GetAsync(consulta))
+                {
+                    respuestaPkmBusqueda = await response.Content.ReadAsStringAsync();
+                }
+
+                if (respuestaPkmBusqueda != null && respuestaPkmBusqueda != "Not Found")
+                {
+                    jsonPkmBusqueda = JsonDocument.Parse(respuestaPkmBusqueda);
+                }
+                else
+                {
+                    MessageBox.Show("No se han encontrados datos por ese nombre.");
+                    jsonPkmBusqueda = null;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Acción del click del botón, necesaria para buscar el pokemon que se meta en el textBox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnBusqueda_Click(object sender, RoutedEventArgs e)
+        {
+            string pokemon = txBoxNomPkm.Text;
+
+            if (pokemon != string.Empty)
+            {
+                await PeticionPkmBus(pokemon.ToLower());
+            }
+            else
+            {
+                MessageBox.Show("No introdujo datos a buscar.");
+            }
+
+            if (jsonPkmBusqueda != null)
+            {
+                string pkm = jsonPkmBusqueda.RootElement.GetProperty("name").ToString();
+                BitmapImage img = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("front_default").ToString()));
+
+                // CultureInfo.InvariantCulture.TextInfo.ToTitleCase(pkm) Esto lo que hace es sacarme la primera letra en mayúscula.
+                lbBusqueda.Items.Add(new { Imagen = img, NomPkm = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(pkm) });
+            }
+
+            txBoxNomPkm.Text = "";
+        }
+
+        private async void lbBusqueda_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            lbFormas.Items.Clear();
+            tbTipo.Text = "";
+            tbHabilidad.Text = "";
+            lbMovimientos.Items.Clear();
+
+            string nom = lbBusqueda.SelectedItem.ToString();
+            string[] contenido = nom.Split(' ');
+            string nomPkm = contenido[6].ToLower();
+
+            await PeticionPkmBus(nomPkm);
+
+            tbId.Text = jsonPkmBusqueda.RootElement.GetProperty("id").ToString();
+            tbNombre.Text = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(jsonPkmBusqueda.RootElement.GetProperty("name").ToString());
+            tbAltura.Text = jsonPkmBusqueda.RootElement.GetProperty("height").ToString();
+            tbPeso.Text = jsonPkmBusqueda.RootElement.GetProperty("weight").ToString();
+
+            // Para sacar todos los tipos que tiene el pokemon.
+            for (int i = 0; i < jsonPkmBusqueda.RootElement.GetProperty("types").GetArrayLength(); i++)
+            {
+                int max = jsonPkmBusqueda.RootElement.GetProperty("types").GetArrayLength();
+                if (max > 1)
+                {
+                    if (max - 1 == i)
+                    {
+                        tbTipo.Text += jsonPkmBusqueda.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString() + ".";
+                    }
+                    else
+                    {
+                        tbTipo.Text += jsonPkmBusqueda.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString() + ", ";
+                    }
+
+                }
+                else if (max == 1) tbTipo.Text += jsonPkmBusqueda.RootElement.GetProperty("types")[i].GetProperty("type").GetProperty("name").ToString() + ".";
+            }
+
+            // Para sacar las habilidades que hay en ese pokemon.
+            for (int i = 0; i < jsonPkmBusqueda.RootElement.GetProperty("abilities").GetArrayLength(); i++)
+            {
+                int max = jsonPkmBusqueda.RootElement.GetProperty("abilities").GetArrayLength();
+                if (max > 1)
+                {
+                    if (max - 1 == i)
+                    {
+                        tbHabilidad.Text += jsonPkmBusqueda.RootElement.GetProperty("abilities")[i].GetProperty("ability").GetProperty("name").ToString() + ".";
+                    }
+                    else
+                    {
+                        tbHabilidad.Text += jsonPkmBusqueda.RootElement.GetProperty("abilities")[i].GetProperty("ability").GetProperty("name").ToString() + ", ";
+                    }
+
+                }
+                else if (max == 1) tbHabilidad.Text += jsonPkmBusqueda.RootElement.GetProperty("abilities")[i].GetProperty("ability").GetProperty("name").ToString() + ".";
+            }
+
+            // Para sacar los movimientos que hay en ese pokemon.
+            for (int i = 0; i < jsonPkmBusqueda.RootElement.GetProperty("moves").GetArrayLength(); i++)
+            {
+                lbMovimientos.Items.Add(jsonPkmBusqueda.RootElement.GetProperty("moves")[i].GetProperty("move").GetProperty("name").ToString());
+            }
+
+            // Añadir al listbox las imágenes.
+            BitmapImage imgFront = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("front_default").ToString()));
+            BitmapImage imgBack = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("back_default").ToString()));
+            BitmapImage imgShinyFront = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("front_shiny").ToString()));
+            BitmapImage imgShinyBack = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("back_shiny").ToString()));
+            lbFormas.Items.Add(new { ImaFront = imgFront, ImaBack = imgBack, ImaShinyFront = imgShinyFront, ImaShinyBack = imgShinyBack });
+
+            if(miDB.comprobarFavorito(miDB.NomUser, tbNombre.Text) == 0)
+            {
+                imgBtnFav.Source = new BitmapImage(new Uri("/Resources/FavVacio.png", UriKind.Relative));
+                btnFavPokemon.IsEnabled = true;
+            } else
+            {
+                imgBtnFav.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavPokemon.IsEnabled = false;
+            }
+        }
+
+        private void btnFavPokemon_Click(object sender, RoutedEventArgs e)
+        {
+            MemoryStream ms = new MemoryStream();
+            BitmapImage imgFront = new BitmapImage(new Uri(jsonPkmBusqueda.RootElement.GetProperty("sprites").GetProperty("front_default").ToString()));
+            var encoder = new PngBitmapEncoder(); // Utilizo un BitMapImage para obtenerlo de la API.
+            encoder.Frames.Add(BitmapFrame.Create(imgFront));
+            encoder.Save(ms);
+            byte[] bytesImg = ms.ToArray();
+
+            string nombrePkm = tbNombre.Text;
+            if(miDB.añadirFavoritos(miDB.NomUser, nombrePkm, bytesImg, "1") == 1)
+            {
+                imgBtnFav.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavPokemon.IsEnabled = false;
+            }
         }
 
         /// <summary>
@@ -609,9 +767,16 @@ namespace AppDI.Recursos
 
                 jsonMovsGen = JsonDocument.Parse(respuestaMovsGen);
 
-                for (int i = 0; i < jsonMovsGen.RootElement.GetProperty("moves").GetArrayLength(); i++)
+                if (jsonMovsGen.RootElement.GetProperty("moves").GetArrayLength() == 0)
                 {
-                    lbMovs.Items.Add(jsonMovsGen.RootElement.GetProperty("moves")[i].GetProperty("name").ToString());
+                    lbMovs.Items.Add("No hay ningún movimiento nuevo en esta generación");
+                }
+                else
+                {
+                    for (int i = 0; i < jsonMovsGen.RootElement.GetProperty("moves").GetArrayLength(); i++)
+                    {
+                        lbMovs.Items.Add(jsonMovsGen.RootElement.GetProperty("moves")[i].GetProperty("name").ToString());
+                    }
                 }
             }
         }
@@ -880,7 +1045,6 @@ namespace AppDI.Recursos
             var direccion = new Uri("https://pokeapi.co/api/v2/");
             using (var httpClient = new HttpClient { BaseAddress = direccion })
             {
-                if (lbMovs != null) { lbMovs.Items.Clear(); }
                 string consulta = "item-category/" + cat + "/";
 
                 using (var response = await httpClient.GetAsync(consulta))
@@ -982,24 +1146,20 @@ namespace AppDI.Recursos
             PkbolEspecial.ItemsSource = listaEspe;
             PkbolBonguri.ItemsSource = listaBongu;
 
-            PkbolBonguri.SelectedIndex = 0;
-
             if (PkbolNormal.SelectedIndex == 0)
             {
                 atrasPrim.IsEnabled = false;
                 princPrim.IsEnabled = false;
             }
 
-            if (PkbolBonguri.SelectedIndex == 0)
+            if (PkbolBonguri.SelectedIndex == -1)
             {
-                atrasSeg.IsEnabled = false;
                 princSeg.IsEnabled = false;
-                
+                atrasSeg.IsEnabled = false;
             }
 
             if (PkbolEspecial.SelectedIndex == 0)
             {
-
                 atrasTer.IsEnabled = false;
                 princTer.IsEnabled = false;
             }
@@ -1012,6 +1172,7 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void atrasPrim_Click(object sender, RoutedEventArgs e)
         {
+            PkbolNormal.SelectedIndex--;
             if (PkbolNormal.SelectedIndex == 0)
             {
                 atrasPrim.IsEnabled = false;
@@ -1021,7 +1182,6 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolNormal.SelectedIndex--;
                 atrasPrim.IsEnabled = true;
                 princPrim.IsEnabled = true;
                 finalPrim.IsEnabled = true;
@@ -1037,6 +1197,7 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void delanPrim_Click(object sender, RoutedEventArgs e)
         {
+            PkbolNormal.SelectedIndex++;
             if (PkbolNormal.SelectedIndex == listaNorm.Count - 1)
             {
                 atrasPrim.IsEnabled = true;
@@ -1046,7 +1207,6 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolNormal.SelectedIndex++;
                 atrasPrim.IsEnabled = true;
                 princPrim.IsEnabled = true;
                 finalPrim.IsEnabled = true;
@@ -1113,7 +1273,8 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void atrasSeg_Click(object sender, RoutedEventArgs e)
         {
-            if (PkbolBonguri.SelectedIndex == -1)
+            PkbolBonguri.SelectedIndex--;
+            if (PkbolBonguri.SelectedIndex == 0)
             {
                 atrasSeg.IsEnabled = false;
                 princSeg.IsEnabled = false;
@@ -1122,7 +1283,6 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolBonguri.SelectedIndex--;
                 atrasSeg.IsEnabled = true;
                 princSeg.IsEnabled = true;
                 finalSeg.IsEnabled = true;
@@ -1138,6 +1298,7 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void delanSeg_Click(object sender, RoutedEventArgs e)
         {
+            PkbolBonguri.SelectedIndex++;
             if (PkbolBonguri.SelectedIndex == listaBongu.Count - 1)
             {
                 atrasSeg.IsEnabled = true;
@@ -1147,11 +1308,19 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolBonguri.SelectedIndex++;
                 atrasSeg.IsEnabled = true;
                 princSeg.IsEnabled = true;
                 finalSeg.IsEnabled = true;
                 delanSeg.IsEnabled = true;
+            }
+
+            if(PkbolBonguri.SelectedIndex == 0)
+            {
+                atrasSeg.IsEnabled = false;
+                princSeg.IsEnabled = false;
+                finalSeg.IsEnabled = true;
+                delanSeg.IsEnabled = true;
+
             }
             PkbolBonguri.ScrollIntoView(PkbolBonguri.SelectedItem);
         }
@@ -1214,6 +1383,7 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void atrasTer_Click(object sender, RoutedEventArgs e)
         {
+            PkbolEspecial.SelectedIndex--;
             if (PkbolEspecial.SelectedIndex == 0)
             {
                 atrasTer.IsEnabled = false;
@@ -1223,7 +1393,6 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolEspecial.SelectedIndex--;
                 atrasTer.IsEnabled = true;
                 princTer.IsEnabled = true;
                 finalTer.IsEnabled = true;
@@ -1239,6 +1408,7 @@ namespace AppDI.Recursos
         /// <param name="e"></param>
         private void delanTer_Click(object sender, RoutedEventArgs e)
         {
+            PkbolEspecial.SelectedIndex++;
             if (PkbolEspecial.SelectedIndex == listaEspe.Count - 1)
             {
                 atrasTer.IsEnabled = true;
@@ -1248,7 +1418,6 @@ namespace AppDI.Recursos
             }
             else
             {
-                PkbolEspecial.SelectedIndex++;
                 atrasTer.IsEnabled = true;
                 princTer.IsEnabled = true;
                 finalTer.IsEnabled = true;
@@ -2139,6 +2308,7 @@ namespace AppDI.Recursos
             await PeticionBayasProtec();
             await PeticionBayasCocina();
         }
+
     }// Clase.
 
 } // Namespace.

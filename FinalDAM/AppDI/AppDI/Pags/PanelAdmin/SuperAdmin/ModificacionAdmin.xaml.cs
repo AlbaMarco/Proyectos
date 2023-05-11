@@ -18,6 +18,8 @@ namespace AppDI.Pags.PanelAdmin
 {
     /// <summary>
     /// Lógica de interacción para ModificacionAdmin.xaml
+    /// Ventana en la que se modificará el nivel de los usuarios que no son administrador, poniendolos en nivel básico de admnistración.
+    /// Se necesitan permisos de super admin.
     /// </summary>
     public partial class ModificacionAdmin : Page
     {
@@ -25,6 +27,7 @@ namespace AppDI.Pags.PanelAdmin
         /// <summary>
         /// Constructor, recibe por parámetro un objeto de Base de datos.
         /// Además, deshabilitará los botones.
+        /// Además, se usa un método para hacer un registro de la persona que accedió junto a la hora y dia que accedio.
         /// </summary>
         /// <param name="db"></param>
         public ModificacionAdmin(DB db)
@@ -35,6 +38,7 @@ namespace AppDI.Pags.PanelAdmin
             rBtnSi.IsEnabled = false;
             rBtnNo.IsEnabled = false;
             btnConfirmar.IsEnabled = false;
+            db.RegistroLogNuevo("SA | Cambiando nivel de los usuarios a admin", db.NomUser, db.NivelAdmin);
         }
         /// <summary>
         /// Acción de doble click de mi ListBox, se activará el botón de confirmación y, dependiendo de nivel de usuario, activará unos radio botones u otros.
@@ -89,6 +93,11 @@ namespace AppDI.Pags.PanelAdmin
             }
         }
 
+        /// <summary>
+        /// Evento al cargar la página que evita que la navegación cargue ya que para el proceso.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.NavigationService.StopLoading();

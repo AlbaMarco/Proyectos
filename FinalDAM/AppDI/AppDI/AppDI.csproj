@@ -16,7 +16,6 @@
     <None Remove="Resources\AccesoGratuito.png" />
     <None Remove="Resources\Admin.png" />
     <None Remove="Resources\AllIcons.png" />
-    <None Remove="Resources\AppDI.db" />
     <None Remove="Resources\Arceus2.png" />
     <None Remove="Resources\ArceusPlates.png" />
     <None Remove="Resources\AshKetchum.png" />
@@ -30,6 +29,9 @@
     <None Remove="Resources\ContRegistro.png" />
     <None Remove="Resources\CrearEquipos.png" />
     <None Remove="Resources\EeveeNoFondopng.png" />
+    <None Remove="Resources\FavLleno.png" />
+    <None Remove="Resources\FavVacio.png" />
+    <None Remove="Resources\golpe.png" />
     <None Remove="Resources\InicialesAguaNoFondo.png" />
     <None Remove="Resources\InicialesFuegoNoFondo.png" />
     <None Remove="Resources\InicialesPlantaNoFondo.png" />
@@ -41,6 +43,10 @@
     <None Remove="Resources\PbAbierta.png" />
     <None Remove="Resources\PbCerrada.png" />
     <None Remove="Resources\PiedraEvo.png" />
+    <None Remove="Resources\Pikachu.png" />
+    <None Remove="Resources\PkballFila1.png" />
+    <None Remove="Resources\PkballFila2.png" />
+    <None Remove="Resources\PkballFila3.png" />
     <None Remove="Resources\pkmLogo.png" />
     <None Remove="Resources\PkmSupp.png" />
     <None Remove="Resources\PokeApi7.png" />
@@ -49,6 +55,7 @@
     <None Remove="Resources\Registro.png" />
     <None Remove="Resources\RevivirMax.png" />
     <None Remove="Resources\SoporteTecnico.png" />
+    <None Remove="Resources\ThrowPkball.png" />
     <None Remove="Resources\Tier1.png" />
     <None Remove="Resources\Tier2.png" />
     <None Remove="Resources\Tier3.png" />
@@ -108,6 +115,15 @@
     <Content Include="Resources\EeveeNoFondopng.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\FavLleno.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\FavVacio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\golpe.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\InicialesAguaNoFondo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -141,6 +157,18 @@
     <Content Include="Resources\PiedraEvo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Pikachu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PkballFila1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PkballFila2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PkballFila3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\pkmLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -163,6 +191,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SoporteTecnico.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ThrowPkball.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Tier1.png">
@@ -200,9 +231,6 @@
     <Resource Include="Fuentes\Pokemon Hollow.ttf" />
     <Resource Include="Fuentes\Pokemon Solid.ttf" />
     <Resource Include="Fuentes\PokemonGb-RAeo.ttf" />
-    <Resource Include="Resources\AppDI.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>

@@ -93,16 +93,6 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
-        internal static byte[] AppDI {
-            get {
-                object obj = ResourceManager.GetObject("AppDI", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
-        /// </summary>
         internal static byte[] Arceus2 {
             get {
                 object obj = ResourceManager.GetObject("Arceus2", resourceCulture);
@@ -233,6 +223,36 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] FavLleno {
+            get {
+                object obj = ResourceManager.GetObject("FavLleno", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] FavVacio {
+            get {
+                object obj = ResourceManager.GetObject("FavVacio", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] golpe {
+            get {
+                object obj = ResourceManager.GetObject("golpe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] InicialesAguaNoFondo {
             get {
                 object obj = ResourceManager.GetObject("InicialesAguaNoFondo", resourceCulture);
@@ -343,6 +363,46 @@ namespace AppDI.Recursos {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] Pikachu {
+            get {
+                object obj = ResourceManager.GetObject("Pikachu", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] PkballFila1 {
+            get {
+                object obj = ResourceManager.GetObject("PkballFila1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] PkballFila2 {
+            get {
+                object obj = ResourceManager.GetObject("PkballFila2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] PkballFila3 {
+            get {
+                object obj = ResourceManager.GetObject("PkballFila3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] pkmLogo {
             get {
                 object obj = ResourceManager.GetObject("pkmLogo", resourceCulture);
@@ -416,6 +476,16 @@ namespace AppDI.Recursos {
         internal static byte[] SoporteTecnico {
             get {
                 object obj = ResourceManager.GetObject("SoporteTecnico", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] ThrowPkball {
+            get {
+                object obj = ResourceManager.GetObject("ThrowPkball", resourceCulture);
                 return ((byte[])(obj));
             }
         }

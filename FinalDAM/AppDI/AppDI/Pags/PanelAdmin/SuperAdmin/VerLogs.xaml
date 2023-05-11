@@ -1,0 +1,22 @@
+﻿<Page x:Class="AppDI.Pags.PanelAdmin.SuperAdmin.VerLogs"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin.SuperAdmin"
+      mc:Ignorable="d" 
+       d:DesignHeight="700" d:DesignWidth="700"
+      Title="Lista de usuarios" ShowsNavigationUI="False" Loaded="Page_Loaded">
+
+    <Grid Background="#3761a8">
+        <DataGrid x:Name="listaDataGrid" Width="650" Height="650" Style="{StaticResource dataGrid}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Listado actual de todos los usuarios de la base de datos creados."/>
+            </DataGrid.ToolTip>
+        </DataGrid>
+    </Grid>
+</Page>

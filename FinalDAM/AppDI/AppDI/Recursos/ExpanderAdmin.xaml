@@ -12,22 +12,43 @@
                 <ToolTip Content="Acceso a la lista de usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="btnModNivel" Content="Modificación nivel y nombre" Style="{StaticResource btnExpanderAdmin}" Click="btnModNivel_Click">
+        <Button x:Name="btnModNivel" Content="Modif. nivel y nombre" Style="{StaticResource btnExpanderAdmin}" Click="btnModNivel_Click">
             <Button.ToolTip>
                 <ToolTip Content="Acceso a la modificación de nombre y nivel de los usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>
         </Button>
-        <Button x:Name="btnAddUser" Content="Añadir nuevos usuarios" Style="{StaticResource btnExpanderAdmin}" Click="btnAddUser_Click">
+        <Button x:Name="btnAddUser" Content="Añadir usuarios" Style="{StaticResource btnExpanderAdmin}" Click="btnAddUser_Click">
             <Button.ToolTip>
                 <ToolTip Content="Acceso a añadir nuevos usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>
         </Button>
+        <Button x:Name="btnCrearEquipo" Content="Crear equipo BOT" Style="{StaticResource btnExpanderAdmin}" Click="btnCrearEquipo_Click">
+            <Button.ToolTip>
+                <ToolTip Content="Acceso modificación del acceso de administrador." FontFamily="{StaticResource PkmMonk}"/>
+            </Button.ToolTip>
+        </Button>
+        <Button x:Name="btnBanPkm" Content="Ban Pokemons y verlos" Style="{StaticResource btnExpanderAdmin}" Click="btnBanPkm_Click">
+            <Button.ToolTip>
+                <ToolTip Content="Acceso banear pokemons del acceso de administrador." FontFamily="{StaticResource PkmMonk}"/>
+            </Button.ToolTip>
+        </Button>
+        <Button x:Name="btnSopTec" Content="Ver incidencias" Style="{StaticResource btnExpanderAdmin}" Click="btnSopTec_Click">
+            <Button.ToolTip>
+                <ToolTip Content="Acceso al soporte técnico del acceso de administrador." FontFamily="{StaticResource PkmMonk}"/>
+            </Button.ToolTip>
+        </Button>
+        <!-- DE AQUI A ABAJO SUPER ADMIN. -->
         <Button x:Name="btnEliUser" Content="Eliminación usuarios" Style="{StaticResource btnExpanderAdmin}" Click="btnEliUser_Click">
             <Button.ToolTip>
                 <ToolTip Content="Acceso a la eliminación de usuarios." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>
         </Button>
         <Button x:Name="btnModAdmin" Content="Modificación admin" Style="{StaticResource btnExpanderAdmin}" Click="btnModAdmin_Click">
+            <Button.ToolTip>
+                <ToolTip Content="Acceso modificación del acceso de administrador." FontFamily="{StaticResource PkmMonk}"/>
+            </Button.ToolTip>
+        </Button>
+        <Button x:Name="btnLogsAdmin" Content="Log admin" Style="{StaticResource btnExpanderAdmin}" Click="btnLogsAdmin_Click" >
             <Button.ToolTip>
                 <ToolTip Content="Acceso modificación del acceso de administrador." FontFamily="{StaticResource PkmMonk}"/>
             </Button.ToolTip>

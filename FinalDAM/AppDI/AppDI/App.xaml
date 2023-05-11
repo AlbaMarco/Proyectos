@@ -98,11 +98,16 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
+        <!-- Estilo que tienen los Listbox en la sección de Pokebolas-->
         <Style x:Key="StyleLBPokebolas" TargetType="ListBox">
             <Setter Property="Width" Value="650"/>
-            <Setter Property="Height" Value="70"/>
+            <Setter Property="Height" Value="80"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="SelectedIndex" Value="0"/>
+            <Setter Property="Background" Value="LightSteelBlue"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
         </Style>
         <!-- Cada ListBox de la sección de Pokeballs -->
         <DataTemplate x:Key="LbPokebolas"> <!-- Tamaño de 650 y 70 de alto.-->
@@ -110,7 +115,7 @@
                 <Image Source="{Binding Imagen}" Width="50" Height="50" Margin="0, -20, 5, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding NomPkball}" Width="100" Height="50" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Center" 
                            FontSize="14" FontFamily="{StaticResource PkmGB}" FontWeight="Bold" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding Descripcion}" Width="450" Height="60" TextAlignment="Justify" VerticalAlignment="Center"
+                <TextBlock Text="{Binding Descripcion}" Width="450" Height="70" TextAlignment="Justify" VerticalAlignment="Center"
                            HorizontalAlignment="Center" FontSize="11" FontFamily="{StaticResource PkmGB}"  
                            Margin="0, 20, 5, 5" TextWrapping="Wrap"/>
             </StackPanel>
@@ -162,7 +167,7 @@
         <Style x:Key="tblockAdmin" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="600"/>
+            <Setter Property="Width" Value="670"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="TextAlignment" Value="Justify"/>
             <Setter Property="Foreground" Value="Gold"/>
@@ -174,10 +179,11 @@
             <Setter Property="Background" Value="#3761a8"/>
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="BorderBrush" Value="Gold"/>
-            <Setter Property="Margin" Value="0, 10, 0, 10"/>
+            <Setter Property="Margin" Value="0, 5, 0, 5"/>
             <Setter Property="Width" Value="140"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="16"/>
         </Style>
 
         <!-- Estilo de los títulos del control de usuario TabItem. -->
@@ -229,7 +235,7 @@
         <!-- Estilo de un listbox. -->
         <Style x:Key="estiloListBox" TargetType="ListBox">
             <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="#3761a8"/>
             <Setter Property="Foreground" Value="Gold"/>
             <Setter Property="BorderBrush" Value="Gold"/>
@@ -692,6 +698,340 @@
             <Setter Property="Margin" Value="0, 10, 0, 10"/>
         </Style>
 
+        
+        <!-- Estilos para el textbox la pestaña CrearEquipos de Administrador -->
+        <Style x:Key="tboxCrearEquiposAdmin" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+
+        <!-- Boton de crear equipos pkm -->
+        <Style x:Key="btnCrearEquiposAdmin" TargetType="Button">
+            <Setter Property="Background" Value="#3883c2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+        </Style>
+
+        <!-- Estilo del label de CrearEquipo Admin. -->
+        <Style x:Key="labelCrearEquipoAdmin" TargetType="Label">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="Margin" Value="0, 5, 0, 1"/>
+        </Style>
+
+
+        <!-- Estilo del textBlock de CrearEquipo Admin. -->
+        <Style x:Key="tblockCrearEquipoAdmin" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0, 5, 0, 1"/>
+        </Style>
+
+
+        <!-- Estilo del textBox del menú de administrador del textbox.. -->
+        <Style x:Key="txtSopEstado" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+        </Style>
+
+
+        <!-- Estilo general del dataGrid de lista usuarios. -->
+        <Style x:Key="dataGridSopTicket" TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowBackground" Value="#3761a8"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="AutoGenerateColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmFontBold}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ColumnHeaderStyle" Value="{StaticResource titulosDataGridLista}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Width" Value="650"/>
+            <Setter Property="Height" Value="500"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0, 10, 0, 0"/>
+        </Style>
+
+
+        <!-- Estilo del label del panel de administrador de Soporte Técnico. -->
+        <Style x:Key="labelAdminSopTec" TargetType="Label">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="Margin" Value="10, 10, 0, 0"/>
+        </Style>
+
+
+        <Style x:Key="ComboEstadoSopTec" TargetType="ComboBox">
+            <Setter Property="Background" Value="SteelBlue"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0, 15, 10, 0"/>
+        </Style>
+
+
+        <!-- Textbox la pestaña Banear Pkms de Administrador -->
+        <Style x:Key="tboxBusquedaBan" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Boton de crear equipos pkm -->
+        <Style x:Key="btnBusquedaBan" TargetType="Button">
+            <Setter Property="Background" Value="#3883c2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+        </Style>
+
+        <!-- Boton de banear a un pkm -->
+        <Style x:Key="btnBanearPkm" TargetType="Button">
+            <Setter Property="Background" Value="#3883c2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+        </Style>
+
+        <!-- Label de banear pokemons de la parte Admin. -->
+        <Style x:Key="lblBanearPkms" TargetType="Label">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmMonk}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="Margin" Value="0, 5, 0, 1"/>
+        </Style>
+
+        <!-- Estilo general del dataGrid de lista usuarios. -->
+        <Style x:Key="dataGridPkmBanned" TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="SteelBlue"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowBackground" Value="SteelBlue"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="AutoGenerateColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="ColumnWidth" Value="*"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmFontBold}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ColumnHeaderStyle" Value="{StaticResource titulosDataGridLista}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="300"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Forma de los elementos del ListBox de la seccion de banear pkms. -->
+        <DataTemplate x:Key="lbItemBanPkm">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Imagen}" Width="80" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-8, 0, 0, 0"/>
+                <TextBlock Text="{Binding IdPkm}" Margin="0" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource PkmMonk}"/>
+                <TextBlock Text="{Binding NomPkm}" Margin="0" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="{StaticResource PkmMonk}"/>
+            </StackPanel>
+        </DataTemplate>
+
+
+
+        <!-- Estilo del textBox del TabItem búsqueda de pkm. -->
+        <Style x:Key="tboxTabBusqueda" TargetType="TextBox">
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmFontBold}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Botones del TabItem búsqueda de pkm -->
+        <Style x:Key="btnTabBusqueda" TargetType="Button">
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Estilo del label TabItem búsqueda de pkm -->
+        <Style x:Key="labelTabBusqueda" TargetType="Label">
+            <Setter Property="Background" Value="#3761a8"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gold"/>
+        </Style>
+
+
+        <!-- Estilo del textBlock TabItem búsqueda de pkm -->
+        <Style x:Key="tblockTabBusqueda" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="{StaticResource PkmGB}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <!-- Botones para favoritos -->
+        <Style x:Key="btnFavoritos" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
+
+        <!-- ESTILO DE TEMPLATE PARA EL ENABLED, SI ESTÁ PRESIONADO O SI ESTÁ POR DEFECTO DE UN BOTÓN. -->
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="Transparent"/>
+        <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
         <!-- Estilo usado en las barras de los DataGrid y ListBox. [SCROLL BAR] -->
         <Style x:Key="FocusVisual">

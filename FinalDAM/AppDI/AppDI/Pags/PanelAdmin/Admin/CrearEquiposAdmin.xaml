@@ -1,0 +1,91 @@
+﻿<Page x:Class="AppDI.Pags.PanelAdmin.CrearEquiposAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="700"
+      Title="CrearEquiposAdmin" ShowsNavigationUI="False">
+
+    <Grid Background="#3761a8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <Label x:Name="lblEquipos" Grid.Row="3" Grid.ColumnSpan="3" Style="{StaticResource CentradoTotalLb}" Foreground="Gold" FontFamily="{StaticResource PkmMonk}" FontSize="24"/>
+        
+            <Grid Grid.RowSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="92*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxCrearEquiposAdmin}">
+                    <TextBox.ToolTip>
+                        <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
+                    </TextBox.ToolTip>
+                </TextBox>
+
+                <Button Grid.Row="1" x:Name="btnBusqueda" Style="{StaticResource btnCrearEquiposAdmin}" Content="Realizar búsqueda" Click="btnBusqueda_Click" />
+
+                <ListBox Grid.Row="3" x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="150" Height="550"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#3883c2" BorderBrush="Gold" 
+                     BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                    </ListBox.Resources>
+                    <ListBox.ToolTip>
+                        <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+                    </ListBox.ToolTip>
+                </ListBox>
+            </Grid>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Label x:Name="titId" Content="ID" Style="{StaticResource labelCrearEquipoAdmin}"/>
+            <Label x:Name="titNombre" Content="Nombre" Style="{StaticResource labelCrearEquipoAdmin}"/>
+            <Label x:Name="titVida" Content="Vida" Style="{StaticResource labelCrearEquipoAdmin}"/>
+            <Label x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelCrearEquipoAdmin}"/>
+            <Label x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelCrearEquipoAdmin}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="100, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock x:Name="tbId" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+            <TextBlock x:Name="tbNombre" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+            <TextBlock x:Name="tbVida" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+            <TextBlock x:Name="tbTipo" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+            <TextBlock x:Name="tbMovimientos" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock x:Name="txtAcierto" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+                <TextBlock x:Name="txtTipoDanio" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+                <TextBlock x:Name="txtPoder" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+                <TextBlock x:Name="txtPP" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+            <TextBlock x:Name="txtTipo" Style="{StaticResource tblockCrearEquipoAdmin}"/>
+        </StackPanel>
+        
+        <Button x:Name="btnGuardar" Style="{StaticResource btnCrearEquiposAdmin}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="30" Width="165" Content="Guardar informacióm" Grid.Column="1" Click="btnGuardar_Click"/>
+
+        <TextBlock x:Name="tbElegidos" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource tblockCrearEquipoAdmin}" Text="Elegidos: "/>
+            <Button x:Name="btnGuardarEquipo" Style="{StaticResource btnCrearEquiposAdmin}" Content="Guardar equipo" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" Margin="0,0,0,10" Click="btnGuardarEquipo_Click"/>
+
+            <Button x:Name="btnVerEquipo" Style="{StaticResource btnCrearEquiposAdmin}" Content="Ver equipo/s" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" Margin="0,10,0,0" Click="btnVerEquipo_Click"/>
+            <TextBlock x:Name="tbVerEquipos" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource tblockCrearEquipoAdmin}" Height="290" Text="Equipo/s: " Margin="0, 68, 0, 0" VerticalAlignment="Top"/>
+        </Grid>
+</Page>

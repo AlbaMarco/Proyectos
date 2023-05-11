@@ -1,0 +1,49 @@
+﻿<Page x:Class="AppDI.Pags.PanelAdmin.Admin.VerSoporteTecnico"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="700"
+      Title="VerSoporteTecnico" ShowsNavigationUI="False" Loaded="Page_Loaded">
+
+    <Grid Background="#3761a8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="520"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button x:Name="btnFiltrarEstado" Content="Filtrar por estado." Style="{StaticResource btnExpanderAdmin}" Margin="10, 0, 0, 0" HorizontalAlignment="Left" Click="btnFiltrarEstado_Click"/>
+        <ComboBox x:Name="txtEstado" Grid.Row="0" Style="{StaticResource ComboEstadoSopTec}" Margin="0, 5, 10, 0" HorizontalAlignment="Right" Template="{StaticResource ComboBoxTemplate1}">
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="ENVIADO"/>
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="EN PROCESO"/>
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="FINALIZADO"/>
+        </ComboBox>
+
+        <DataGrid x:Name="listaDataGrid" Style="{StaticResource dataGridSopTicket}" Grid.Row="1" MouseDoubleClick="listaDataGrid_MouseDoubleClick">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Listado actual de todos los tickets de soporte técnico de la base de datos creados."/>
+            </DataGrid.ToolTip>
+        </DataGrid>
+
+        <Label x:Name="lblIdTicket" Grid.Row="2" Style="{StaticResource labelAdminSopTec}" Content="Id Ticket"/>
+        <Label x:Name="lblEstadoTicket" Grid.Row="2" Style="{StaticResource labelAdminSopTec}" HorizontalAlignment="Center" Content="Estado actual"/>
+
+        <ComboBox x:Name="comboCambiarEstado" Grid.Row="3" Style="{StaticResource ComboEstadoSopTec}" Template="{StaticResource ComboBoxTemplate1}">
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="ENVIADO"/>
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="EN PROCESO"/>
+            <ComboBoxItem Style="{StaticResource ItemsComboVitaminas}" Content="FINALIZADO"/>
+        </ComboBox>
+        <Button x:Name="btnCambiarEstado" Grid.Row="3" Content="Cambiar su estado." Style="{StaticResource btnExpanderAdmin}" Margin="0, 15, 10, 0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnCambiarEstado_Click"/>
+        <Label x:Name="resCambiarEstado" Grid.Row="3" Style="{StaticResource labelCrearEquipoAdmin}" VerticalAlignment="Bottom" Margin="0, 0, 0, 10"/>
+        
+        
+    </Grid>
+</Page>

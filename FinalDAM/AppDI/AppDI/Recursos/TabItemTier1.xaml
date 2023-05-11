@@ -8,8 +8,133 @@
              d:DesignHeight="850" d:DesignWidth="1450"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
-    <Grid Loaded="Grid_Loaded">
+    <Grid>
         <TabControl TabStripPlacement="Left" BorderThickness="4" BorderBrush="#3761a8" Width="1400" Height="700" Background="LightSteelBlue">
+            <TabItem x:Name="BusquedaPkm" Background="LightSteelBlue">
+                <TabItem.Header>
+                    <Border BorderBrush="Yellow" BorderThickness="2" Background="LightSteelBlue">
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="/Resources/Pikachu.png" Width="20" Height="20" Margin="0, 0, 10, 0"/>
+                            <TextBlock Margin="0, 0, 10, 0" Style="{StaticResource titulosTabItem}">Pokemons</TextBlock>
+                        </StackPanel>
+                    </Border>
+                </TabItem.Header>
+                <TabItem.ToolTip>
+                    <ToolTip Content="Acceso a la búsqueda de Pokemons." FontFamily="{StaticResource PkmMonk}"/>
+                </TabItem.ToolTip>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="80*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="7*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="68*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxTabBusqueda}">
+                            <TextBox.ToolTip>
+                                <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmGB}"/>
+                            </TextBox.ToolTip>
+                        </TextBox>
+
+                        <Button Grid.Row="1" x:Name="btnBusqueda" Style="{StaticResource btnTabBusqueda}" Content="Realizar búsqueda" Click="btnBusqueda_Click" />
+                        <ListBox Grid.Row="2" x:Name="lbBusqueda" ItemTemplate="{StaticResource ImaLBoxItemBusqueda}" Width="220" Height="480"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#3761a8" BorderBrush="Gold" 
+                     BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+                            <ListBox.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                            </ListBox.Resources>
+                            <ListBox.ToolTip>
+                                <ToolTip FontFamily="{StaticResource PkmGB}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+                            </ListBox.ToolTip>
+                        </ListBox>
+                    </Grid>
+                    <!-- Grid de la izquierda. Contiene los elementos del textbox donde se escribe, el botón y el listbox donde se mostrará todo lo buscado. -->
+
+                    <!-- Grid del medio / derecha, Contendrá los datos de los pkms.-->
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <!-- 14. -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="85"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button Template="{DynamicResource ButtonTemplate1}" x:Name="btnFavPokemon" Style="{StaticResource btnFavoritos}" Click="btnFavPokemon_Click" IsEnabled="False">
+                            <Image x:Name="imgBtnFav"/>
+                        </Button>
+
+
+                        <Label Grid.Row="1" Grid.Column="1" x:Name="titId" Content="ID" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="tbId" Style="{StaticResource tblockTabBusqueda}"/>
+
+                        <Label Grid.Row="1" Grid.Column="2" x:Name="titNombre" Content="Nombre" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" x:Name="tbNombre" Style="{StaticResource tblockTabBusqueda}"/>
+
+                        <Label Grid.Row="1" Grid.Column="3" x:Name="titAltura" Content="Altura" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="3" x:Name="tbAltura" Style="{StaticResource tblockTabBusqueda}"/>
+
+                        <Label Grid.Row="3" Grid.Column="1" x:Name="titPeso" Content="Peso" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" x:Name="tbPeso" Style="{StaticResource tblockTabBusqueda}"/>
+
+                        <Label Grid.Row="3" Grid.Column="2" x:Name="titTipo" Content="Tipo/s" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" x:Name="tbTipo" Style="{StaticResource tblockTabBusqueda}"/>
+
+                        <Label Grid.Row="3" Grid.Column="3" x:Name="titHabilidad" Content="Habilidad/es" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="3" x:Name="tbHabilidad" Style="{StaticResource tblockTabBusqueda}" TextAlignment="Right"/>
+
+                        <Label Grid.Row="5" Grid.Column="1" x:Name="titFormas" Content="Formas" Style="{StaticResource labelTabBusqueda}"/>
+                        <ListBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="lbFormas" Width="390" Height="50" ItemTemplate="{StaticResource ImaLBoxItemForma}"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Background="LightSteelBlue" BorderBrush="Gold" BorderThickness="2">
+                            <ListBox.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                            </ListBox.Resources>
+                        </ListBox>
+
+                        <Label Grid.Row="5" Grid.Column="3" x:Name="titMovimientos" Content="Movimiento/s" Style="{StaticResource labelTabBusqueda}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="2" Grid.RowSpan="6" Grid.ColumnSpan="2" Margin="30, 0, 0, 0" x:Name="tbMovimientos" Style="{StaticResource tblockTabBusqueda}" TextAlignment="Right"/>
+                        <ListBox x:Name="lbMovimientos" Grid.Row="6" Grid.Column="3" Grid.RowSpan="7" HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#3761a8" BorderBrush="Gold" 
+                        BorderThickness="1" Height="300" Width="280" FontFamily="{StaticResource PkmGB}">
+                            <ListBox.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                            </ListBox.Resources>
+                        </ListBox>
+                    </Grid>
+
+                </Grid>
+
+            </TabItem>
+            
             <!-- Pokedex -->
             <TabItem x:Name="Pokedex" Background="LightSteelBlue">
                 <TabItem.Header>
@@ -133,7 +258,7 @@
                                      Maximum="155"/>
                         <ProgressBar x:Name="progresoBlaNeg2" Grid.Column="2" HorizontalAlignment="Left" Height="10" Grid.Row="9" VerticalAlignment="Center" Width="100"
                                      Maximum="300"/>
-                        
+
                         <!-- Grid del interior de la pokedex. -->
                     </Grid>
                     <!-- Grid que almacena todo el interior.-->
@@ -187,8 +312,8 @@
                         <TextBlock Text="Si quiere saber más del movimieto, pulse cualquiera de la lista de la derecha." TextWrapping="Wrap"/>
                     </Label>
 
-                    <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbMovs" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" BorderBrush="Gold" 
-                             MouseDoubleClick="lbMovs_MouseDoubleClick" FontSize="17" FontFamily="{StaticResource PkmGB}" Background="LightSteelBlue">
+                    <ListBox Grid.Row="2" Grid.Column="2" x:Name="lbMovs" Width="300" Height="550" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" 
+                             BorderBrush="Gold" MouseDoubleClick="lbMovs_MouseDoubleClick" Background="LightSteelBlue" FontSize="17" FontFamily="{StaticResource PkmGB}">
                         <ListBox.Resources>
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
                         </ListBox.Resources>
@@ -255,6 +380,8 @@
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Seleccione la generación del tipo:" FontFamily="{StaticResource PkmGB}" FontSize="15"
                            HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
+
+
 
                     <ComboBox Grid.Row="0" Grid.Column="2" x:Name="selecGen_Types"  Width="300" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" 
                               BorderBrush="Gold" BorderThickness="2" SelectedIndex="0" FontFamily="{StaticResource PkmGB}" Background="SteelBlue"
@@ -338,6 +465,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="120"/>
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
@@ -349,28 +477,30 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Hay tres categorias de pokebolas:" Style="{StaticResource TBPokebolas}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Normales o comunes -->" Style="{StaticResource TBMovimiento}"/>
-                    <ListBox Grid.Row="2" Grid.Column="2" x:Name="PkbolNormal" Style="{StaticResource StyleLBPokebolas}"
-                             ItemTemplate="{StaticResource LbPokebolas}" Background="LightSteelBlue"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                             SelectedIndex="0"/>
-                    <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="totalNormales" Style="{StaticResource LabelPokebolas}"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Fabricadas con Bonguri -->" Style="{StaticResource TBMovimiento}" TextWrapping="Wrap"/>
-                    <ListBox Grid.Row="3" Grid.Column="2" x:Name="PkbolBonguri" Style="{StaticResource StyleLBPokebolas}"
-                             SelectedIndex="0" ItemTemplate="{StaticResource LbPokebolas}" Background="LightSteelBlue"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-                    <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="totalBonguri" Style="{StaticResource LabelPokebolas}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Normales o comunes -->" Style="{StaticResource TBMovimiento}"/>
+                    <ListBox Grid.Row="3" Grid.Column="2" x:Name="PkbolNormal" Style="{StaticResource StyleLBPokebolas}"
+                             ItemTemplate="{StaticResource LbPokebolas}"/>
+                    <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="totalNormales" Style="{StaticResource LabelPokebolas}"/>
 
-                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Especiales o de evento -->" Style="{StaticResource TBMovimiento}" TextWrapping="Wrap"/>
-                    <ListBox Grid.Row="4" Grid.Column="2" x:Name="PkbolEspecial" Style="{StaticResource StyleLBPokebolas}"
-                             ItemTemplate="{StaticResource LbPokebolas}"  Background="LightSteelBlue"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                             SelectedIndex="0"/>
-                    <Label Grid.Row="4" Grid.Column="1" x:Name="totalEspeciales" Style="{StaticResource LabelPokebolas}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Fabricadas con Bonguri -->" Style="{StaticResource TBMovimiento}" TextWrapping="Wrap"/>
+                    <ListBox Grid.Row="4" Grid.Column="2" x:Name="PkbolBonguri" Style="{StaticResource StyleLBPokebolas}"
+                             ItemTemplate="{StaticResource LbPokebolas}"/>
+                    <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="totalBonguri" Style="{StaticResource LabelPokebolas}"/>
 
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="Especiales o de evento -->" Style="{StaticResource TBMovimiento}" TextWrapping="Wrap"/>
+                    <ListBox Grid.Row="5" Grid.Column="2" x:Name="PkbolEspecial" Style="{StaticResource StyleLBPokebolas}"
+                             ItemTemplate="{StaticResource LbPokebolas}"/>
+                    <Label Grid.Row="5" Grid.Column="1" x:Name="totalEspeciales" Style="{StaticResource LabelPokebolas}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    <Image x:Name="imgGolpe" Grid.Column="2" Grid.Row="5" Width="100" 
+                           Source="../Resources/golpe.png" Margin="285,94,385,6" Grid.RowSpan="2"/>
+                    <Image x:Name="imgPokeballs" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Width="380" Source="../Resources/ThrowPkball.png"/>
+
+                    <Image x:Name="PokeballsFila1" Grid.Column="1" Grid.Row="2" Margin="100, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="250" Source="../Resources/PkballFila1.png"/>
+                    <Image x:Name="PokeballsFila2" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Width="250" Source="../Resources/PkballFila2.png"/>
+                    <Image x:Name="PokeballsFila3" Grid.Column="1" Grid.Row="2" Margin="0, 0, 100, 0" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="250" Source="../Resources/PkballFila3.png"/>
                     <!-- Botones de movimiento entre los items de la listbox. Serán independientes cada uno, es decir, habrá 4 botones de movimiento para cada listbox. -->
-                    <Grid Grid.Column="2" Grid.Row="2" x:Name="gridBtnPkball" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Grid Grid.Column="2" Grid.Row="3" x:Name="gridBtnPkball" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition/>
@@ -386,7 +516,7 @@
                         <Button x:Name="finalPrim" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalPrim_Click"/>
                     </Grid>
 
-                    <Grid x:Name="gridBtnPkball2" Grid.Row="3" Grid.Column="2" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Grid x:Name="gridBtnPkball2" Grid.Row="4" Grid.Column="2" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition/>
@@ -402,7 +532,7 @@
                         <Button x:Name="finalSeg" Grid.Row="1" Grid.Column="1" Content=">>" Style="{StaticResource btnsPokebolas}" Click="finalSeg_Click" />
                     </Grid>
 
-                    <Grid x:Name="gridBtnPkball3" Grid.Row="4" Grid.Column="2" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Grid x:Name="gridBtnPkball3" Grid.Row="5" Grid.Column="2" Width="90" Height="40" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition/>

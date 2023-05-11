@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using AppDI.Recursos;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,27 +22,39 @@ namespace AppDI.Pags
     /// </summary>
     public partial class SoporteTecnico : Page
     {
-        private MySqlConnection conexion;
-        private MySqlCommand comando;
+        private DB miDB;
+        /// <summary>
+        /// Constructor que inicializa los componentes de la ventana.
+        /// </summary>
         public SoporteTecnico()
         {
             InitializeComponent();
         }
-        // INSERT INTO `SOPORTETECNICO` (`ID_TICKET`, `TXT_TICKET`, `ESTADO`, `FECHA_ENTRADA`) VALUES (NULL, '', '', CURRENT_TIMESTAMP)
+
+        /// <summary>
+        /// Hacer click en la barra le llevará a la primera página.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Primera());
         }
 
+        /// <summary>
+        /// Botón que hace click una vez el contenido está escrito. Se comprueba que no esté vacio para que no inserte un registro vacio.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEnviar_Click(object sender, RoutedEventArgs e)
         {
-            conexion = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
-
-            comando = new MySqlCommand("INSERT INTO `SOPORTETECNICO` (`ID_TICKET`, `TXT_TICKET`, `ESTADO`, `FECHA_ENTRADA`) VALUES (NULL, '"+ txtContenido.Text + "', 'Enviado', CURRENT_TIMESTAMP)", conexion);
-            conexion.Open();
-            int num = comando.ExecuteNonQuery();
-            if(num == 1) { MessageBox.Show("Se ha enviado correctamente al equipo de soporte técico. Gracias por su granito de arena."); }
-            conexion.Close();
+            if (txtContenido.Text != string.Empty)
+            {
+                if (miDB.EnviarSoporte(txtContenido.Text) == 1) MessageBox.Show("Se ha enviado correctamente al equipo de soporte técico. Gracias por su granito de arena."); 
+                else MessageBox.Show("Hubo un error a la hora de enviar el ticket.");
+            }
+            else MessageBox.Show("Rellene el cuadro de texto. No se puede enviar vacio.");
+           
         }
     }
 }

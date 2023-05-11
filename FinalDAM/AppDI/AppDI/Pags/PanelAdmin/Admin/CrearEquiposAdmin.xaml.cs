@@ -17,71 +17,43 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppDI.Pags
+namespace AppDI.Pags.PanelAdmin
 {
     /// <summary>
-    /// Lógica de interacción para CrearEquipos.xaml
+    /// Lógica de interacción para CrearEquiposAdmin.xaml
+    /// Esta ventana sirve para poder crear equipos pokemon para poder llevar a cabo los enfrentamientos contra el bot.
     /// </summary>
-    public partial class CrearEquipos : Page
+    public partial class CrearEquiposAdmin : Page
     {
         private DB miDB;
+        /// <summary>
+        /// Lista donde se añadirán 6 variables tipo texto como un json.
+        /// </summary>
         private List<string> listaPkmsJson = new List<string>();
+        /// <summary>
+        /// Un contador que llevará la cuenta de los pokemons que se han ido eligiendo.
+        /// </summary>
         private int contAnadir;
-        public CrearEquipos(DB db)
+        /// <summary>
+        /// Es el contructor que se le pasará un parámetro de tipo base de datos y se inicializará el contador, poniendo al administrador los equipos que hay creados de tipo BOT.
+        /// Además, se usa un método para hacer un registro de la persona que accedió junto a la hora y dia que accedio.
+        /// </summary>
+        /// <param name="db"></param>
+        public CrearEquiposAdmin(DB db)
         {
             InitializeComponent();
             miDB = db;
             contAnadir = 1;
+            lblEquipos.Content = "Actualmente hay [ " + miDB.SaberEquiposAdmin() + " ] equipos BOT";
+            db.RegistroLogNuevo("Crear nuevo equipo BOT", db.NomUser, db.NivelAdmin);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            if(miDB.SaberEquipos(miDB.NomUser) != "-1")
-            {
-                lblEquipos.Content = "Actualmente tienes [ " + miDB.SaberEquipos(miDB.NomUser) + " ] equipos creados";
-                if(miDB.SaberEquipos(miDB.NomUser) == "5") 
-                { 
-                    MessageBox.Show("Tienes ya el máximo de equipos creados.");
-                    btnCrearEquipos.Visibility = Visibility.Hidden;
-                }
-                btnRecargaEquipos.Visibility = Visibility.Hidden;
-                gridPrincipal.Visibility = Visibility.Hidden;
-            } else
-            {
-                lblEquipos.Content = "Hubo un error al leer la base da datos. Por favor, recargue la página";
-                btnRecargaEquipos.Visibility = Visibility.Visible;
-                btnCrearEquipos.Visibility = Visibility.Hidden;
-                gridPrincipal.Visibility = Visibility.Hidden;
-            }
-            
-        }
-
-        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Primera());
-        }
-
-        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new SoporteTecnico());
-        }
-
-        private void AccReg_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.GoBack();
-        }
-
-        private void btnCrearEquipos_Click(object sender, RoutedEventArgs e)
-        {
-            gridPrincipal.Visibility = Visibility.Visible;
-            listaPkmsJson.Clear();
-        }
-
-        private void btnRecargaEquipos_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Refresh();
-        }
-
+        /// <summary>
+        /// Se deberá de introducir un nombre o una ID en el textbox y pulsar el botón. 
+        /// Hay una comprobación de que esté rellenado el campo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnBusqueda_Click(object sender, RoutedEventArgs e)
         {
             string pokemon = txBoxNomPkm.Text;
@@ -106,9 +78,14 @@ namespace AppDI.Pags
 
             txBoxNomPkm.Text = "";
         }
-
+        /// <summary>
+        /// Método que rellenará los distintos campos que hay disponibles de la información del Pokémon.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void lbBusqueda_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            // FALTA COMPROBAR LOS QUE ESTÁN BANEADOS.
             tbTipo.Text = "";
             tbMovimientos.Text = "";
             txtAcierto.Text = "Acierto: ";
@@ -122,7 +99,7 @@ namespace AppDI.Pags
             string nomPkm = contenido[6].ToLower();
 
             await PeticionPkm(nomPkm);
-            
+
             tbId.Text = jsonPokemon.RootElement.GetProperty("id").ToString();
             tbNombre.Text = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(jsonPokemon.RootElement.GetProperty("name").ToString());
             tbVida.Text = jsonPokemon.RootElement.GetProperty("stats")[0].GetProperty("base_stat").ToString();
@@ -191,9 +168,14 @@ namespace AppDI.Pags
             }
         }
 
+        /// <summary>
+        /// Botón que guardará los datos en una posición de la lista que le toque, comprobando si es el primer elemento o el último para abrir / cerrar el JSON.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            if (miDB.comprobarPkmBan(tbNombre.Text) == 0)
+            if(miDB.comprobarPkmBan(tbNombre.Text) == 0)
             {
                 string pkm;
                 if (contAnadir == 1)
@@ -229,27 +211,36 @@ namespace AppDI.Pags
             
         }
 
-
+        /// <summary>
+        /// Botón que obtendrá la cantidad de pokemons que se han ido seleccionado y guardando en la lista para posteriormente insertar los datos a la tabla de equipos del BOT.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardarEquipo_Click(object sender, RoutedEventArgs e)
         {
-            if(contAnadir == 7) // Es necesario que sea 7 porque suma al final de la otra.
+            if (contAnadir == 7) // Es necesario que sea 7 porque suma al final de la otra.
             {
-                gridPrincipal.Visibility = Visibility.Hidden;
-                if (miDB.insertarJsonNuevoEquipo(listaPkmsJson, miDB.NomUser) == 1) MessageBox.Show("Equipo creado perfectamente.");
-                lblEquipos.Content = "Actualmente tienes [ " + miDB.SaberEquipos(miDB.NomUser) + " ] equipos creados";
-            } else
+                if (miDB.insertarJsonNuevoEquipoAdmin(listaPkmsJson) == 1) MessageBox.Show("Equipo creado perfectamente.");
+                lblEquipos.Content = "Actualmente hay [ " + miDB.SaberEquiposAdmin() + " ] equipos BOT";
+            }
+            else
             {
                 MessageBox.Show("Se necesitan 6 pokemons en el equipo, por el momento no hay más modalidades.");
             }
         }
 
+        /// <summary>
+        /// Botón que servirá para ver los equipos que han sido creados.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnVerEquipo_Click(object sender, RoutedEventArgs e)
         {
-            tbVerEquipos.Text = "Equipo/s: ";
-            if (miDB.SaberEquipos(miDB.NomUser) == "0") MessageBox.Show("No tienes equipos, primero revísalos");
+            tbVerEquipos.Text = "Equipo/s: \n";
+            if (miDB.SaberEquiposAdmin() == "0") MessageBox.Show("No hay equipos BOT.");
             else
             {
-                List<JsonDocument> resultado = miDB.verEquipos(miDB.NomUser);
+                List<JsonDocument> resultado = miDB.verEquiposAdmin();
                 foreach (JsonDocument valor in resultado)
                 {
                     int cont = 1;
@@ -319,5 +310,5 @@ namespace AppDI.Pags
             }
         }
 
-    } // clase
+    } // Clase
 }

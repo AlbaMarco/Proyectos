@@ -12,6 +12,8 @@ using System.Security.Cryptography;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Security.Policy;
 using System.Text.Json;
+using System.Diagnostics.Eventing.Reader;
+using System.Windows.Controls;
 
 namespace AppDI.Recursos
 {
@@ -124,11 +126,13 @@ namespace AppDI.Recursos
                         // Las contraseñas no coinciden, mostrar un mensaje de error
                         MessageBox.Show("NO COINCIDEN PASS");
                         readUser.Close();
+                        conexion.Close();
                         return false;
                     }
                 } 
                 else
                 {
+                    conexion.Close();
                     return false;
                 }
 
@@ -217,7 +221,7 @@ namespace AppDI.Recursos
             {
                 comando = new MySqlCommand("Select LEVELA from USERS where USER ='" + nom + "';", conexion);
 
-                conexion.Open();
+                //conexion.Open();
                 readSQL = comando.ExecuteReader();
 
                 if (readSQL.Read())
@@ -251,7 +255,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public string nivelUsuario(string nombreUser)
         {
-            conexion.Open();
+            //conexion.Open();
             comando = new MySqlCommand("SELECT LEVELU from USERS where USER = '"+nombreUser+"'", conexion);
             readSQL = comando.ExecuteReader();
 
@@ -493,9 +497,290 @@ namespace AppDI.Recursos
                         return lista;
                     }
                 }
-                c.Close();
             }
         } // verEquipos.
+
+        /// <summary>
+        /// Saber cuantos números de equipos que están creados administrativamente.
+        /// </summary>
+        /// <returns></returns>
+        public string SaberEquiposAdmin()
+        {
+            string sql = "SELECT COUNT(ID_EQUIPO_ALEATORIO) as EQUIPOS FROM EQUIPOS_ALEATORIOS;";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        return dr["EQUIPOS"].ToString();
+                    }
+                }
+            }
+        } // saberEquiposAdmin.
+
+        /// <summary>
+        /// Método que inserta un nuevo JSON que está en una lista de string. Usado en crear equipos de administrador..
+        /// </summary>
+        /// <param name="listaJSON"></param>
+        /// <returns></returns>
+        public int insertarJsonNuevoEquipoAdmin(List<string> listaJSON)
+        {
+            string json = listaJSON[0] + listaJSON[1] + listaJSON[2] + listaJSON[3] + listaJSON[4] + listaJSON[5];
+            string sql = "INSERT INTO `EQUIPOS_ALEATORIOS` (`ID_EQUIPO_ALEATORIO`, `POKEMONS`, `ENFRENTAMIENTOS_JUGADOS`, `ENFRENTAMIENTOS_GANADOS`, `ENFRENTAMIENTOS_PERDIDOS`) " +
+                "VALUES (NULL, '"+json+"', NULL, NULL, NULL)";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        } // insertarJsonNuevoEquipoAdmin.
+
+        /// <summary>
+        /// Método que sirve para ver los equipos creados de un usuario que se deberá pasar por parámetro.
+        /// </summary>
+        /// <returns></returns>
+        public List<JsonDocument> verEquiposAdmin()
+        {
+            List<JsonDocument> lista = new List<JsonDocument>();
+            string sql = "SELECT POKEMONS FROM EQUIPOS_ALEATORIOS;";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+                            lista.Add(JsonDocument.Parse(dr["POKEMONS"].ToString()));
+                        }
+                        return lista;
+                    }
+                }
+            }
+        } // verEquiposAdmin.
+
+        /// <summary>
+        /// Ver todos los logs que hay disponibles. Acción de super admin
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectLogs()
+        {
+            string sql = "SELECT * FROM LOGADMIN";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    MySqlDataAdapter dad = new MySqlDataAdapter(cmd);
+                    DataSet ds = new DataSet();
+                    dad.Fill(ds, "logs");
+                    return ds;
+                }
+            }
+        } // verSelectsLogs.
+
+        /// <summary>
+        /// Este método sirve para guardar las tickets que manden para, más tarde, sean visualizados.
+        /// </summary>
+        /// <param name="texto"></param>
+        /// <returns></returns>
+        public int EnviarSoporte(string texto)
+        {
+            string sql = "INSERT INTO `SOPORTETECNICO` (`ID_TICKET`, `TXT_TICKET`, `ESTADO`, `FECHA_ENTRADA`) VALUES (NULL, '" + texto + "', 'ENVIADO', CURRENT_TIMESTAMP)";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        /// <summary>
+        /// Select de todos los tickets de soporte.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectSoporteTodo()
+        {
+            string sql = "SELECT ID_TICKET, TXT_TICKET, ESTADO, FECHA_ENTRADA FROM SOPORTETECNICO";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    MySqlDataAdapter dad = new MySqlDataAdapter(cmd);
+                    DataSet ds = new DataSet();
+                    dad.Fill(ds, "soporte");
+                    return ds;
+                }
+            }
+        } // verSelectsTodoSoporteTecnico.
+
+        /// <summary>
+        /// Select de todos los tickets de soporte dependiendo del estado.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectSoporteEstado(string estado)
+        {
+            string sql = "SELECT ID_TICKET, TXT_TICKET, ESTADO, FECHA_ENTRADA FROM SOPORTETECNICO WHERE ESTADO = '"+estado+"'";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    MySqlDataAdapter dad = new MySqlDataAdapter(cmd);
+                    DataSet ds = new DataSet();
+                    dad.Fill(ds, "sopEstado");
+                    return ds;
+                }
+            }
+        } // verSelectsSopTecnicoEstado.
+
+        /// <summary>
+        /// Cambiar el estado de un ticket de soporte.
+        /// </summary>
+        /// <returns></returns>
+        public int cambiarEstadoSopTec(string id_ticket, string estado)
+        {
+            string sql = "UPDATE SOPORTETECNICO SET ESTADO = '"+estado+"' WHERE ID_TICKET = "+id_ticket+"";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        } // CambiarEstadoSoporteTecnico.
+
+        /// <summary>
+        /// Consulta que se le pasará un pkm y se baneará para despues ser utilizado y que no dejen utilizarlo en los equipos.
+        /// </summary>
+        /// <param name="idPkm"></param>
+        /// <param name="nomPkm"></param>
+        /// <returns></returns>
+        public int banearPkm(string idPkm, string nomPkm)
+        {
+            string sql = "INSERT INTO `PKM_BANEADO` (`ID_PKM`, `NAMEPKM`) VALUES ('"+idPkm+"', '"+nomPkm+"')";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Select de todos los pokemons baneados.
+        /// </summary>
+        /// <returns></returns>
+        public DataSet selectPkmBaneadosTodo()
+        {
+            string sql = "SELECT * FROM PKM_BANEADO";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    MySqlDataAdapter dad = new MySqlDataAdapter(cmd);
+                    DataSet ds = new DataSet();
+                    dad.Fill(ds, "soporte");
+                    return ds;
+                }
+            }
+        } // verSelectPkmBaneadosTodo.
+
+        /// <summary>
+        /// Comprobación del pokemon que se añada, si es 0 significará que no está baneado y 1 que si está ban.
+        /// </summary>
+        /// <param name="pkm"></param>
+        /// <returns></returns>
+        public int comprobarPkmBan(string pkm)
+        {
+            string sql = "SELECT NAMEPKM FROM PKM_BANEADO WHERE NAMEPKM = '"+pkm+"';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        if(dr["NAMEPKM"].ToString() == pkm)
+                        {
+                            return 1; // 1 Significará que si hay.
+                        }else
+                        {
+                            return 0; // 0 Significará que no hay.
+                        }
+                    }
+                }
+            }
+        } // ComprobarPkmBan.
+
+        /// <summary>
+        /// Método utilizado para insertar datos a un usuario. Se insertará una fila por cada registro que se haga.
+        /// Las categorias sirven para decir si es nombre de un pokemon, nombre de un movimiento o nombre de un tipo.
+        /// Se busca ampliar para todo tipo de información.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="nombreFavorito"></param>
+        /// <param name="img"></param>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        public int añadirFavoritos(string usuario, string nombreFavorito, byte[]img, string categoria)
+        {
+            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario+"', '"+nombreFavorito+"', '"+img+"', '"+categoria+"')";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Comprobación del favorito para saber si está o no está ya agregado en favoritos para el usuario en cuestión.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="nombreFav"></param>
+        /// <returns></returns>
+        public int comprobarFavorito(string usuario, string nombreFav)
+        {
+            List<string> listaAux = new List<string>();
+            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND NAME_FAV = '"+nombreFav+"';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while(dr.Read()) 
+                        {
+                            listaAux.Add(dr["NAME_FAV"].ToString());
+                        }
+                        
+                        if(listaAux.Count == 0)
+                        {
+                            return 0; // 0 Significará que no hay.
+                        } else { return 1; } // 1 Significará que si hay.
+                    }
+                }
+            }
+        } // comprobarFavoritos.
 
     }
 }

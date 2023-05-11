@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin"
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="700"
+      d:DesignHeight="700" d:DesignWidth="700"
       Title="Lista de usuarios" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
     <Grid Background="#3761a8">
@@ -13,11 +13,7 @@
             <DataGrid.Resources>
                 <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
             </DataGrid.Resources>
-            <!-- <DataGrid.Columns>
-                <DataGridTextColumn Header="Nombre" HeaderStyle="{StaticResource titulosDataGridLista}" Width="63"/>
-                <DataGridTextColumn Header="¿Administrador?" HeaderStyle="{StaticResource titulosDataGridLista}"/>
-                <DataGridTextColumn Header="Nivel usuario" HeaderStyle="{StaticResource titulosDataGridLista}"/>
-            </DataGrid.Columns> -->
+
             <DataGrid.ToolTip>
                 <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Listado actual de todos los usuarios de la base de datos creados."/>
             </DataGrid.ToolTip>

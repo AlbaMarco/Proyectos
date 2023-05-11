@@ -69,7 +69,7 @@ namespace AppDI.Recursos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnEliUser_Click(object sender, RoutedEventArgs e)
+        private void btnCrearEquipo_Click(object sender, RoutedEventArgs e)
         {
             NumBtn = 4;
         }
@@ -79,9 +79,51 @@ namespace AppDI.Recursos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnModAdmin_Click(object sender, RoutedEventArgs e)
+        private void btnBanPkm_Click(object sender, RoutedEventArgs e)
         {
             NumBtn = 5;
         }
+        /// <summary>
+        /// Si es la sexta opción, mi propiedad la dejará en seis.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnSopTec_Click(object sender, RoutedEventArgs e)
+        {
+            NumBtn = 6;
+        }
+
+        /// <summary>
+        /// Si es la séptima opción, mi propiedad la dejará en siete.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEliUser_Click(object sender, RoutedEventArgs e)
+        {
+            NumBtn = 7;
+        }
+
+        /// <summary>
+        /// Si es la octava opción, mi propiedad la dejará en ocho.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnModAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            NumBtn = 8;
+        }
+
+        /// <summary>
+        /// Si es la novena opción, mi propiedad la dejará en nueve.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnLogsAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            NumBtn = 9;
+        }
+
     }
 }

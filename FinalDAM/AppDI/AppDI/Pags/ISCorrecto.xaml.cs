@@ -31,6 +31,7 @@ namespace AppDI.Pags
             InitializeComponent();
             miDB = db;
             comprobarNivel();
+            controlTab.miDB = miDB;
         }
 
         /// <summary>
@@ -65,24 +66,14 @@ namespace AppDI.Pags
 
         /// <summary>
         /// Controla el nivel del usuario, para ver que se le muestra y que se le muestra según su nivel.
+        /// Realmente no es necesario que se utilice el visible, ya que es su valor por defecto, pero es usado para una mayor aclaración.
         /// </summary>
         public void visibilidadControl()
         {
             switch (miDB.nivelUserConectado)
             {
                 case "1": // Básico
-                    controlTab.Pokedex.Visibility = Visibility.Visible;
-                    controlTab.Movimientos.Visibility = Visibility.Hidden;
-                    controlTab.Tipos.Visibility = Visibility.Hidden;
-                    controlTab.Pokeball.Visibility = Visibility.Hidden;
-                    controlTab.Bayas.Visibility = Visibility.Hidden;
-                    controlTab.ItemsEstado.Visibility = Visibility.Hidden;
-                    controlTab.ItemsEvolucion.Visibility = Visibility.Hidden;
-                    controlTab.LamArceus.Visibility = Visibility.Hidden;
-                    controlTab.Cartas.Visibility = Visibility.Hidden;
-                    controlTab.Vitaminas.Visibility = Visibility.Hidden;
-                    break;
-                case "2": // Medio
+                    controlTab.BusquedaPkm.Visibility = Visibility.Visible;
                     controlTab.Pokedex.Visibility = Visibility.Visible;
                     controlTab.Movimientos.Visibility = Visibility.Visible;
                     controlTab.Tipos.Visibility = Visibility.Hidden;
@@ -93,20 +84,47 @@ namespace AppDI.Pags
                     controlTab.LamArceus.Visibility = Visibility.Hidden;
                     controlTab.Cartas.Visibility = Visibility.Hidden;
                     controlTab.Vitaminas.Visibility = Visibility.Hidden;
+
+                    CrearEquipos.Visibility = Visibility.Hidden;
+                    HacerEnfrentamientos.Visibility = Visibility.Hidden;
+                    Ranking.Visibility = Visibility.Hidden;
                     break;
-                case "3": // Alto
+                case "2": // Medio
+                    controlTab.BusquedaPkm.Visibility = Visibility.Visible;
                     controlTab.Pokedex.Visibility = Visibility.Visible;
                     controlTab.Movimientos.Visibility = Visibility.Visible;
                     controlTab.Tipos.Visibility = Visibility.Visible;
-                    controlTab.Pokeball.Visibility = Visibility.Hidden;
+                    controlTab.Pokeball.Visibility = Visibility.Visible;
                     controlTab.Bayas.Visibility = Visibility.Hidden;
                     controlTab.ItemsEstado.Visibility = Visibility.Hidden;
                     controlTab.ItemsEvolucion.Visibility = Visibility.Hidden;
                     controlTab.LamArceus.Visibility = Visibility.Hidden;
                     controlTab.Cartas.Visibility = Visibility.Hidden;
                     controlTab.Vitaminas.Visibility = Visibility.Hidden;
+
+                    CrearEquipos.Visibility = Visibility.Visible;
+                    HacerEnfrentamientos.Visibility = Visibility.Hidden;
+                    Ranking.Visibility = Visibility.Hidden;
+                    break;
+                case "3": // Alto
+                    controlTab.BusquedaPkm.Visibility = Visibility.Visible;
+                    controlTab.Pokedex.Visibility = Visibility.Visible;
+                    controlTab.Movimientos.Visibility = Visibility.Visible;
+                    controlTab.Tipos.Visibility = Visibility.Visible;
+                    controlTab.Pokeball.Visibility = Visibility.Visible;
+                    controlTab.Bayas.Visibility = Visibility.Visible;
+                    controlTab.ItemsEstado.Visibility = Visibility.Visible;
+                    controlTab.ItemsEvolucion.Visibility = Visibility.Visible;
+                    controlTab.LamArceus.Visibility = Visibility.Hidden;
+                    controlTab.Cartas.Visibility = Visibility.Hidden;
+                    controlTab.Vitaminas.Visibility = Visibility.Hidden;
+
+                    CrearEquipos.Visibility = Visibility.Visible;
+                    HacerEnfrentamientos.Visibility = Visibility.Visible;
+                    Ranking.Visibility = Visibility.Hidden;
                     break;
                 case "4": // Total
+                    controlTab.BusquedaPkm.Visibility = Visibility.Visible;
                     controlTab.Pokedex.Visibility = Visibility.Visible;
                     controlTab.Movimientos.Visibility = Visibility.Visible;
                     controlTab.Tipos.Visibility = Visibility.Visible;
@@ -117,6 +135,10 @@ namespace AppDI.Pags
                     controlTab.LamArceus.Visibility = Visibility.Visible;
                     controlTab.Cartas.Visibility = Visibility.Visible;
                     controlTab.Vitaminas.Visibility = Visibility.Visible;
+
+                    CrearEquipos.Visibility = Visibility.Visible;
+                    HacerEnfrentamientos.Visibility = Visibility.Visible;
+                    Ranking.Visibility = Visibility.Visible;
                     break;
             } // switch
         } // Visibilidad control.

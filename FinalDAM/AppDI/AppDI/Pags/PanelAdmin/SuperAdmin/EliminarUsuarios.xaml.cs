@@ -19,6 +19,8 @@ namespace AppDI.Pags.PanelAdmin
 {
     /// <summary>
     /// Lógica de interacción para EliminarUsuarios.xaml
+    /// Ventana que sirve para eliminar un usuario, el que sea seleciconado en un DataGrid que cargará toda la información de los usuarios.
+    /// Se necesitan permisos de super admin.
     /// </summary>
     public partial class EliminarUsuarios : Page
     {
@@ -26,6 +28,7 @@ namespace AppDI.Pags.PanelAdmin
 
         /// <summary>
         /// Constructor que se la pasa por parámetros un objeto de tipo base de datos.
+        /// Además, se usa un método para hacer un registro de la persona que accedió junto a la hora y dia que accedio.
         /// </summary>
         /// <param name="db"></param>
         public EliminarUsuarios(DB db)
@@ -33,6 +36,7 @@ namespace AppDI.Pags.PanelAdmin
             InitializeComponent();
             this.miDb = db;
             rellenarGrid();
+            db.RegistroLogNuevo("SA | Eliminando los usuarios", db.NomUser, db.NivelAdmin);
         }
 
         /// <summary>
@@ -84,6 +88,11 @@ namespace AppDI.Pags.PanelAdmin
             }   
         }
 
+        /// <summary>
+        /// Evento al cargar la página que evita que la navegación cargue ya que para el proceso.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.NavigationService.StopLoading();

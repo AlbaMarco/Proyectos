@@ -1,0 +1,68 @@
+﻿<Page x:Class="AppDI.Pags.PanelAdmin.Admin.BanearPkm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppDI.Pags.PanelAdmin.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="700"
+      Title="Banear Pokemons" ShowsNavigationUI="False" Loaded="Page_Loaded">
+
+    <Grid Background="#3761a8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Text="Para banear a algún pokemon, búscalo y dele doble click. Después confírmalo con el botón" Style="{StaticResource txtBlockModNivel}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox x:Name="txBoxNomPkm" Style="{StaticResource tboxBusquedaBan}">
+                <TextBox.ToolTip>
+                    <ToolTip Content="Introduzca el nombre de un pokemon." FontFamily="{StaticResource PkmMonk}"/>
+                </TextBox.ToolTip>
+            </TextBox>
+
+            <Button Grid.Row="1" x:Name="btnBusqueda" Style="{StaticResource btnBusquedaBan}" Content="Realizar búsqueda" Click="btnBusqueda_Click" />
+
+            <ListBox Grid.Row="3" x:Name="lbBusqueda" ItemTemplate="{StaticResource lbItemBanPkm}" Width="250" Height="150"
+                 HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#3883c2" BorderBrush="Gold" 
+                     BorderThickness="1" MouseDoubleClick="lbBusqueda_MouseDoubleClick">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+                </ListBox.Resources>
+                <ListBox.ToolTip>
+                    <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Historial de las busquedas realizadas, si le da doble click, se mostrarán algunos datos a la derecha."/>
+                </ListBox.ToolTip>
+            </ListBox>
+        </Grid>
+
+        <Label x:Name="lblNomPkm" Grid.Column="1" Grid.Row="1" Content="Nombre del pokemon" Style="{StaticResource lblBanearPkms}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0"/>
+        <Label x:Name="lblIdPkm" Grid.Column="1" Grid.Row="1" Content="ID del pokemon" Style="{StaticResource lblBanearPkms}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10, 10, 0, 0"/>
+        <Button x:Name="btnBan" Grid.Column="1" Grid.Row="1" Content="Banear pokemon seleccionado" Style="{StaticResource btnBanearPkm}" Click="btnBan_Click"/>
+        <Label x:Name="lblResultado" Grid.Column="1" Grid.Row="1" Content="Resultado" Style="{StaticResource lblBanearPkms}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 0, 0, 10"/>
+
+        <Button x:Name="btnVerBans" Grid.Row="2" Content="Visualizar los Pkms banned" Style="{StaticResource btnBanearPkm}" Click="btnVerBans_Click"/>
+
+        <DataGrid x:Name="listaDataGrid" Grid.Column="1" Grid.Row="2" Style="{StaticResource dataGridPkmBanned}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarStyle1}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.ToolTip>
+                <ToolTip FontFamily="{StaticResource PkmMonk}" Content="Listado actual de todos los pokemons baneados de la base de datos creados."/>
+            </DataGrid.ToolTip>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -18,6 +18,7 @@ namespace AppDI.Pags.PanelAdmin
 {
     /// <summary>
     /// Lógica de interacción para ModificacionNivel.xaml
+    /// Esta ventana servirá para poder modificar el nivel y el nombre del usuario.
     /// </summary>
     public partial class ModificacionNivel : Page
     {
@@ -25,6 +26,7 @@ namespace AppDI.Pags.PanelAdmin
         /// <summary>
         /// Constructor que se la pasa por parámetros un objeto de tipo base de datos.
         /// Rellenará el listbox y pondrá en visible los TextBox.
+        /// Además, se usa un método para hacer un registro de la persona que accedió junto a la hora y dia que accedio.
         /// </summary>
         /// <param name="db"></param>
         public ModificacionNivel(DB db)
@@ -34,6 +36,7 @@ namespace AppDI.Pags.PanelAdmin
             lbNom.ItemsSource = miDb.selectNombres();
             tBoxNom.Visibility = Visibility.Hidden;
             tBoxNivelUser.Visibility = Visibility.Hidden;
+            db.RegistroLogNuevo("Modificando nivel y nombre usuarios", db.NomUser, db.NivelAdmin);
         }
 
         /// <summary>
@@ -103,6 +106,11 @@ namespace AppDI.Pags.PanelAdmin
             }
         }
 
+        /// <summary>
+        /// Evento al cargar la página que evita que la navegación cargue ya que para el proceso.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.NavigationService.StopLoading();

@@ -1,7 +1,10 @@
 ﻿using AppDI.Pags.PanelAdmin;
+using AppDI.Pags.PanelAdmin.Admin;
+using AppDI.Pags.PanelAdmin.SuperAdmin;
 using AppDI.Recursos;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,20 +39,11 @@ namespace AppDI.Pags
 
         private void ComprobarAdmin(bool nivel)
         {
-            if(nivel) // Si es super Administrador.
+            if(!nivel) // Si es super Administrador.
             {
-                expand.btnAddUser.Visibility = Visibility.Visible;
-                expand.btnEliUser.Visibility = Visibility.Visible;
-                expand.btnListaUsers.Visibility = Visibility.Visible;
-                expand.btnModAdmin.Visibility = Visibility.Visible;
-                expand.btnModNivel.Visibility = Visibility.Visible;
-            } else
-            {
-                expand.btnAddUser.Visibility = Visibility.Visible;
-                expand.btnEliUser.Visibility = Visibility.Hidden; // Eliminar usuarios. 2
-                expand.btnListaUsers.Visibility = Visibility.Visible;
-                expand.btnModAdmin.Visibility = Visibility.Hidden; // Modificar administrador. 2
-                expand.btnModNivel.Visibility = Visibility.Visible;
+                expand.btnEliUser.Visibility = Visibility.Hidden;
+                expand.btnModAdmin.Visibility = Visibility.Hidden;
+                expand.btnLogsAdmin.Visibility = Visibility.Hidden;
             }
         }
 
@@ -85,17 +79,45 @@ namespace AppDI.Pags
             }
             else if (expand.NumBtn == 4)
             {
-                frameExpander.Navigate(new EliminarUsuarios(miDB));
+                frameExpander.Navigate(new CrearEquiposAdmin(miDB));
             }
             else if (expand.NumBtn == 5)
             {
+                frameExpander.Navigate(new BanearPkm(miDB));
+            }
+            else if (expand.NumBtn == 6)
+            {
+                frameExpander.Navigate(new VerSoporteTecnico(miDB));  
+            } 
+            else if (expand.NumBtn == 7)
+            {
+                frameExpander.Navigate(new EliminarUsuarios(miDB));
+            } 
+            else if (expand.NumBtn == 8)
+            {
                 frameExpander.Navigate(new ModificacionAdmin(miDB));
+            } 
+            else if (expand.NumBtn == 9)
+            {
+                frameExpander.Navigate(new VerLogs(miDB));
             }
         }
 
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // https://learn.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
+            Process proceso = new Process();
+            proceso.StartInfo.UseShellExecute = true;
+            proceso.StartInfo.Arguments = "msedge";
+            proceso.StartInfo.FileName = e.Uri.AbsoluteUri;
+
+            proceso.Start();
+            e.Handled = true;
         }
     }
 }

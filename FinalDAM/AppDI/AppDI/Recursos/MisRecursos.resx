@@ -127,9 +127,6 @@
   <data name="AllIcons" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AllIcons.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="AppDI" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppDI.db;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Arceus2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Arceus2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -169,6 +166,15 @@
   <data name="EeveeNoFondopng" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EeveeNoFondopng.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="FavLleno" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FavLleno.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FavVacio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FavVacio.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="golpe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\golpe.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="InicialesAguaNoFondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InicialesAguaNoFondo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -202,6 +208,18 @@
   <data name="PiedraEvo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PiedraEvo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Pikachu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pikachu.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PkballFila1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PkballFila1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PkballFila2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PkballFila2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PkballFila3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PkballFila3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pkmLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pkmLogo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -225,6 +243,9 @@
   </data>
   <data name="SoporteTecnico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SoporteTecnico.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ThrowPkball" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThrowPkball.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Tier1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tier1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
