@@ -89,7 +89,7 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
 
-                        <Button Template="{DynamicResource ButtonTemplate1}" x:Name="btnFavPokemon" Style="{StaticResource btnFavoritos}" Click="btnFavPokemon_Click" IsEnabled="False">
+                        <Button Template="{DynamicResource ButtonTemplate1}" x:Name="btnFavPokemon" Style="{StaticResource btnFavoritos}" Click="btnFavPokemon_Click">
                             <Image x:Name="imgBtnFav"/>
                         </Button>
 
@@ -319,6 +319,11 @@
                         </ListBox.Resources>
                     </ListBox>
 
+                    <Button Template="{DynamicResource ButtonTemplate1}" x:Name="btnFavMov" Style="{StaticResource btnFavoritos}" Grid.Column="1" Grid.Row="2" 
+                            VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnFavMov_Click">
+                        <Image x:Name="imgBtnFavMov"/>
+                    </Button>
+                    
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="350"/>
@@ -407,6 +412,11 @@
                             <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarStyle1}"/>
                         </ListBox.Resources>
                     </ListBox>
+
+                    <Button Template="{DynamicResource ButtonTemplate1}" x:Name="btnFavTipo" Style="{StaticResource btnFavoritos}" Grid.Column="1" Grid.Row="2" 
+                            VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnFavTipo_Click">
+                        <Image x:Name="imgBtnFavTipo"/>
+                    </Button>
 
                     <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>

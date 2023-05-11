@@ -14,6 +14,10 @@ using System.Security.Policy;
 using System.Text.Json;
 using System.Diagnostics.Eventing.Reader;
 using System.Windows.Controls;
+using AppDI.Pags.PanelAdmin;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace AppDI.Recursos
 {
@@ -729,7 +733,7 @@ namespace AppDI.Recursos
         } // ComprobarPkmBan.
 
         /// <summary>
-        /// Método utilizado para insertar datos a un usuario. Se insertará una fila por cada registro que se haga.
+        /// Método utilizado para insertar datos de favoritos a un usuario. Se insertará una fila por cada registro que se haga.
         /// Las categorias sirven para decir si es nombre de un pokemon, nombre de un movimiento o nombre de un tipo.
         /// Se busca ampliar para todo tipo de información.
         /// </summary>
@@ -740,7 +744,32 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int añadirFavoritos(string usuario, string nombreFavorito, byte[]img, string categoria)
         {
-            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario+"', '"+nombreFavorito+"', '"+img+"', '"+categoria+"')";
+            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario+"', '"+nombreFavorito+ "', @img_fav, '" + categoria+"')";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    cmd.Parameters.AddWithValue("@img_fav", img);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Método utilizado para insertar datos de favoritos a un usuario. Se insertará una fila por cada registro que se haga.
+        /// PARA AÑADIR SIN IMAGEN.
+        /// Las categorias sirven para decir si es nombre de un pokemon, nombre de un movimiento o nombre de un tipo.
+        /// Se busca ampliar para todo tipo de información.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="nombreFavorito"></param>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        public int añadirFavoritosNoImg(string usuario, string nombreFavorito, string categoria)
+        {
+            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario + "', '" + nombreFavorito + "', null, '" + categoria + "')";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -781,6 +810,126 @@ namespace AppDI.Recursos
                 }
             }
         } // comprobarFavoritos.
+
+        /// <summary>
+        /// Comprobación de todos los favoritos.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public int comprobarTodosFavorito(string usuario)
+        {
+            List<string> listaAux = new List<string>();
+            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            listaAux.Add(dr["NAME_FAV"].ToString());
+                        }
+
+                        return listaAux.Count;
+                    }
+                }
+            }
+        } // comprobarTodosFavoritos.
+
+        /// <summary>
+        /// Comprobación de todos los Pokémon favoritos.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<object> leerPkmsFavorito(string usuario)
+        {
+            List<object> listaAux = new List<object>();
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '1';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            byte[] imagenBytes = (byte[])dr["IMG_FAV"];
+                            MemoryStream memoryStream = new MemoryStream(imagenBytes);
+                            BitmapImage bitmap = new BitmapImage();
+
+                            bitmap.BeginInit();
+                            bitmap.StreamSource = memoryStream;
+                            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmap.EndInit();
+
+                            listaAux.Add(new { Imagen = bitmap, NomFavorito = dr["NAME_FAV"].ToString() });
+                        }
+
+                        return listaAux;
+                    }
+                }
+            }
+        } // LeerPkmsFavoritos.
+
+
+        /// <summary>
+        /// Comprobación de todos los movimientos favoritos.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<object> leerMovsFavorito(string usuario)
+        {
+            List<object> listaAux = new List<object>();
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '2';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BitmapImage bt = new BitmapImage();
+                            listaAux.Add(new { Imagen = bt, NomFavorito = dr["NAME_FAV"].ToString() });
+                        }
+
+                        return listaAux;
+                    }
+                }
+            }
+        } // LeerMovsFavoritos.
+
+        /// <summary>
+        /// Comprobación de todos los Tipos favoritos.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<object> leerTiposFavorito(string usuario)
+        {
+            List<object> listaAux = new List<object>();
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '3';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            BitmapImage bt = new BitmapImage();
+                            listaAux.Add(new { Imagen = bt, NomFavorito = dr["NAME_FAV"].ToString() });
+                        }
+
+                        return listaAux;
+                    }
+                }
+            }
+        } // LeerTiposFavoritos.
 
     }
 }

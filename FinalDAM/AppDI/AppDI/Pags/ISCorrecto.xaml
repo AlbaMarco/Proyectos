@@ -22,6 +22,8 @@
             <Separator/>
             <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
             <RibbonSeparator/>
+            <MenuItem x:Name="VerFavoritos" Header="Ver Favoritos" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="VerFavoritos_Click"/>
+            <RibbonSeparator/>
             <MenuItem x:Name="CrearEquipos" Header="Crear y ver equipos" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="CrearEquipos_Click"/>
             <RibbonSeparator/>
             <MenuItem x:Name="HacerEnfrentamientos" Header="Hacer un enfrentamiento" FontFamily="{StaticResource PkmMonk}" FontSize="20"/>

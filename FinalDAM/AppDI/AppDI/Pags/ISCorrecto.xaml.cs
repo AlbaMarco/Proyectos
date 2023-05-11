@@ -167,5 +167,10 @@ namespace AppDI.Pags
         {
             this.NavigationService.Navigate(new CrearEquipos(miDB));
         }
+
+        private void VerFavoritos_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new AccesoRegistrado.VerFavs(miDB));
+        }
     }
 }

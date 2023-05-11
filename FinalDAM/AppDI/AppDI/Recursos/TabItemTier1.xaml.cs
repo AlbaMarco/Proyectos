@@ -828,6 +828,27 @@ namespace AppDI.Recursos
             txtPP.Text = jsonMov.RootElement.GetProperty("pp").ToString();
             txtPrio.Text = jsonMov.RootElement.GetProperty("priority").ToString();
             txtTipo.Text = jsonMov.RootElement.GetProperty("type").GetProperty("name").ToString();
+
+            if (miDB.comprobarFavorito(miDB.NomUser, jsonMov.RootElement.GetProperty("name").ToString()) == 0)
+            {
+                imgBtnFavMov.Source = new BitmapImage(new Uri("/Resources/FavVacio.png", UriKind.Relative));
+                btnFavMov.IsEnabled = true;
+            }
+            else
+            {
+                imgBtnFavMov.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavMov.IsEnabled = false;
+            }
+        }
+
+        private void btnFavMov_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreMov = jsonMov.RootElement.GetProperty("name").ToString();
+            if (miDB.añadirFavoritosNoImg(miDB.NomUser, nombreMov, "2") == 1)
+            {
+                imgBtnFavMov.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavMov.IsEnabled = false;
+            }
         }
 
         // FIN MOVIMIENTOS
@@ -1025,7 +1046,29 @@ namespace AppDI.Recursos
                 }
                 else if (max == 1) txtNoDanioTo.Text += jsonTip.RootElement.GetProperty("damage_relations").GetProperty("no_damage_to")[i].GetProperty("name").ToString() + ".";
             } // No damage to.
+
+
+            if (miDB.comprobarFavorito(miDB.NomUser, jsonTip.RootElement.GetProperty("name").ToString()) == 0)
+            {
+                imgBtnFavTipo.Source = new BitmapImage(new Uri("/Resources/FavVacio.png", UriKind.Relative));
+                btnFavTipo.IsEnabled = true;
+            }
+            else
+            {
+                imgBtnFavTipo.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavTipo.IsEnabled = false;
+            }
         } // LbTipos
+
+        private void btnFavTipo_Click(object sender, RoutedEventArgs e)
+        {
+            string nombreTipo = jsonTip.RootElement.GetProperty("name").ToString();
+            if (miDB.añadirFavoritosNoImg(miDB.NomUser, nombreTipo, "3") == 1)
+            {
+                imgBtnFavTipo.Source = new BitmapImage(new Uri("/Resources/FavLleno.png", UriKind.Relative));
+                btnFavTipo.IsEnabled = false;
+            }
+        }
 
         // FIN ETIQUETA TIPOS.
 
