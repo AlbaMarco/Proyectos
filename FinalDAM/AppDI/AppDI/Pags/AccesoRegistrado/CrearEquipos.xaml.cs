@@ -24,9 +24,23 @@ namespace AppDI.Pags
     /// </summary>
     public partial class CrearEquipos : Page
     {
+        /// <summary>
+        /// Variable de tipo base de datos, que ayuda para la gestión de la base de datos.
+        /// </summary>
         private DB miDB;
+        /// <summary>
+        /// Variable de tipo lista que ayuda a obtener los pokemons que irán en un JSON.
+        /// </summary>
         private List<string> listaPkmsJson = new List<string>();
+        /// <summary>
+        /// Contador que cuando llegue a sieta (se inicializa a 1) para llevar la cuenta de los pkm añadidos al equipo.
+        /// </summary>
         private int contAnadir;
+        /// <summary>
+        /// Constructor que se le pasa por parámetro un objeto de tipo datos desde que se inicia sesióon
+        /// Se inicializan sus componentes y se inicializa el contador para llevar la cuenta de los PKM.
+        /// </summary>
+        /// <param name="db"></param>
         public CrearEquipos(DB db)
         {
             InitializeComponent();
@@ -34,6 +48,11 @@ namespace AppDI.Pags
             contAnadir = 1;
         }
 
+        /// <summary>
+        /// Evento que se ejecutará para cuando la página se cargue, es decir, al inciio de la vida de esta ventana.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if(miDB.SaberEquipos(miDB.NomUser) != "-1")
@@ -56,32 +75,62 @@ namespace AppDI.Pags
             
         }
 
+        /// <summary>
+        /// Evento de click de la barra de nevagicon, para ir a la página princiapl.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Primera());
         }
 
+        /// <summary>
+        /// Evento de click para ir a la ventana de Soporte Técnico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new SoporteTecnico());
         }
 
+        /// <summary>
+        /// Evento de click para ir a la ventana de Acceso Registrado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AccReg_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Evento de acción de click al darle al boton de crear equipos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCrearEquipos_Click(object sender, RoutedEventArgs e)
         {
             gridPrincipal.Visibility = Visibility.Visible;
             listaPkmsJson.Clear();
         }
 
+        /// <summary>
+        /// Evento de recarga, para el caso de que error algún dato de la base de datos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRecargaEquipos_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Refresh();
         }
 
+        /// <summary>
+        /// Evento del botón de búsqueda para obteener el nombre escrito en el textbox y llevar a cabo la búsqueda.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnBusqueda_Click(object sender, RoutedEventArgs e)
         {
             string pokemon = txBoxNomPkm.Text;
@@ -107,6 +156,12 @@ namespace AppDI.Pags
             txBoxNomPkm.Text = "";
         }
 
+        /// <summary>
+        /// Método asincrono para cuando se realiza doble click en el LIST BOX deonde se mostrarán las búsqueda.
+        /// Este evento te facilitará los datos del Pokemon al que se le haya dado doble click en los datos de la derecha.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void lbBusqueda_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             tbTipo.Text = "";
@@ -191,6 +246,11 @@ namespace AppDI.Pags
             }
         }
 
+        /// <summary>
+        /// Evento de hacer clcik en el botón de guardar para poder guardar el pokemon en cuestion.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if (miDB.comprobarPkmBan(tbNombre.Text) == 0)
@@ -229,7 +289,11 @@ namespace AppDI.Pags
             
         }
 
-
+        /// <summary>
+        /// Evento del boton de guardar equipo, será necesario haber hecho la búsqueda y el guardado de 6 pokemon, que significará que se ha completado el equipo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardarEquipo_Click(object sender, RoutedEventArgs e)
         {
             if(contAnadir == 7) // Es necesario que sea 7 porque suma al final de la otra.
@@ -243,6 +307,11 @@ namespace AppDI.Pags
             }
         }
 
+        /// <summary>
+        /// Evento para ver los equipos que se tienen guardados en la base de datos de un usuario.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnVerEquipo_Click(object sender, RoutedEventArgs e)
         {
             tbVerEquipos.Text = "Equipo/s: ";
@@ -265,7 +334,13 @@ namespace AppDI.Pags
             }
         }
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPokemon;
+        /// <summary>
+        /// Variable útil para parsear los valores del JSON de Pokemon.
+        /// </summary>
         private string respuestaPokemon;
 
         /// <summary>
@@ -297,8 +372,13 @@ namespace AppDI.Pags
 
             }
         }
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonMov;
+        /// <summary>
+        /// Variable para obtener los resultados parseados del JSON DOCUMENT.
+        /// </summary>
         private string respuestaMov;
         /// <summary>
         /// Petición para obtener información sobre el movimiento seleccionado.

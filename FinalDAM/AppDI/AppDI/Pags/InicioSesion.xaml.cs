@@ -24,6 +24,9 @@ namespace AppDI.Pags
     /// </summary>
     public partial class InicioSesion : Page
     {
+        /// <summary>
+        /// Variable de tipo Base de datos.
+        /// </summary>
         private DB miBD;
         /// <summary>
         /// Una ventana custom.
@@ -34,7 +37,7 @@ namespace AppDI.Pags
         /// </summary>
         private int Contador { get; set; }
         /// <summary>
-        /// Constructor
+        /// Constructor de la ventana de Inicio de sesión.
         /// </summary>
         public InicioSesion()
         {
@@ -181,26 +184,51 @@ namespace AppDI.Pags
             this.NavigationService.Navigate(new ISCorrecto(miBD));
         }
 
+        /// <summary>
+        /// Evento para cuando la página se cargue.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.NavigationService.StopLoading();
         }
 
+        /// <summary>
+        /// Evento a cuando se le hace click al componenete llamado MenuTxt.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void menuTxt_Click(object sender, RoutedEventArgs e)
         {
             userAcc.Text = "";
         }
 
+        /// <summary>
+        /// Evento que actuará cuando se le haga click al componenete llamado MenuPassword.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void menuPassword_Click(object sender, RoutedEventArgs e)
         {
             passAcc.Password = "";
         }
 
+        /// <summary>
+        /// Evento para cuando se le haga click a la barra de navegaciones, al primer elementoo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Evento para cuando se haga click en el aprtado de soporte técnico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new SoporteTecnico());

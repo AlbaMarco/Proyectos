@@ -21,6 +21,9 @@ namespace AppDI.Pags
     /// </summary>
     public partial class PagPrincipal : NavigationWindow
     {
+        /// <summary>
+        /// Constructor de la página princiapl, la que almacena todo lo que necesita.
+        /// </summary>
         public PagPrincipal()
         {
             InitializeComponent();

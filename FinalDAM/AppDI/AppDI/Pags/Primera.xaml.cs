@@ -57,6 +57,11 @@ namespace AppDI.Pags
             this.NavigationService.Navigate(new InicioSesion());
         }
 
+        /// <summary>
+        /// Ejecución de de un comando bindeando internamente en la aplicación.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("Por favor, seleccione algún botón de la barra superior para ir a diferentes apartados de la aplicación");
@@ -82,6 +87,11 @@ namespace AppDI.Pags
            // this.NavigationService.Navigate(new Registro());
         }
 
+        /// <summary>
+        /// En la barra de nevagación, es el método que permite ir hacia el Soporte Técnico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new SoporteTecnico());

@@ -88,7 +88,6 @@ namespace AppDI.Recursos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private void btnSopTec_Click(object sender, RoutedEventArgs e)
         {
             NumBtn = 6;
@@ -119,7 +118,6 @@ namespace AppDI.Recursos
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private void btnLogsAdmin_Click(object sender, RoutedEventArgs e)
         {
             NumBtn = 9;

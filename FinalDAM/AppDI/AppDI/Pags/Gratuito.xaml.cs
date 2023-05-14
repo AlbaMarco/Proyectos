@@ -23,10 +23,16 @@ namespace AppDI.Pags
     /// </summary>
     public partial class Gratuito : Page
     {
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPokemon;
+        /// <summary>
+        /// Variable útil para el parseo del documento del JSON.
+        /// </summary>
         private string respuestaPokemon;
         /// <summary>
-        /// Constructor.
+        /// Constructor de la ventana Gratuito..
         /// </summary>
         public Gratuito()
         {
@@ -181,10 +187,21 @@ namespace AppDI.Pags
             lbFormas.Items.Add(new { ImaFront = imgFront, ImaBack = imgBack, ImaShinyFront = imgShinyFront, ImaShinyBack = imgShinyBack });
         }
 
+        /// <summary>
+        /// Evento para cuando se le haga click al primer elemento de la barra de nevagaciones.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
+
+        /// <summary>
+        /// Evento para cuando se haga click en la barra de nevagciones directo a Soporte Técnico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {

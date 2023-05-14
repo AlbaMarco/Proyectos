@@ -22,6 +22,9 @@ namespace AppDI.Pags
     /// </summary>
     public partial class SoporteTecnico : Page
     {
+        /// <summary>
+        /// Variable de tipo base de datos, recurso creado en la carpeta de "Recursos", donde se leeran todos los datos obtendos de la parte vista.
+        /// </summary>
         private DB miDB;
         /// <summary>
         /// Constructor que inicializa los componentes de la ventana.

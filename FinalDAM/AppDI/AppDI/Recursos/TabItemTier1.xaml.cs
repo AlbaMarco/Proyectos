@@ -18,7 +18,6 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Markup;
 using System.Windows.Media.Media3D;
-using System.Data.SQLite;
 using AppDI.Pags;
 
 namespace AppDI.Recursos
@@ -28,23 +27,62 @@ namespace AppDI.Recursos
     /// </summary>
     public partial class TabItemTier1 : UserControl
     {
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPokedex;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPokedex;
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPkm;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPkm;
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonForm;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaForm;
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonEvolu;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaEvolu;
 
+        /// <summary>
+        /// Propiedad para obtener el ID del pokemon.
+        /// </summary>
         public string idPkm { get; set; }
+        /// <summary>
+        /// Propiedad para obtener el nombre del PKM.
+        /// </summary>
         public string nombrePkm { get; set; }
+        /// <summary>
+        /// Variable de la base de datos.
+        /// </summary>
         public DB miDB { get; set; }
 
+        /// <summary>
+        /// Variable de la aplicación princpal, para comunicar el hilo.
+        /// </summary>
         App app = (App)Application.Current;
+        /// <summary>
+        /// Constructor donde se inicializan los componenetes de este User Control y se ejecuta los eventos de actualización propios.
+        /// </summary>
         public TabItemTier1()
         {
             InitializeComponent();
@@ -61,51 +99,104 @@ namespace AppDI.Recursos
 
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex Blanco y Negro 2.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarBlaNeg2(object sender, int e)
         {
             progresoBlaNeg2.Value = e;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pkedex Blanco y negro.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarBlaNeg(object sender, int e)
         {
             progresoBlaNeg.Value = e;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex de Oro Hearthgold y Plata Soulsilver.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarHerSoul(object sender, int e)
         {
             progresoHearSoul.Value = e;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex de Pkm Platino.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarPlatino(object sender, int e)
         {
             progresoPlatino.Value = e;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex de Diamante y Perla.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarDiaPer(object sender, int e)
         {
             progresoDiaPer.Value = e;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex de Rubi, Zafiro y Esmeralda.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarRubZafEsm(object sender, int e)
         {
             progresoRuZaEsm.Value = e;
         }
+
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex Oro, Plata y Cristal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarOroPlaCri(object sender, int e)
         {
             progresoOrPlCr.Value = e;
         }
+
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedez Rojo, Azul y Amarillo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_ActualizarRoAzAm(object sender, int progreso)
         {
             progresoRoAzAm.Value = progreso;
         }
 
+        /// <summary>
+        /// Evento de actualización de la barra de progresión de Pokedex Nacional.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_Actualizar(object sender, int progreso)
         {
             // Actualizar el valor de la barra de progreso
             progresoNacional.Value = progreso;
         }
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPkmBusqueda;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPkmBusqueda;
 
         /// <summary>
@@ -168,6 +259,11 @@ namespace AppDI.Recursos
             txBoxNomPkm.Text = "";
         }
 
+        /// <summary>
+        /// Evento de acción asincrono para obtener el pokemon que se haya seleccionado en el List Box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void lbBusqueda_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             lbFormas.Items.Clear();
@@ -248,6 +344,11 @@ namespace AppDI.Recursos
             }
         }
 
+        /// <summary>
+        /// Acción para añadir a favoritos el pokemon búscado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFavPokemon_Click(object sender, RoutedEventArgs e)
         {
             MemoryStream ms = new MemoryStream();
@@ -349,7 +450,13 @@ namespace AppDI.Recursos
             }
         } // PeticionesEvoluciones.
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonCadEvo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaCadEvo;
 
         /// <summary>
@@ -744,8 +851,13 @@ namespace AppDI.Recursos
 
 
         // MOVIMIENTOS POKEMON
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonMovsGen;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaMovsGen;
         /// <summary>
         /// Petición de los movimientos por generación añadidos al juego.
@@ -781,7 +893,13 @@ namespace AppDI.Recursos
             }
         }
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonMov;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaMov;
         /// <summary>
         /// Petición para obtener información sobre el movimiento seleccionado.
@@ -841,6 +959,11 @@ namespace AppDI.Recursos
             }
         }
 
+        /// <summary>
+        /// Evento que se lleva a cabo cuando se realiza Click al añadir a favoritos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFavMov_Click(object sender, RoutedEventArgs e)
         {
             string nombreMov = jsonMov.RootElement.GetProperty("name").ToString();
@@ -856,8 +979,13 @@ namespace AppDI.Recursos
 
 
         // TIPOS POKEMON
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonTipGen;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaTipGen;
         /// <summary>
         /// Método de llamda a la API para obtener la generación
@@ -892,8 +1020,15 @@ namespace AppDI.Recursos
             } // Using
         } // Peticion de la generación tipos.
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonTip;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaTip;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1047,7 +1182,7 @@ namespace AppDI.Recursos
                 else if (max == 1) txtNoDanioTo.Text += jsonTip.RootElement.GetProperty("damage_relations").GetProperty("no_damage_to")[i].GetProperty("name").ToString() + ".";
             } // No damage to.
 
-
+            // Comprobación de si está o no en favoritos y dependiendo de si está o no se pone un icono u otro.
             if (miDB.comprobarFavorito(miDB.NomUser, jsonTip.RootElement.GetProperty("name").ToString()) == 0)
             {
                 imgBtnFavTipo.Source = new BitmapImage(new Uri("/Resources/FavVacio.png", UriKind.Relative));
@@ -1060,6 +1195,11 @@ namespace AppDI.Recursos
             }
         } // LbTipos
 
+        /// <summary>
+        /// Evento que se lleva a cabo cuando se le da click al botón de favoritos de los tipos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFavTipo_Click(object sender, RoutedEventArgs e)
         {
             string nombreTipo = jsonTip.RootElement.GetProperty("name").ToString();
@@ -1074,7 +1214,13 @@ namespace AppDI.Recursos
 
 
         // INICIO POKEBOLAS
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPkballCat;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPkballCat;
 
         /// <summary>
@@ -1119,11 +1265,25 @@ namespace AppDI.Recursos
             }
         } // Peticion de las categorias de las pokebollas.
 
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPball;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPball;
+        /// <summary>
+        /// Lista para el listbox de pokebolas normales.
+        /// </summary>
         private List<object> listaNorm = new List<object>();
+        /// <summary>
+        /// Lista para el litbos de Pokebolas especiales.
+        /// </summary>
         private List<object> listaEspe = new List<object>();
+        /// <summary>
+        /// Lista para el listbox de Pokebolas hecas por Bonguri.
+        /// </summary>
         private List<object> listaBongu = new List<object>();
 
         /// <summary>
@@ -1520,7 +1680,13 @@ namespace AppDI.Recursos
         }
 
         // ITEMS EVOLUCIÓN
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPiedrasEvo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPiedrasEvo;
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
@@ -1546,7 +1712,13 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionPiedrasEvo
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonMegaEvo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaMegaEvo;
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
@@ -1572,7 +1744,13 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionMegaEvo
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonItemsEvo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaItemsEvo;
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
@@ -1620,16 +1798,33 @@ namespace AppDI.Recursos
                 }
             } // Using
         } // PeticionItemsEvo
+
+        /// <summary>
+        /// Evento para cuando esta parte del Tabitem se inicializa. Se carga en ella dos peticiones de la API.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ItemsEvolucion_Initialized(object sender, EventArgs e)
         {
             await PeticionPiedrasEvo();
             await PeticionMegaEvo();
         }
+
+        /// <summary>
+        /// Evento de doble click en el listbox de Piedras evoluciones. Se carga el objeto que se haya elegido para obtener sus datos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LbEvoPiedrasEvo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             await PeticionItemsEvo(jsonPiedrasEvo.RootElement.GetProperty("items")[LbEvoPiedrasEvo.SelectedIndex].GetProperty("url").ToString().Substring(26), "10");
         }
 
+        /// <summary>
+        /// Evento de doble click en el listbox de Piedras de Mega evoluciones. Se carga el objeto que se haya elegido para obtener sus datos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LbEvoPiedrasMega_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             await PeticionItemsEvo(jsonMegaEvo.RootElement.GetProperty("items")[LbEvoPiedrasMega.SelectedIndex].GetProperty("url").ToString().Substring(26), "44");
@@ -1637,8 +1832,17 @@ namespace AppDI.Recursos
 
 
         // LÁMINAS DE ARCEUS
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonLamArceus;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaLamArceus;
+        /// <summary>
+        /// Evento de la lista de las láminas que Arceus tiene disponibles.
+        /// </summary>
         private List<object> lamArceusList = new List<object>();
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
@@ -1680,7 +1884,13 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionLamArceus
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonTextoImgArceus;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaTextoImgArceus;
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
@@ -1699,6 +1909,12 @@ namespace AppDI.Recursos
                 jsonTextoImgArceus = JsonDocument.Parse(respuestaTextoImgArceus);
             } // Using
         } // PeticionItemsEvo
+
+        /// <summary>
+        /// Evento que se cargará al carguesa la pestaña del tabitem. Se hace una petición que obtiene todas las láminas y se añade al Data grid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LamArceus_Initialized(object sender, EventArgs e)
         {
             await PeticionLamArceus();
@@ -1707,8 +1923,15 @@ namespace AppDI.Recursos
 
 
         // VITAMINAS
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonVitaminas;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaVitaminas;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1733,8 +1956,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionVitaminas
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonVitaminasInfo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaVitaminasInfo;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1753,11 +1983,21 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionVitaminasInfo
 
+        /// <summary>
+        /// Evento que se carga al inciar la pestaña del apartado Vitaminas del Tab Item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CBVitaminas_Initialized(object sender, EventArgs e)
         {
             await PeticionVitaminas();
         }
 
+        /// <summary>
+        /// Evento que se cargará una vez se vaya cambiado el índice del ComboBox de vitaminas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CBVitaminas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int i = CBVitaminas.SelectedIndex;
@@ -1791,8 +2031,15 @@ namespace AppDI.Recursos
 
 
         // CARTAS
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonCartas;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaCartas;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1817,8 +2064,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionCartas
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonCartasInfo;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaCartasInfo;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1837,11 +2091,21 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionCartasInfo
 
+        /// <summary>
+        /// Evento para cuando el Combo Box que está en el apartado de cartas se inicialice ya cargado al cargar el componente.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CBCartas_Initialized(object sender, EventArgs e)
         {
             await PeticionCartas();
         }
 
+        /// <summary>
+        /// Evento para cuando el ínidice del comnobox se modifica.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CBCartas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int i = CBCartas.SelectedIndex;
@@ -1876,8 +2140,15 @@ namespace AppDI.Recursos
 
 
         // ITEMS DE ESTADO CURACIÓN - Healing 27, PP 28, revives 29, State Cures 30
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonHealing;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaHealing;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1908,8 +2179,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionHealing
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPP;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaPP;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1942,8 +2220,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionPP
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonRevive;
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private string respuestaRevive;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -1981,8 +2266,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionRevive
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonCuraEstado;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaCuraEstado;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2020,8 +2312,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionCuraEstado
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonItemsEstado;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaItemsEstado;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2039,6 +2338,12 @@ namespace AppDI.Recursos
                 jsonItemsEstado = JsonDocument.Parse(respuestaItemsEstado);
             } // Using
         } // PeticionItemsEstado
+
+        /// <summary>
+        /// Evento que se ejecutará cuando se inicialce el apartado del Tab Item de Los items de estado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ItemsEstado_Initialized(object sender, EventArgs e)
         {
             await PeticionHealing();
@@ -2047,9 +2352,15 @@ namespace AppDI.Recursos
             await PeticionCuraEstado();
         }
 
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasRedStats;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasRedStats;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2087,8 +2398,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasRedStats
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasMedicina;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasMedicina;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2126,8 +2444,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasMedicina
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasCombate;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasCombate;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2165,8 +2490,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasCombate
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasApuros;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasApuros;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2204,8 +2536,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasApuros
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasCuraEstado;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasCuraEstado;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2243,8 +2582,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasCuraEstado
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasProtec;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasProtec;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2282,8 +2628,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasProtec
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayasCocina;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayasCocina;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2321,8 +2674,15 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayasCocina
 
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonBayas;
+        /// <summary>
+        /// Variable para parsear el valor del JSON y mostrarlo como cadena de STRING.
+        /// </summary>
         private string respuestaBayas;
+
         /// <summary>
         /// Método de consulta a la API para obtener una consulta pasada por parámetro.
         /// </summary>
@@ -2341,6 +2701,11 @@ namespace AppDI.Recursos
             } // Using
         } // PeticionBayas
 
+        /// <summary>
+        /// Evento que se lleva a cabo cuando se carga la ventana completa del tab control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void TabControl_Initialized(object sender, EventArgs e)
         {
             await PeticionBayasRedStats();

@@ -20,18 +20,50 @@ namespace AppDI
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Lista para el apartado Pokedex Nacional.
+        /// </summary>
         public List<object> listaPkxNacional = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex Rojo, Azul y amarillo.
+        /// </summary>
         public List<object> listaPkxRoAzAm = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex de Oro, plata y cristal.
+        /// </summary>
         public List<object> listaPkxOroPlaCri = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex Rubí, Zafiro y Esmeralda.
+        /// </summary>
         public List<object> listaPkxRubZafEsm = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Diamante y Perla.
+        /// </summary>
         public List<object> listaPkxDiaPer = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex Platino.
+        /// </summary>
         public List<object> listaPkxPlatino = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex Oro HearthGold y Plata Soulsilver.
+        /// </summary>
         public List<object> listaPkxHerSoul = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokedex Blanco y negro.
+        /// </summary>
         public List<object> listaPkxBlaNeg = new List<object>();
+        /// <summary>
+        /// Lista para el apartado Pokemon Blanco y Negro.
+        /// </summary>
         public List<object> listaPkxBlaNeg2 = new List<object>();
 
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonPokedex;
+        /// <summary>
+        /// Parsear el JSON de jsonPokedex.
+        /// </summary>
         private string respuestaPokedex;
         /// <summary>
         /// Peticiones para la consulta de Pokedex. Se usa el número de pokedex.
@@ -53,8 +85,13 @@ namespace AppDI
                 jsonPokedex = JsonDocument.Parse(respuestaPokedex);
             }
         }
-
+        /// <summary>
+        /// Variable de tipo JSONDOCUMENT para poder obtener el valor en JSON obtenido de la API.
+        /// </summary>
         private JsonDocument jsonForm;
+        /// <summary>
+        /// Variable para parsear el valor del JSON jsonForm
+        /// </summary>
         private string respuestaForm;
         /// <summary>
         /// Petición para conseguir la imagen de un pokemon. Se mostrará todas las formas que este tenga.
@@ -81,15 +118,43 @@ namespace AppDI
             }
         }
 
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el primer apartado.
+        /// </summary>
         public event EventHandler<int> Actualizar;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el segundo apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarRoAzAm;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el tercer apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarOroPlaCri;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el cuarto apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarRubZafEsm;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el quinto apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarDiaPer;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el sexto apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarPlatino;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el séptimo apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarHerSoul;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el octavo apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarBlaNeg;
+        /// <summary>
+        /// Variable de tipo gestora de evento para actualizar el noveno apartado.
+        /// </summary>
         public event EventHandler<int> ActualizarBlaNeg2;
+
         /// <summary>
         /// Hace peticiones para poder rellenar el listbox de la pantalla izquierda de la Pokeddex.
         /// </summary>
@@ -189,6 +254,12 @@ namespace AppDI
                 }
             }
         } // Final rellenar pokedex.
+
+        /// <summary>
+        /// Método de inciio de aplicación para poder ir rellenando las Pokedex en un hilo secundario, con concurrencia.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             await rellenarPokedex("2"); // 151 registros

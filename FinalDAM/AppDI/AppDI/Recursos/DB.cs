@@ -26,19 +26,41 @@ namespace AppDI.Recursos
     /// </summary>
     public class DB // Acceso a la Base de datos.
     {
+        /// <summary>
+        /// Variable de tipo SQL, para pode reealizar la conexión a base de datos.
+        /// </summary>
         private MySqlConnection conexion;
+        /// <summary>
+        /// Variable de tipo SQL, sirve para poder hacer un comando usando SQL.
+        /// </summary>
         private MySqlCommand comando;
+        /// <summary>
+        /// Variable que actua como un lector, sirve para el lenguaje de SQL.
+        /// </summary>
         private MySqlDataReader readSQL;
+        /// <summary>
+        /// Variable que sirve para poder obtener los resutlados de un SELECT, en SQL.
+        /// </summary>
         private MySqlDataAdapter adaptador;
-
+        /// <summary>
+        /// Variable de tipo lector que sirve para poder leer los datos de un SELECT, en SQL.
+        /// </summary>
         private MySqlDataReader readUser;
+        /// <summary>
+        /// Variable que ayuda con el almacenamiento de datos provenientes de una consulta.
+        /// </summary>
         private DataSet ds;
         /// <summary>
         /// Propiedadad para obtener la conexión.
         /// </summary>
         private string Conex { get; set; }
-
+        /// <summary>
+        /// Variable de tipo boolean para poder obtener si es admin.
+        /// </summary>
         private bool esAdmin;
+        /// <summary>
+        /// Variable de tipo boolean para poder obteener si es super adminsitrador o no
+        /// </summary>
         private bool esSuperAdmin;
         /// <summary>
         /// Propiedad para saber el nivel del usuario conectado. De 1 a 4.
@@ -161,7 +183,6 @@ namespace AppDI.Recursos
         /// Método que dice si el usuario es super adminitrador o no.
         /// </summary>
         /// <returns></returns>
-
         public bool EsSuperAdmin()
         {
             return esSuperAdmin;

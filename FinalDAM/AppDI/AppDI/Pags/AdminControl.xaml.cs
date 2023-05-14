@@ -25,6 +25,9 @@ namespace AppDI.Pags
     /// </summary>
     public partial class AdminControl : Page
     {
+        /// <summary>
+        /// Variable de tipo base de datos, utilizada para el contrl de la base de datos.
+        /// </summary>
         private DB miDB;
         /// <summary>
         /// Constructor que se la pasa por parámetros un objeto de tipo base de datos.
@@ -36,7 +39,10 @@ namespace AppDI.Pags
             miDB = dB;
             ComprobarAdmin(dB.EsSuperAdmin());
         }
-
+        /// <summary>
+        /// Evento que comprueba el nivel del adimnistrados, según que nivel sea se habilitarán una u otras opciones. 
+        /// </summary>
+        /// <param name="nivel"></param>
         private void ComprobarAdmin(bool nivel)
         {
             if(!nivel) // Si es super Administrador.
@@ -103,11 +109,21 @@ namespace AppDI.Pags
             }
         }
 
+        /// <summary>
+        /// Evento que ayuda a cuando se hace click sobre un elemento, en este caso en el apartado de Inicio.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Evento que abre un proceso, en este caso de tipo shell, para abrir el navegador de microsoft edge para llevar a la página que se le haya indicado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             // https://learn.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value

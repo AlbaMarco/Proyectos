@@ -21,6 +21,9 @@ namespace AppDI.Pags
     /// </summary>
     public partial class ISCorrecto : Page
     {
+        /// <summary>
+        /// Variable de tipo Base de datos, para la gestión de la comunciación entre el usuario y sus acciones en la parte de base de datos.
+        /// </summary>
         private DB miDB;
         /// <summary>
         /// Constructor que se encarga de comprobar el nivel del usuario y mostrarle lo correcto, además de su nombre en la pantalla.
@@ -152,22 +155,39 @@ namespace AppDI.Pags
         {
             this.NavigationService.RemoveBackEntry();
         }
-
+        /// <summary>
+        /// Parte de la barra de la navegación al darle click a Página principal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();
         }
-
+        /// <summary>
+        /// Parte de la barra de navegación que al darle click llevará a la sección de soporte técnico.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new SoporteTecnico());
         }
 
+        /// <summary>
+        /// Parte de la barra de navegación la cual te llevará a la creáción de equipos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CrearEquipos_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new CrearEquipos(miDB));
         }
-
+        /// <summary>
+        /// Parte de la barra de navegación en la que te llevará a ver favoritos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VerFavoritos_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new AccesoRegistrado.VerFavs(miDB));
