@@ -12,6 +12,7 @@
             <li><a href="./Inicio.php">Inicio</a></li>
             <li><a href="./Descargas.php">Descargas</a></li>
             <li><a href="./Contacto.php">Contacto</a></li>
+            <li><a href="./GuiaUser.php">Guia de Usuario</a></li>
             <li><a href="./Registro.php">Registro</a></li>
         </ul>
     </nav>
@@ -22,8 +23,10 @@
                 la aplicación para sugerencias, fallos o demás información extra 
                 que se quiera dar para mejorar el sitio web o la aplicación <br>
 
-            <p id="mainParr">Por el momento su uso está deshabilitado pero se está trabajando en ello.
+            <p id="mainParr">Por el momento su uso está deshabilitado en la página web pero se está trabajando en ello.
             </p>
+
+            <p id="mainParr">Se podrá utilizar el apartado de Soporte Ténico dentro de la aplicación de escritorio PokeDEXplorer.</p>
             
         </div>
         <div id="logoPokemon">

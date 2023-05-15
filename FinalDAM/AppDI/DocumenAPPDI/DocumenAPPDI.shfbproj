@@ -19,7 +19,7 @@
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>DocumenAPPDI</HtmlHelpName>
+    <HtmlHelpName>Documentaci&amp;#243%3bn PokeDEXplorer</HtmlHelpName>
     <Language>es-ES</Language>
     <TransformComponentArguments>
       <Argument Key="logoFile" Value="Help.png" xmlns="" />
@@ -39,7 +39,7 @@
     <IndentHtml>False</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
-    <HelpTitle>A Sandcastle Documented Class Library</HelpTitle>
+    <HelpTitle>Un documento de Sandcastle con las librerias de la aplicaci&amp;#243%3bn</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>

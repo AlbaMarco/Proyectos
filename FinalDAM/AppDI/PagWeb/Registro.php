@@ -12,6 +12,7 @@
             <li><a href="./Inicio.php">Inicio</a></li>
             <li><a href="./Descargas.php">Descargas</a></li>
             <li><a href="./Contacto.php">Contacto</a></li>
+            <li><a href="./GuiaUser.php">Guia de Usuario</a></li>
             <li><a href="./Registro.php">Registro</a></li>
         </ul>
     </nav>
