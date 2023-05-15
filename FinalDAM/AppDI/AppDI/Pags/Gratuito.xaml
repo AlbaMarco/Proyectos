@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1500" 
       Title="Acceso gratuito">
-    <!-- HACER DOS VENTANAS DE ACCESO GRATUITO, EL RANDOM Y EL NO RANDOM.-->
+    <!-- HACER DOS VENTANAS DE ACCESO GRATUITO, EL RANDOM Y EL NO RANDOM. PARA UN FUTURO-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15*"/>
@@ -22,8 +22,6 @@
 
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
             <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
-            <RibbonSeparator/>
-            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
         </Menu>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.ColumnDefinitions>

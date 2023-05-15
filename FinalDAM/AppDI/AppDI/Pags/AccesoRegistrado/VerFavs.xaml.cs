@@ -52,7 +52,7 @@ namespace AppDI.Pags.AccesoRegistrado
         /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new SoporteTecnico());
+            this.NavigationService.Navigate(new SoporteTecnico(miDB));
         }
 
         /// <summary>

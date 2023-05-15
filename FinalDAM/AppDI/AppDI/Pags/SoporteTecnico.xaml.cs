@@ -29,19 +29,20 @@ namespace AppDI.Pags
         /// <summary>
         /// Constructor que inicializa los componentes de la ventana.
         /// </summary>
-        public SoporteTecnico()
+        public SoporteTecnico(DB db)
         {
             InitializeComponent();
+            miDB = db;
         }
 
         /// <summary>
-        /// Hacer click en la barra le llevará a la primera página.
+        /// Hacer click en la barra le llevará a la página de atrás.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Primera());
+            this.NavigationService.GoBack();
         }
 
         /// <summary>

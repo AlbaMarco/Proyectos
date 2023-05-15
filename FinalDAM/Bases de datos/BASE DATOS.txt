@@ -4,8 +4,9 @@ Correo electrónico: almarche20021@gmail.com
 
 // > many-to-one; < one-to-many; - one-to-one; <> many-to-many
 
-Table USERS as US{
-  USER varchar [pk]
+Table USERS as US {
+  ID_USER int [pk, increment]
+  USER varchar [not null]
   PASS varchar [not null]
   ULT_VISITA DATE
   LEVELU int [ref: > N.NIVEL]
@@ -17,36 +18,34 @@ Table USERS as US{
 
 Table NIVELUSERS as N {
   NIVEL int [pk]
-  NOMBRE varchar
+  NOMBRE varchar [not null]
 }
 
 Table NIVELADMIN as A {
   NIVEL int [pk]
-  NOMBRE varchar
+  NOMBRE varchar [not null]
 }
 
 Table LOGADMIN as LOGA {
-  USER varchar [pk, ref: > US.USER]
-  NIVEL int [ref: > A.NIVEL] 
+  ID int [pk, increment]
+  ID_ADMIN int [not null, ref: > US.ID_USER]
+  NIVEL int [not null, ref: > A.NIVEL] 
   ACCIONES varchar [not null]
   FECHA_ACCIONES DATE [not null]
 }
 
 Table FAVORITOS_USERS {
-  USER varchar [pk, ref: > US.USER]
-  PKM_FAV varchar [null] // json
-  TIPOPKM_FAV varchar [null] // json
-  ATAQUES_FAV varchar [null] // json
-  HABILIDADES_FAV varchar [null] // json
-  OBJETOS_FAV varchar [null] // json
-  BAYAS_FAV varchar [null] // json
-  // añadiendo los diferetens favoritos que haya.
+  ID int [pk, increment]
+  ID_USER int [not null, ref: > US.ID_USER]
+  NAME_FAV varchar [not null]
+  IMG_FAV blob [null]
+  CAT_FAV varchar [not null]
 }
 
 Table EQUIPOSPKM as team {
-  ID_USER varchar [pk, ref: > US.USER]
-  ID_EQUIPO int [not null, pk]
-  ID_POKEMONS [NULL] // json con todos los pkms
+  ID_USER int [pk, ref: > US.ID_USER]
+  ID_EQUIPO int [not null, pk, increment]
+  POKEMONS json [NULL] // json con todos los pkms
   ENFRENTAMIENTOS_JUGADOS int [null]
   ENFRENTAMIENTOS_GANADOS int [null]
   ENFRENTAMIENTOS_PERDIDOS int [null]
@@ -54,27 +53,34 @@ Table EQUIPOSPKM as team {
 
 Table ENFRENTAMIENTOS {
   ID_ENFRENTAMIENTO int [pk, increment]
-  ID_TEAM varchar [pk, ref: > EQUIPOSPKM.ID_EQUIPO]
+  ID_TEAM int [pk, ref: > EQUIPOSPKM.ID_EQUIPO]
   PKM_DERROTADOS int [not null]
   PKM_ABATIDOS int [not null]
 }
 
 Table EQUIPOS_ALEATORIOS {
 	ID_EQUIPO_ALEATORIO int [pk]
-	ID_POKEMONS varchar [NULL] // json con todos los pkms
-	ENFRENTAMIENTOS_JUGADOS int [null]
+  ID_ADMIN int [ref: > US.ID_USER]
+	POKEMONS json [NOT NULL] // json con todos los pkms
+  ENFRENTAMIENTOS_JUGADOS int [null]
 	ENFRENTAMIENTOS_GANADOS int [null]
 	ENFRENTAMIENTOS_PERDIDOS int [null]
 }
 
-Table PKM_BANEADO {
-  ID_PKM varchar [pk]
-  NAMEPKM varchar [pk]
+Table PKM_BANEADO as PKMBAN{
+  ID_PKM int [pk]
+  NAMEPKM varchar [unique]
 }
 
 Table SOPORTETECNICO {
+  ID_USUARIO int [pk, ref: > US.ID_USER]
   ID_TICKET int [pk, increment]
   TXT_TICKET varchar [not null]
   ESTADO varchar [not null]
   FECHA_ENTRADA date
+}
+
+TABLE EQUIPOSPKM_BANEADOS {
+  ID_EQUIPOSPKM INT [pk, ref: > team.ID_EQUIPO]
+  ID_PKM_BANEADO INT [pk, ref: > PKMBAN.ID_PKM]
 }

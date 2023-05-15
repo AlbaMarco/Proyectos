@@ -20,7 +20,11 @@
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <MenuItem x:Name="AccGratuito" Header="Acceso Gratuito" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccGratuito_Click"/>
             <RibbonSeparator/>
-            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
+            <RibbonSeparator/>
+            <RibbonSeparator/>
+            <RibbonSeparator/>
+            <RibbonSeparator/>
+            <RibbonSeparator/>
             <!--<MenuItem x:Name="Registro" Header="Registrarse" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Registro_Click"/>-->
             <Separator Width="1040" Background="Gold"/>
             <MenuItem x:Name="InicioSesion" Header="Inicio Sesión" FontFamily="{StaticResource PkmMonk}" FontSize="20"

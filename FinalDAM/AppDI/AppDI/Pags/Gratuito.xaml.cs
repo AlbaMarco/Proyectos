@@ -196,16 +196,5 @@ namespace AppDI.Pags
         {
             this.NavigationService.GoBack();
         }
-
-        /// <summary>
-        /// Evento para cuando se haga click en la barra de nevagciones directo a Soporte Técnico.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new SoporteTecnico());
-        }
     }
 }

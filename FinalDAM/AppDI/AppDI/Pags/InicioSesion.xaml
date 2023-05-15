@@ -27,8 +27,6 @@
 
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
             <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
-            <RibbonSeparator/>
-            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
         </Menu>
 
         <Image Source="../Resources/pkmLogo.png" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="6"/>

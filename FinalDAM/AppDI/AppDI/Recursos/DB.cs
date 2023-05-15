@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -18,6 +17,7 @@ using AppDI.Pags.PanelAdmin;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Drawing;
+using Org.BouncyCastle.Utilities.Collections;
 
 namespace AppDI.Recursos
 {
@@ -188,6 +188,27 @@ namespace AppDI.Recursos
             return esSuperAdmin;
         }
 
+        /// <summary>
+        /// Necesario para saber el ID del usuaro y almacenarlo correctamente segun ID de la tabla users.
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public int SaberID(string usuario)
+        {
+            string sql = "SELECT ID_USER FROM USERS WHERE USER = '" + usuario + "';";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        return Convert.ToInt32(dr["ID_USER"].ToString());
+                    }
+                }
+            }
+        } // saberID.
 
         /// <summary>
         /// Select de la tabla Usuarios de todo el contenido, excepto de la contraseña.
@@ -265,7 +286,7 @@ namespace AppDI.Recursos
                 conexion.Close();
                 return -1;
             }
-            catch (SQLiteException ex)
+            catch (MySqlException ex)
             {
                 ex.GetBaseException();
                 return -1;
@@ -356,8 +377,8 @@ namespace AppDI.Recursos
                         }
                         else
                         {
-                            string sql2 = "INSERT INTO USERS (`USER`, `PASS`, `ULT_VISITA`, `LEVELU`, `LEVELA`) " +
-                                "VALUES ('@nombre', '@hash', '@fecha', " + nivelUser + ", 0)";
+                            string sql2 = "INSERT INTO USERS (`ID_USER`, `USER`, `PASS`, `ULT_VISITA`, `LEVELU`, `LEVELA`) " +
+                                "VALUES (NULL, '@nombre', '@hash', '@fecha', " + nivelUser + ", 0)";
                             using (MySqlCommand cmd2 = new MySqlCommand(sql2, c))
                             {
                                 cmd2.Parameters.AddWithValue("@nombre", nombre);
@@ -381,7 +402,6 @@ namespace AppDI.Recursos
         /// Método para poder eliminar los usuarios que queramos.
         /// </summary>
         /// <param name="nombre"></param>
-        /// <param name="admin"></param>
         /// <param name="nivelUser"></param>
         /// <returns></returns>
         public int eliminarUsuarios(string nombre, string nivelUser)
@@ -426,8 +446,9 @@ namespace AppDI.Recursos
             conexion = new MySqlConnection("server=db4free.net;uid=albaroot;pwd=albaroot;database=appfinal");
             conexion.Open();
 
-            comando = new MySqlCommand("INSERT INTO `LOGADMIN` (`USER`, `NIVEL`, `ACCIONES`, `FECHA_ACCIONES`) " +
-                "VALUES ('"+nombre+"', "+numNivel+", '"+acciones+"', '"+fecha+"')", conexion);
+            int idUser = SaberID(nombre);
+            comando = new MySqlCommand("INSERT INTO `LOGADMIN` (`ID`, `ID_ADMIN`, `NIVEL`,`ACCIONES`, `FECHA_ACCIONES`) " +
+                "VALUES (NULL, "+idUser+", "+numNivel+", '"+acciones+"', '"+fecha+"')", conexion);
             comando.ExecuteNonQuery();
         }
 
@@ -437,7 +458,8 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public string SaberEquipos(string usuario)
         {
-            string sql = "SELECT COUNT(ID_EQUIPO) as EQUIPOS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID FROM USERS WHERE USER = '"+usuario+"');";
+            int idUser = SaberID(usuario);
+            string sql = "SELECT COUNT(ID_EQUIPO) as EQUIPOS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID_USER FROM USERS WHERE ID_USER = "+idUser+");";
             using(MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -453,28 +475,6 @@ namespace AppDI.Recursos
         } // saberEquipos.
 
         /// <summary>
-        /// Necesario para saber el ID del usuaro y almacenarlo correctamente segun ID de la tabla users.
-        /// </summary>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
-        public string SaberID(string usuario)
-        {
-            string sql = "SELECT ID FROM USERS WHERE USER = '" + usuario + "';";
-            using (MySqlConnection c = new MySqlConnection(Conex))
-            {
-                c.Open();
-                using (MySqlCommand cmd = new MySqlCommand(sql, c))
-                {
-                    using (MySqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        dr.Read();
-                        return dr["ID"].ToString();
-                    }
-                }
-            }
-        } // saberID.
-
-        /// <summary>
         /// Método que inserta un nuevo JSON que está en una lista de strin. Usado en crear equipos.
         /// </summary>
         /// <param name="listaJSON"></param>
@@ -482,7 +482,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int insertarJsonNuevoEquipo(List<string> listaJSON, string usuario)
         {
-            string idUser = SaberID(usuario);
+            int idUser = SaberID(usuario);
             string numEquipo = SaberEquipos(usuario);
 
             string json = listaJSON[0] + listaJSON[1] + listaJSON[2] + listaJSON[3] + listaJSON[4] + listaJSON[5];
@@ -499,14 +499,33 @@ namespace AppDI.Recursos
         } // insertarJsonNuevoEquipo.
 
         /// <summary>
+        /// Método que inserta un nuevo registro a la tabla EQUIPOSPKM_BANEADOS si el usuario intenta añadir un PKM baneado a su equipo. Usado en crear equipos.
+        /// </summary>
+        /// <param name="idEquipo"></param>
+        /// <param name="idPkm"></param>
+        /// <returns></returns>
+        public int insertarNuevoEquipoBan(int idEquipo, int idPkm)
+        {
+            string sql = "INSERT INTO `EQUIPOSPKM_BANEADOS` (`ID_EQUIPOSPKM`, `ID_PKM_BANEADO`) VALUES("+idEquipo+", "+idPkm+");";
+            using (MySqlConnection c = new MySqlConnection(Conex))
+            {
+                c.Open();
+                using (MySqlCommand cmd = new MySqlCommand(sql, c))
+                {
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        } // insertarNuevoEquipoBan.
+
+        /// <summary>
         /// Método que sirve para ver los equipos creados de un usuario que se deberá pasar por parámetro.
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="idUsers"></param>
         /// <returns></returns>
-        public List<JsonDocument> verEquipos(string usuario)
+        public List<JsonDocument> verEquipos(int idUsers)
         {
             List<JsonDocument> lista = new List<JsonDocument>();
-            string sql = "SELECT POKEMONS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID FROM USERS WHERE USER = '" + usuario + "');";
+            string sql = "SELECT POKEMONS FROM EQUIPOSPKM WHERE ID_USER IN (SELECT ID_USER FROM USERS WHERE ID_USER = " + idUsers + ");";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -553,9 +572,10 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int insertarJsonNuevoEquipoAdmin(List<string> listaJSON)
         {
+            int idAdmin = SaberID(NomUser);
             string json = listaJSON[0] + listaJSON[1] + listaJSON[2] + listaJSON[3] + listaJSON[4] + listaJSON[5];
-            string sql = "INSERT INTO `EQUIPOS_ALEATORIOS` (`ID_EQUIPO_ALEATORIO`, `POKEMONS`, `ENFRENTAMIENTOS_JUGADOS`, `ENFRENTAMIENTOS_GANADOS`, `ENFRENTAMIENTOS_PERDIDOS`) " +
-                "VALUES (NULL, '"+json+"', NULL, NULL, NULL)";
+            string sql = "INSERT INTO `EQUIPOS_ALEATORIOS` (`ID_EQUIPO_ALEATORIO`, `ID_ADMIN`,`POKEMONS`, `ENFRENTAMIENTOS_JUGADOS`, `ENFRENTAMIENTOS_GANADOS`, `ENFRENTAMIENTOS_PERDIDOS`) " +
+                "VALUES (NULL, "+idAdmin+", '"+json+"', NULL, NULL, NULL)";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -619,7 +639,8 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int EnviarSoporte(string texto)
         {
-            string sql = "INSERT INTO `SOPORTETECNICO` (`ID_TICKET`, `TXT_TICKET`, `ESTADO`, `FECHA_ENTRADA`) VALUES (NULL, '" + texto + "', 'ENVIADO', CURRENT_TIMESTAMP)";
+            int idUser = SaberID(NomUser);
+            string sql = "INSERT INTO `SOPORTETECNICO` (`ID_USUARIO`, `ID_TICKET`, `TXT_TICKET`, `ESTADO`, `FECHA_ENTRADA`) VALUES ("+idUser+", NULL, '" + texto + "', 'ENVIADO', CURRENT_TIMESTAMP)";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -694,7 +715,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int banearPkm(string idPkm, string nomPkm)
         {
-            string sql = "INSERT INTO `PKM_BANEADO` (`ID_PKM`, `NAMEPKM`) VALUES ('"+idPkm+"', '"+nomPkm+"')";
+            string sql = "INSERT INTO `PKM_BANEADO` (`ID_PKM`, `NAMEPKM`) VALUES ("+idPkm+", '"+nomPkm+"')";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -765,7 +786,8 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int añadirFavoritos(string usuario, string nombreFavorito, byte[]img, string categoria)
         {
-            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario+"', '"+nombreFavorito+ "', @img_fav, '" + categoria+"')";
+            int idUser = SaberID(usuario);
+            string sql = "INSERT INTO `FAVORITOS_USERS` (`ID`, `ID_USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES (null, " + idUser + ", '"+nombreFavorito+ "', @img_fav, '" + categoria+"')";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -790,7 +812,8 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int añadirFavoritosNoImg(string usuario, string nombreFavorito, string categoria)
         {
-            string sql = "INSERT INTO `FAVORITOS_USERS` (`USER`, `NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES ('" + usuario + "', '" + nombreFavorito + "', null, '" + categoria + "')";
+            int idUser = SaberID(usuario);
+            string sql = "INSERT INTO `FAVORITOS_USERS` (`ID`, `ID_USER`,`NAME_FAV`, `IMG_FAV`, `CAT_FAV`) VALUES (null, " + idUser + ", '" + nombreFavorito + "', null, '" + categoria + "')";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -809,8 +832,9 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int comprobarFavorito(string usuario, string nombreFav)
         {
+            int idUser = SaberID(usuario);
             List<string> listaAux = new List<string>();
-            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND NAME_FAV = '"+nombreFav+"';";
+            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE ID_USER = " + idUser + " AND NAME_FAV = '"+nombreFav+"';";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -839,8 +863,9 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int comprobarTodosFavorito(string usuario)
         {
+            int idUser = SaberID(usuario);
             List<string> listaAux = new List<string>();
-            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "';";
+            string sql = "SELECT NAME_FAV FROM FAVORITOS_USERS WHERE ID_USER = " + idUser + ";";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -866,8 +891,9 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public List<object> leerPkmsFavorito(string usuario)
         {
+            int idUser = SaberID(usuario);
             List<object> listaAux = new List<object>();
-            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '1';";
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE ID_USER = " + idUser + " AND CAT_FAV = '1';";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -903,8 +929,9 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public List<object> leerMovsFavorito(string usuario)
         {
+            int idUser = SaberID(usuario);
             List<object> listaAux = new List<object>();
-            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '2';";
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE ID_USER = " + idUser + " AND CAT_FAV = '2';";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -931,8 +958,9 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public List<object> leerTiposFavorito(string usuario)
         {
+            int idUser = SaberID(usuario);
             List<object> listaAux = new List<object>();
-            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE USER = '" + usuario + "' AND CAT_FAV = '3';";
+            string sql = "SELECT NAME_FAV, IMG_FAV FROM FAVORITOS_USERS WHERE ID_USER = " + idUser + " AND CAT_FAV = '3';";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();

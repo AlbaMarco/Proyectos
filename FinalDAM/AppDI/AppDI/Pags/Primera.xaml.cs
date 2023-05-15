@@ -77,24 +77,5 @@ namespace AppDI.Pags
             this.NavigationService.Navigate(new Gratuito());
         }
 
-        /// <summary>
-        /// Al hacer click al elemento "Registro" navegará a la ventana de registro dónde podrás crear una cuenta.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Registro_Click(object sender, RoutedEventArgs e)
-        {
-           // this.NavigationService.Navigate(new Registro());
-        }
-
-        /// <summary>
-        /// En la barra de nevagación, es el método que permite ir hacia el Soporte Técnico.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new SoporteTecnico());
-        }
     }
 }

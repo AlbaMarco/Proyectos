@@ -92,7 +92,7 @@ namespace AppDI.Pags
         /// <param name="e"></param>
         private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new SoporteTecnico());
+            this.NavigationService.Navigate(new SoporteTecnico(miDB));
         }
 
         /// <summary>
@@ -275,6 +275,7 @@ namespace AppDI.Pags
             } else
             {
                 MessageBox.Show("Ese pokemon está baneado, por favor, seleccione otro.");
+                miDB.insertarNuevoEquipoBan(Convert.ToInt32(miDB.SaberEquipos(miDB.NomUser)), Convert.ToInt32(tbId.Text));
                 tbTipo.Text = "";
                 tbMovimientos.Text = "";
                 txtAcierto.Text = "Acierto: ";
@@ -314,11 +315,11 @@ namespace AppDI.Pags
         /// <param name="e"></param>
         private void btnVerEquipo_Click(object sender, RoutedEventArgs e)
         {
-            tbVerEquipos.Text = "Equipo/s: ";
+            tbVerEquipos.Text = "Equipo/s: \n";
             if (miDB.SaberEquipos(miDB.NomUser) == "0") MessageBox.Show("No tienes equipos, primero revísalos");
             else
             {
-                List<JsonDocument> resultado = miDB.verEquipos(miDB.NomUser);
+                List<JsonDocument> resultado = miDB.verEquipos(miDB.SaberID(miDB.NomUser));
                 foreach (JsonDocument valor in resultado)
                 {
                     int cont = 1;
