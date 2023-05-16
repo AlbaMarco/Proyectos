@@ -248,7 +248,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;D:\BabelOfuscator\babel.exe&quot; &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+    <Exec Command="&quot;D:\BabelOfuscator\babel.exe&quot; &quot;$(TargetPath)&quot; -c strong -out &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;" />
   </Target>
 
 </Project>

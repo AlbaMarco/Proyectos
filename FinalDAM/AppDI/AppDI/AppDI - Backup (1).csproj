@@ -221,6 +221,10 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="ConfuserEx.Final" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="Noesis.GUI.Extensions" Version="3.0.19" />
   </ItemGroup>
@@ -248,7 +252,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;D:\BabelOfuscator\babel.exe&quot; &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
+    <Exec Command="&quot;$(ProjectDir)\ConfuserEx\Confuser.CLI.exe&quot; -n &quot;$(ProjectDir)\ConfuserEx.xml&quot;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" />
   </Target>
 
 </Project>
