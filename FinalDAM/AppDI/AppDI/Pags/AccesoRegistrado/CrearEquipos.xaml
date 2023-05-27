@@ -8,7 +8,7 @@
       d:DesignHeight="900" d:DesignWidth="1500" 
       Title="CrearEquipos" ShowsNavigationUI="False" Loaded="Page_Loaded">
 
-    <Grid Background="SteelBlue">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25px"/>
             <RowDefinition Height="70px"/>
@@ -16,14 +16,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu Height="25" VerticalAlignment="Top" Background="Gold">
-            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
-            <RibbonSeparator/>
-            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
-            <RibbonSeparator/>
-            <MenuItem x:Name="AccReg" Header="Acceso Registrado" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccReg_Click"/>
+            <MenuItem x:Name="AccReg" Header="Volver hacia atrás" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="AccReg_Click"/>
         </Menu>
 
-        <Image x:Name="creacionEquipos" Style="{StaticResource ImgTitulo}" Grid.Row="1" Source="../Resources/CrearEquipos.png">
+        <Image x:Name="creacionEquipos" Style="{StaticResource ImgTitulo}" Grid.Row="1" Source="../../Resources/CrearEquipos.png">
             <Image.ToolTip>
                 <ToolTip Content="Estás en el apartado de creación de equipos." FontFamily="{StaticResource PkmMonk}"/>
             </Image.ToolTip>

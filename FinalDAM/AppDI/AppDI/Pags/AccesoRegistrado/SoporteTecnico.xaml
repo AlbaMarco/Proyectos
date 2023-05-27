@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
-            <MenuItem x:Name="Menu_Inicio" Header="Pantalla principal" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
+            <MenuItem x:Name="Menu_Inicio" Header="Volver hacía atrás" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
         </Menu>
 
-        <Image Grid.Row="1" Grid.ColumnSpan="2" Source="../Resources/SoporteTecnico.png" Style="{StaticResource ImgTitulo}">
+        <Image Grid.Row="1" Grid.ColumnSpan="2" Source="../../Resources/SoporteTecnico.png" Style="{StaticResource ImgTitulo}">
             <Image.ToolTip>
                 <ToolTip Content="¡Bienvenido a la página de Soporte Técnico! En esta página podrás dar sugerencias o soporte de errores." FontFamily="{StaticResource PkmMonk}"/>
             </Image.ToolTip>
@@ -32,8 +32,8 @@
 
         <TextBox x:Name="txtContenido" Grid.Row="2" Grid.ColumnSpan="2" Width="1350" Height="650" Style="{StaticResource txtBoxSopTecnico}"/>
 
-        <Image Grid.Row="1" Source="../Resources/PkmSupp.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Image Grid.Row="3" Grid.Column="1" Source="../Resources/PkmSupp.png" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <Image Grid.Row="1" Source="../../Resources/PkmSupp.png" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Image Grid.Row="3" Grid.Column="1" Source="../../Resources/PkmSupp.png" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
         <Button x:Name="btnEnviar" Style="{StaticResource btnSopTecnico}" Content="Enviar solicitud" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="2" Margin="0, 0, 0, 10" Click="btnEnviar_Click"/>
     </Grid>

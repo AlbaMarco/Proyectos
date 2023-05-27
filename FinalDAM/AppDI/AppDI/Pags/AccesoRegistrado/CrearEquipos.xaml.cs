@@ -76,26 +76,6 @@ namespace AppDI.Pags
         }
 
         /// <summary>
-        /// Evento de click de la barra de nevagicon, para ir a la página princiapl.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Menu_Inicio_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Primera());
-        }
-
-        /// <summary>
-        /// Evento de click para ir a la ventana de Soporte Técnico.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new SoporteTecnico(miDB));
-        }
-
-        /// <summary>
         /// Evento de click para ir a la ventana de Acceso Registrado.
         /// </summary>
         /// <param name="sender"></param>

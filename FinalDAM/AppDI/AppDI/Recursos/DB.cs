@@ -150,7 +150,7 @@ namespace AppDI.Recursos
                     else
                     {
                         // Las contraseñas no coinciden, mostrar un mensaje de error
-                        MessageBox.Show("NO COINCIDEN PASS");
+                        MessageBox.Show("NO COINCIDEN LAS CONTRASEÑAS");
                         readUser.Close();
                         conexion.Close();
                         return false;
@@ -506,7 +506,7 @@ namespace AppDI.Recursos
         /// <returns></returns>
         public int insertarNuevoEquipoBan(int idEquipo, int idPkm)
         {
-            string sql = "INSERT INTO `EQUIPOSPKM_BANEADOS` (`ID_EQUIPOSPKM`, `ID_PKM_BANEADO`) VALUES("+idEquipo+", "+idPkm+");";
+            string sql = "INSERT INTO `EQUIPOSPKM_BANEADOS` (`ID`,`ID_EQUIPOSPKM`, `ID_PKM_BANEADO`) VALUES(NULL, "+idEquipo+", "+idPkm+");";
             using (MySqlConnection c = new MySqlConnection(Conex))
             {
                 c.Open();
@@ -761,14 +761,18 @@ namespace AppDI.Recursos
                 {
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
-                        dr.Read();
-                        if(dr["NAMEPKM"].ToString() == pkm)
+                        while (dr.Read())
                         {
-                            return 1; // 1 Significará que si hay.
-                        }else
-                        {
-                            return 0; // 0 Significará que no hay.
+                            if (dr["NAMEPKM"].ToString() == pkm)
+                            {
+                                return 1; // 1 Significará que si hay.
+                            }
+                            else
+                            {
+                                return 0; // 0 Significará que no hay.
+                            }
                         }
+                        return 0;
                     }
                 }
             }

@@ -36,7 +36,7 @@
                     <li>Base de datos en la nube.</li>
                     <li>Aumentado el tamaño base de la aplicación y hecho escalable según tamaño</li>
                 </ul>
-                <a id="refNoDecoDes">&emsp;NO DISPONIBLE POR EL MOMENTO</a>
+                <a download href="./Descargas/Instalador PokeDEXplorer Version 2.exe" id="refNoDecoDes">&emsp;NO DISPONIBLE POR EL MOMENTO</a>
             </div>
         </div>
         <div class="containerDown">

@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>Pokeball.ico</ApplicationIcon>
+	<OutputPath>bin\Release\</OutputPath>
+	<PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -67,6 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pokeball.ico" />
     <Content Include="Resources\AccesoGratuito.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

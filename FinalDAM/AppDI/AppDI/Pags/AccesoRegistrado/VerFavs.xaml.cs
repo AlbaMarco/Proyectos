@@ -46,16 +46,6 @@ namespace AppDI.Pags.AccesoRegistrado
         }
 
         /// <summary>
-        /// Evento ded click en la barra de nevagación que llevará a la página de soprote técnico.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SoporteTecnico_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new SoporteTecnico(miDB));
-        }
-
-        /// <summary>
         /// Evento de cuando la página se recarga, donde se mostrará todos los favoritos que tiene un usuario.
         /// </summary>
         /// <param name="sender"></param>

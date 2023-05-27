@@ -17,10 +17,6 @@
 
         <Menu Height="25" VerticalAlignment="Top" Background="Gold" Grid.ColumnSpan="3">
             <MenuItem x:Name="Menu_Inicio" Header="Volver hacia atrás" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="Menu_Inicio_Click"/>
-            <RibbonSeparator/>
-            <Separator/>
-            <MenuItem x:Name="SoporteTecnico" Header="Soporte Técnico" FontFamily="{StaticResource PkmMonk}" FontSize="20" Click="SoporteTecnico_Click"/>
-            <RibbonSeparator/>
         </Menu>
 
         <Label x:Name="lblTituloFavs" Style="{StaticResource labelFavoritos}" Grid.Row="1"/>
